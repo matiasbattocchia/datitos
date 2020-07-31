@@ -27,6 +27,8 @@ url: 'https://matiasbattocchia.github.io' # the base hostname & protocol for you
 #
 baseurl: '/datito' # the subpath of your site, e.g. "/blog".
 
+permalink: /:title:output_ext
+
 # Github and twitter are optional:
 minima:
   social_links:
