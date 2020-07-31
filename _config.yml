@@ -1,7 +1,7 @@
-title: datito
+title: Datito
 description: (^・x・^)
 github_username: matiasbattocchia
-github_repo: blog
+github_repo: datito
 
 # OPTIONAL: override baseurl and url if using a custom domain
 # Note: leave out the trailing / from this value.
@@ -25,7 +25,7 @@ url: 'https://matiasbattocchia.github.io' # the base hostname & protocol for you
 #
 # 3. You must replace the parameter `baseurl` in _action_files/settings.ini with the same value as you set here but WITHOUT QUOTES.
 #
-baseurl: '/blog' # the subpath of your site, e.g. "/blog".
+baseurl: '/datito' # the subpath of your site, e.g. "/blog".
 
 # Github and twitter are optional:
 minima:
