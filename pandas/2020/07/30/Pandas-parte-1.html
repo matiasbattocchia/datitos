@@ -4,38 +4,40 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Pandas (parte 1) | datito</title>
+<title>Pandas (parte 1) | Datito</title>
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="Pandas (parte 1)" />
+<meta name="author" content="Matías Battocchia" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="(^・x・^)" />
-<meta property="og:description" content="(^・x・^)" />
-<link rel="canonical" href="https://matiasbattocchia.github.io/blog/2020/07/30/Pandas-parte-1.html" />
-<meta property="og:url" content="https://matiasbattocchia.github.io/blog/2020/07/30/Pandas-parte-1.html" />
-<meta property="og:site_name" content="datito" />
+<meta name="description" content="(Φ ₒ Φ)" />
+<meta property="og:description" content="(Φ ₒ Φ)" />
+<link rel="canonical" href="https://matiasbattocchia.github.io/datito/pandas/2020/07/30/Pandas-parte-1.html" />
+<meta property="og:url" content="https://matiasbattocchia.github.io/datito/pandas/2020/07/30/Pandas-parte-1.html" />
+<meta property="og:site_name" content="Datito" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-07-30T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"(^・x・^)","@type":"BlogPosting","headline":"Pandas (parte 1)","dateModified":"2020-07-30T00:00:00-05:00","datePublished":"2020-07-30T00:00:00-05:00","url":"https://matiasbattocchia.github.io/blog/2020/07/30/Pandas-parte-1.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://matiasbattocchia.github.io/blog/2020/07/30/Pandas-parte-1.html"},"@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Matías Battocchia"},"description":"(Φ ₒ Φ)","@type":"BlogPosting","headline":"Pandas (parte 1)","dateModified":"2020-07-30T00:00:00-05:00","datePublished":"2020-07-30T00:00:00-05:00","url":"https://matiasbattocchia.github.io/datito/pandas/2020/07/30/Pandas-parte-1.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://matiasbattocchia.github.io/datito/pandas/2020/07/30/Pandas-parte-1.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://matiasbattocchia.github.io/blog/feed.xml" title="datito" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Pandas (parte 1) | datito</title>
+<link rel="stylesheet" href="/datito/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://matiasbattocchia.github.io/datito/feed.xml" title="Datito" /><link rel="shortcut icon" type="image/x-icon" href="/datito/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Pandas (parte 1) | Datito</title>
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="Pandas (parte 1)" />
+<meta name="author" content="Matías Battocchia" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="(^・x・^)" />
-<meta property="og:description" content="(^・x・^)" />
-<link rel="canonical" href="https://matiasbattocchia.github.io/blog/2020/07/30/Pandas-parte-1.html" />
-<meta property="og:url" content="https://matiasbattocchia.github.io/blog/2020/07/30/Pandas-parte-1.html" />
-<meta property="og:site_name" content="datito" />
+<meta name="description" content="(Φ ₒ Φ)" />
+<meta property="og:description" content="(Φ ₒ Φ)" />
+<link rel="canonical" href="https://matiasbattocchia.github.io/datito/pandas/2020/07/30/Pandas-parte-1.html" />
+<meta property="og:url" content="https://matiasbattocchia.github.io/datito/pandas/2020/07/30/Pandas-parte-1.html" />
+<meta property="og:site_name" content="Datito" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-07-30T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"(^・x・^)","@type":"BlogPosting","headline":"Pandas (parte 1)","dateModified":"2020-07-30T00:00:00-05:00","datePublished":"2020-07-30T00:00:00-05:00","url":"https://matiasbattocchia.github.io/blog/2020/07/30/Pandas-parte-1.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://matiasbattocchia.github.io/blog/2020/07/30/Pandas-parte-1.html"},"@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Matías Battocchia"},"description":"(Φ ₒ Φ)","@type":"BlogPosting","headline":"Pandas (parte 1)","dateModified":"2020-07-30T00:00:00-05:00","datePublished":"2020-07-30T00:00:00-05:00","url":"https://matiasbattocchia.github.io/datito/pandas/2020/07/30/Pandas-parte-1.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://matiasbattocchia.github.io/datito/pandas/2020/07/30/Pandas-parte-1.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://matiasbattocchia.github.io/blog/feed.xml" title="datito" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://matiasbattocchia.github.io/datito/feed.xml" title="Datito" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
@@ -85,7 +87,7 @@ window.onload = wrap_img;
 </head>
 <body><header class="site-header">
 
-  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">datito</a><nav class="site-nav">
+  <div class="wrapper"><a class="site-title" rel="author" href="/datito/">Datito</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
         <label for="nav-trigger">
           <span class="menu-icon">
@@ -95,7 +97,7 @@ window.onload = wrap_img;
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+        <div class="trigger"><a class="page-link" href="/datito/about/">About Me</a><a class="page-link" href="/datito/search/">Search</a><a class="page-link" href="/datito/categories/">Tags</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -103,9 +105,11 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Pandas (parte 1)</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-07-30T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Pandas (parte 1)</h1><p class="page-description">(Φ ₒ Φ)</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-07-30T00:00:00-05:00" itemprop="datePublished">
         Jul 30, 2020
-      </time>
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Matías Battocchia</span></span>
        • <span class="read-time" title="Estimated read time">
     
     
@@ -114,33 +118,108 @@ window.onload = wrap_img;
 </span></p>
 
     
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/datito/categories/#pandas">pandas</a>
+        
+      
+      </p>
+    
 
     
       
         <div class="pb-5 d-flex flex-wrap flex-justify-end">
           <div class="px-2">
 
-    <a href="https://github.com/matiasbattocchia/blog/tree/master/_notebooks/Pandas parte 1.ipynb" role="button" target="_blank">
-<img class="notebook-badge-image" src="/blog/assets/badges/github.svg" alt="View On GitHub">
+    <a href="https://github.com/matiasbattocchia/datito/tree/master/_notebooks/Pandas parte 1.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/datito/assets/badges/github.svg" alt="View On GitHub">
     </a>
 </div>
 
           <div class="px-2">
-    <a href="https://mybinder.org/v2/gh/matiasbattocchia/blog/master?filepath=_notebooks%2FPandas+parte+1.ipynb" target="_blank">
-        <img class="notebook-badge-image" src="/blog/assets/badges/binder.svg" alt="Open In Binder"/>
+    <a href="https://mybinder.org/v2/gh/matiasbattocchia/datito/master?filepath=_notebooks%2FPandas+parte+1.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/datito/assets/badges/binder.svg" alt="Open In Binder"/>
     </a>
 </div>
 
           <div class="px-2">
-    <a href="https://colab.research.google.com/github/matiasbattocchia/blog/blob/master/_notebooks/Pandas parte 1.ipynb" target="_blank">
-        <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    <a href="https://colab.research.google.com/github/matiasbattocchia/datito/blob/master/_notebooks/Pandas parte 1.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/datito/assets/badges/colab.svg" alt="Open In Colab"/>
     </a>
 </div>
         </div>
       </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <!--
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Estructuras-de-datos">Estructuras de datos </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Pandas">Pandas </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Carga-de-datos">Carga de datos </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#CSV">CSV </a></li>
+<li class="toc-entry toc-h4"><a href="#Excel">Excel </a></li>
+<li class="toc-entry toc-h4"><a href="#SQL">SQL </a></li>
+<li class="toc-entry toc-h4"><a href="#BigQuery">BigQuery </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Inspección">Inspección </a></li>
+<li class="toc-entry toc-h2"><a href="#Indexación">Indexación </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Cortes">Cortes </a></li>
+<li class="toc-entry toc-h3"><a href="#Listas-de-índices-y-máscaras-booleanas">Listas de índices y máscaras booleanas </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Listas-de-posiciones">Listas de posiciones </a></li>
+<li class="toc-entry toc-h4"><a href="#Máscaras">Máscaras </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#Filas-y-columnas">Filas y columnas </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Por-etiquetas">Por etiquetas </a></li>
+<li class="toc-entry toc-h4"><a href="#Por-posición">Por posición </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#Resumen">Resumen </a></li>
+<li class="toc-entry toc-h3"><a href="#Asignación">Asignación </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Índices-jerárquicos">Índices jerárquicos </a></li>
+<li class="toc-entry toc-h2"><a href="#Operaciones-vectorizadas">Operaciones vectorizadas </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Operadores-y-funciones-comunes">Operadores y funciones comunes </a></li>
+<li class="toc-entry toc-h3"><a href="#Operaciones-con-texto">Operaciones con texto </a></li>
+<li class="toc-entry toc-h3"><a href="#Operaciones-con-objetos-temporales">Operaciones con objetos temporales </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Selección-usando-columnas">Selección usando columnas </a></li>
+<li class="toc-entry toc-h2"><a href="#Alineamiento-automático">Alineamiento automático </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Operaciones">Operaciones </a></li>
+<li class="toc-entry toc-h3"><a href="#Asignación">Asignación </a></li>
+<li class="toc-entry toc-h3"><a href="#Máscaras">Máscaras </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Ejemplo-integrador">Ejemplo integrador </a></li>
+<li class="toc-entry toc-h2"><a href="#Visualización-básica">Visualización básica </a></li>
+<li class="toc-entry toc-h2"><a href="#Actividad-de-investigación">Actividad de investigación </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Ordenar-valores">Ordenar valores </a></li>
+<li class="toc-entry toc-h4"><a href="#Tirar-filas/columnas">Tirar filas/columnas </a></li>
+<li class="toc-entry toc-h4"><a href="#Renombrar-filas/columnas">Renombrar filas/columnas </a></li>
+<li class="toc-entry toc-h4"><a href="#Datos-ausentes">Datos ausentes </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Recursos-adicionales">Recursos adicionales </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Documentación">Documentación </a></li>
+<li class="toc-entry toc-h4"><a href="#Artículos">Artículos </a></li>
+<li class="toc-entry toc-h4"><a href="#Machetes">Machetes </a></li>
+<li class="toc-entry toc-h4"><a href="#Libros">Libros </a></li>
+</ul>
+</li>
+</ul><!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -156,6 +235,14 @@ window.onload = wrap_img;
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Esta es la introducción a Pandas que me hubiera gustado tener.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -173,9 +260,13 @@ window.onload = wrap_img;
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Estructuras-de-datos">Estructuras de datos<a class="anchor-link" href="#Estructuras-de-datos"> </a></h2><p>Dos tipos de datos muy usados en Python son las listas (<code>list</code>) y los diccionarios (<code>dict</code>). Ambos son útiles para coleccionar valores de todo tipo.</p>
+<h2 id="Estructuras-de-datos">
+<a class="anchor" href="#Estructuras-de-datos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Estructuras de datos<a class="anchor-link" href="#Estructuras-de-datos"> </a>
+</h2>
+<p>Dos tipos de datos muy usados en Python son las listas (<code>list</code>) y los diccionarios (<code>dict</code>). Ambos son útiles para coleccionar valores de todo tipo.</p>
 
 </div>
 </div>
@@ -187,7 +278,7 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lista</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hidrógeno&#39;</span><span class="p">,</span> <span class="s1">&#39;helio&#39;</span><span class="p">,</span> <span class="s1">&#39;litio&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lista</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'hidrógeno'</span><span class="p">,</span> <span class="s1">'helio'</span><span class="p">,</span> <span class="s1">'litio'</span><span class="p">]</span>
 
 <span class="n">lista</span>
 </pre></div>
@@ -204,7 +295,7 @@ window.onload = wrap_img;
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;hidrógeno&#39;, &#39;helio&#39;, &#39;litio&#39;]</pre>
+<pre>['hidrógeno', 'helio', 'litio']</pre>
 </div>
 
 </div>
@@ -215,7 +306,8 @@ window.onload = wrap_img;
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Podemos referenciar un valor coleccionado utilizando el <strong>operador índice</strong> <code>[ ]</code>. Las listas <em>indexan</em> por posición. En Python se empieza contar desde cero, por lo tanto las posiciones también.</p>
 
@@ -245,7 +337,7 @@ window.onload = wrap_img;
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;hidrógeno&#39;</pre>
+<pre>'hidrógeno'</pre>
 </div>
 
 </div>
@@ -264,7 +356,7 @@ window.onload = wrap_img;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># set</span>
-<span class="n">lista</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;?&#39;</span>
+<span class="n">lista</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'?'</span>
 <span class="n">lista</span>
 </pre></div>
 
@@ -280,7 +372,7 @@ window.onload = wrap_img;
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;?&#39;, &#39;helio&#39;, &#39;litio&#39;]</pre>
+<pre>['?', 'helio', 'litio']</pre>
 </div>
 
 </div>
@@ -291,7 +383,8 @@ window.onload = wrap_img;
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Los diccionarios son colecciones de pares <code>etiqueta:valor</code> e indexan por etiqueta. No es posible referenciar a un elemento por posición.</p>
 
@@ -306,9 +399,9 @@ window.onload = wrap_img;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">diccionario</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;H&#39;</span> <span class="p">:</span><span class="s1">&#39;hidrógeno&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;He&#39;</span><span class="p">:</span><span class="s1">&#39;helio&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Li&#39;</span><span class="p">:</span><span class="s1">&#39;litio&#39;</span><span class="p">,</span>
+    <span class="s1">'H'</span> <span class="p">:</span><span class="s1">'hidrógeno'</span><span class="p">,</span>
+    <span class="s1">'He'</span><span class="p">:</span><span class="s1">'helio'</span><span class="p">,</span>
+    <span class="s1">'Li'</span><span class="p">:</span><span class="s1">'litio'</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="n">diccionario</span>
@@ -326,7 +419,7 @@ window.onload = wrap_img;
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;H&#39;: &#39;hidrógeno&#39;, &#39;He&#39;: &#39;helio&#39;, &#39;Li&#39;: &#39;litio&#39;}</pre>
+<pre>{'H': 'hidrógeno', 'He': 'helio', 'Li': 'litio'}</pre>
 </div>
 
 </div>
@@ -345,7 +438,7 @@ window.onload = wrap_img;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get</span>
-<span class="n">diccionario</span><span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span>
+<span class="n">diccionario</span><span class="p">[</span><span class="s1">'H'</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -360,7 +453,7 @@ window.onload = wrap_img;
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;hidrógeno&#39;</pre>
+<pre>'hidrógeno'</pre>
 </div>
 
 </div>
@@ -379,7 +472,7 @@ window.onload = wrap_img;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># set</span>
-<span class="n">diccionario</span><span class="p">[</span><span class="s1">&#39;Be&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;berilio&#39;</span>
+<span class="n">diccionario</span><span class="p">[</span><span class="s1">'Be'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'berilio'</span>
 
 <span class="n">diccionario</span>
 </pre></div>
@@ -396,7 +489,7 @@ window.onload = wrap_img;
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;H&#39;: &#39;hidrógeno&#39;, &#39;He&#39;: &#39;helio&#39;, &#39;Li&#39;: &#39;litio&#39;, &#39;Be&#39;: &#39;berilio&#39;}</pre>
+<pre>{'H': 'hidrógeno', 'He': 'helio', 'Li': 'litio', 'Be': 'berilio'}</pre>
 </div>
 
 </div>
@@ -407,9 +500,13 @@ window.onload = wrap_img;
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Pandas">Pandas<a class="anchor-link" href="#Pandas"> </a></h3><p>Una <code>Series</code> es un objeto unidimensional, similar a una columna en una tabla. Se comporta comporta como una lista y también le asigna una etiqueta a cada elemento en la colección, comportándose como un diccionario. Por defecto, cada elemento recibirá una etiqueta que va de 0 a N-1, donde N es la longitud/tamaño de la colección.</p>
+<h3 id="Pandas">
+<a class="anchor" href="#Pandas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pandas<a class="anchor-link" href="#Pandas"> </a>
+</h3>
+<p>Una <code>Series</code> es un objeto unidimensional, similar a una columna en una tabla. Se comporta comporta como una lista y también le asigna una etiqueta a cada elemento en la colección, comportándose como un diccionario. Por defecto, cada elemento recibirá una etiqueta que va de 0 a N-1, donde N es la longitud/tamaño de la colección.</p>
 
 </div>
 </div>
@@ -422,7 +519,7 @@ window.onload = wrap_img;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># creación de una Series a partir de una lista arbitraria</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;hidrógeno&#39;</span><span class="p">,</span> <span class="s1">&#39;helio&#39;</span><span class="p">,</span> <span class="s1">&#39;litio&#39;</span><span class="p">])</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">'hidrógeno'</span><span class="p">,</span> <span class="s1">'helio'</span><span class="p">,</span> <span class="s1">'litio'</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -451,7 +548,8 @@ dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Nota</strong>: <em>dtype</em> es el tipo de los elementos de la colección. En este caso <code>object</code> hace referencia a <em>objetos en general</em>, es decir, cualquier tipo de objeto: entero (<code>int</code>), flotante (<code>float</code>), texto (<code>str</code>), etcétera.</p>
 
@@ -466,7 +564,7 @@ dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># creación de una Series especificando un índice</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;hidrógeno&#39;</span><span class="p">,</span> <span class="s1">&#39;helio&#39;</span><span class="p">,</span> <span class="s1">&#39;litio&#39;</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;He&#39;</span><span class="p">,</span> <span class="s1">&#39;Li&#39;</span><span class="p">])</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">'hidrógeno'</span><span class="p">,</span> <span class="s1">'helio'</span><span class="p">,</span> <span class="s1">'litio'</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">'H'</span><span class="p">,</span> <span class="s1">'He'</span><span class="p">,</span> <span class="s1">'Li'</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -504,9 +602,9 @@ dtype: object</pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># creación de una Series a partir de un diccionario (las etiquetas serán los valores del índice)</span>
 <span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
-    <span class="s1">&#39;H&#39;</span> <span class="p">:</span><span class="s1">&#39;hidrógeno&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;He&#39;</span><span class="p">:</span><span class="s1">&#39;helio&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Li&#39;</span><span class="p">:</span><span class="s1">&#39;litio&#39;</span><span class="p">,</span>
+    <span class="s1">'H'</span> <span class="p">:</span><span class="s1">'hidrógeno'</span><span class="p">,</span>
+    <span class="s1">'He'</span><span class="p">:</span><span class="s1">'helio'</span><span class="p">,</span>
+    <span class="s1">'Li'</span><span class="p">:</span><span class="s1">'litio'</span><span class="p">,</span>
 <span class="p">})</span>
 
 <span class="n">s</span>
@@ -561,7 +659,7 @@ dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Index([&#39;H&#39;, &#39;He&#39;, &#39;Li&#39;], dtype=&#39;object&#39;)</pre>
+<pre>Index(['H', 'He', 'Li'], dtype='object')</pre>
 </div>
 
 </div>
@@ -572,7 +670,8 @@ dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>El índice es un objeto del tipo <code>Index</code>, aportado por Pandas.</p>
 
@@ -602,7 +701,7 @@ dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>array([&#39;hidrógeno&#39;, &#39;helio&#39;, &#39;litio&#39;], dtype=object)</pre>
+<pre>array(['hidrógeno', 'helio', 'litio'], dtype=object)</pre>
 </div>
 
 </div>
@@ -613,7 +712,8 @@ dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Los valores se coleccionan en arreglos de NumPy (objetos del tipo <code>array</code>). Los arreglos son similares a las listas, tienen más funcionalidades.</p>
 
@@ -628,7 +728,7 @@ dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># el índice se utiliza para seleccionar elementos específicos</span>
-<span class="n">s</span><span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span>
+<span class="n">s</span><span class="p">[</span><span class="s1">'H'</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -643,7 +743,7 @@ dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;hidrógeno&#39;</pre>
+<pre>'hidrógeno'</pre>
 </div>
 
 </div>
@@ -662,7 +762,7 @@ dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># los valores se pueden cambiar o agregar mediante asignación como si se tratase de un diccionario</span>
-<span class="n">s</span><span class="p">[</span><span class="s1">&#39;Be&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;berilio&#39;</span>
+<span class="n">s</span><span class="p">[</span><span class="s1">'Be'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'berilio'</span>
 
 <span class="n">s</span>
 </pre></div>
@@ -694,14 +794,16 @@ dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr />
+<hr>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Un <code>DataFrame</code> es una estructura tabular (bidimensional) compuesta por filas y columnas, similar a una hoja de cálculo, una tabla de una base de datos, o a un <code>data.frame</code> del lenguaje R.</p>
 <p>Se puede pensar al <code>DataFrame</code> como una <code>Series</code> de <code>Series</code>: una <code>Series</code> cuyo índice son los nombres de las columnas y cuyos elementos son <code>Series</code> que se comportan como columnas. El índice de las <code>Series</code>-columna son los nombres de las filas.</p>
@@ -805,8 +907,8 @@ dtype: object</pre>
     <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">4.003</span><span class="p">],</span>
     <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mf">6.941</span><span class="p">],</span>
     <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mf">9.012</span><span class="p">]],</span>
-    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;He&#39;</span><span class="p">,</span> <span class="s1">&#39;Li&#39;</span><span class="p">,</span> <span class="s1">&#39;Be&#39;</span><span class="p">],</span>
-    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;número_atómico&#39;</span><span class="p">,</span> <span class="s1">&#39;masa_atómica&#39;</span><span class="p">]</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">'H'</span><span class="p">,</span> <span class="s1">'He'</span><span class="p">,</span> <span class="s1">'Li'</span><span class="p">,</span> <span class="s1">'Be'</span><span class="p">],</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'número_atómico'</span><span class="p">,</span> <span class="s1">'masa_atómica'</span><span class="p">]</span>
 <span class="p">)</span>
 
 <span class="n">df</span>
@@ -879,7 +981,8 @@ dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Otras formas de inicializar un <code>DataFrame</code>, usando:</p>
 <ul>
@@ -914,7 +1017,7 @@ dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Index([&#39;H&#39;, &#39;He&#39;, &#39;Li&#39;, &#39;Be&#39;], dtype=&#39;object&#39;)</pre>
+<pre>Index(['H', 'He', 'Li', 'Be'], dtype='object')</pre>
 </div>
 
 </div>
@@ -948,7 +1051,7 @@ dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Index([&#39;número_atómico&#39;, &#39;masa_atómica&#39;], dtype=&#39;object&#39;)</pre>
+<pre>Index(['número_atómico', 'masa_atómica'], dtype='object')</pre>
 </div>
 
 </div>
@@ -996,7 +1099,8 @@ dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Nota</strong>: Los nombres de columnas también son un índice (<code>Index</code>). Recapitulando, las <code>Series</code> tiene un índice y los <code>DataFrame</code>s tienen dos. Como Pandas piensa la tabla como una colección de columnas, para obtener un valor de una celda primero hay que acceder a la columna y luego a la fila.</p>
 
@@ -1011,7 +1115,7 @@ dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># podemos seleccionar una columna, obtendremos una Series</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;masa_atómica&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'masa_atómica'</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -1049,7 +1153,7 @@ Name: masa_atómica, dtype: float64</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># podemos cambiar o crear una columna mediante asignación, normalmente de una Series; usamos la del ejemplo anterior</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;nombre&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'nombre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
 
 <span class="n">df</span>
 </pre></div>
@@ -1134,7 +1238,7 @@ Name: masa_atómica, dtype: float64</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># porque una columna es una Series, podemos usar el índice de la Series para obtener el valor de la celda</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;masa_atómica&#39;</span><span class="p">][</span><span class="s1">&#39;He&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'masa_atómica'</span><span class="p">][</span><span class="s1">'He'</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -1160,24 +1264,32 @@ Name: masa_atómica, dtype: float64</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Nota</strong>: Los índices se corresponden con las dimensiones del objeto, un valor de una celda no tiene índices, por lo que es un objeto cero-dimensional, también llamado <em>escalar</em>.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Carga-de-datos">Carga de datos<a class="anchor-link" href="#Carga-de-datos"> </a></h2><p>Ver más: <a href="http://pandas.pydata.org/pandas-docs/stable/io.html">http://pandas.pydata.org/pandas-docs/stable/io.html</a></p>
+<h2 id="Carga-de-datos">
+<a class="anchor" href="#Carga-de-datos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Carga de datos<a class="anchor-link" href="#Carga-de-datos"> </a>
+</h2>
+<p>Ver más: <a href="http://pandas.pydata.org/pandas-docs/stable/io.html">http://pandas.pydata.org/pandas-docs/stable/io.html</a></p>
 <p>Pandas importa y exporta datos de y hacia gran cantidad de formatos.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="CSV">CSV<a class="anchor-link" href="#CSV"> </a></h4>
+<h4 id="CSV">
+<a class="anchor" href="#CSV" aria-hidden="true"><span class="octicon octicon-link"></span></a>CSV<a class="anchor-link" href="#CSV"> </a>
+</h4>
 </div>
 </div>
 </div>
@@ -1188,7 +1300,7 @@ Name: masa_atómica, dtype: float64</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;datos/properati_básico.csv.gz&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'datos/properati_básico.csv.gz'</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1198,7 +1310,8 @@ Name: masa_atómica, dtype: float64</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Para exportar un <code>DataFrame</code> a un archivo CSV podemos usar</p>
 
@@ -1207,9 +1320,13 @@ Name: masa_atómica, dtype: float64</pre>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Excel">Excel<a class="anchor-link" href="#Excel"> </a></h4><p>Requiere un paquete adicional.</p>
+<h4 id="Excel">
+<a class="anchor" href="#Excel" aria-hidden="true"><span class="octicon octicon-link"></span></a>Excel<a class="anchor-link" href="#Excel"> </a>
+</h4>
+<p>Requiere un paquete adicional.</p>
 
 <pre><code>!pip install xlrd
 
@@ -1221,9 +1338,13 @@ Name: masa_atómica, dtype: float64</pre>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="SQL">SQL<a class="anchor-link" href="#SQL"> </a></h4><p>El siguiente código muestra cómo consultar una base de datos.</p>
+<h4 id="SQL">
+<a class="anchor" href="#SQL" aria-hidden="true"><span class="octicon octicon-link"></span></a>SQL<a class="anchor-link" href="#SQL"> </a>
+</h4>
+<p>El siguiente código muestra cómo consultar una base de datos.</p>
 
 <pre><code>import sqlite3
 
@@ -1235,9 +1356,13 @@ pd.read_sql(consulta, conexión)</code></pre>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="BigQuery">BigQuery<a class="anchor-link" href="#BigQuery"> </a></h4><p>Requiere un paquete adicional.</p>
+<h4 id="BigQuery">
+<a class="anchor" href="#BigQuery" aria-hidden="true"><span class="octicon octicon-link"></span></a>BigQuery<a class="anchor-link" href="#BigQuery"> </a>
+</h4>
+<p>Requiere un paquete adicional.</p>
 
 <pre><code>!pip install pandas-gbq
 
@@ -1251,9 +1376,12 @@ pd.read_gbq(consulta, project_id='properati-data-public')</code></pre>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Inspecci&#243;n">Inspecci&#243;n<a class="anchor-link" href="#Inspecci&#243;n"> </a></h2>
+<h2 id="Inspección">
+<a class="anchor" href="#Inspecci%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inspección<a class="anchor-link" href="#Inspecci%C3%B3n"> </a>
+</h2>
 </div>
 </div>
 </div>
@@ -1382,7 +1510,8 @@ pd.read_gbq(consulta, project_id='properati-data-public')</code></pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>El método <code>info</code> nos informa de ambos índices (filas y columnas), incluyendo cantidades. Nombres de columnas, tipos de datos, cantidades de valores no nulos, uso de memoria RAM.</p>
 
@@ -1409,7 +1538,7 @@ pd.read_gbq(consulta, project_id='properati-data-public')</code></pre>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+<pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 24258 entries, 0 to 24257
 Data columns (total 9 columns):
  #   Column               Non-Null Count  Dtype  
@@ -1435,7 +1564,8 @@ memory usage: 1.7+ MB
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>El método <code>describe</code> muestra estadísticas básicas acerca de las columnas númericas. Aplica sobre todas las columnas númericas, incluso sobre aquellas en las que no tiene sentido hacer estadísticas (lat y lon por ejemplo).</p>
 
@@ -1575,9 +1705,13 @@ memory usage: 1.7+ MB
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Indexaci&#243;n">Indexaci&#243;n<a class="anchor-link" href="#Indexaci&#243;n"> </a></h2><p>Por indexación nos referimos a la selección de un subconjunto de un <code>DataFrame</code> o de una <code>Series</code>. Por ahora hemos visto un uso básico de los corchetes <code>[ ]</code>, el operador índice, para acceder a columnas de un <code>DataFrame</code> y a valores de una <code>Series</code>. En el caso de las <code>Series</code> los casos de uso del operador no difieren prácticamente de lo que se puede hacer con un arreglo de NumPy, sin embargo en el caso de los <code>DataFrame</code>s se complejiza ya que permite seleccionar por filas (no lo vimos) o por columnas (sí lo vimos).</p>
+<h2 id="Indexación">
+<a class="anchor" href="#Indexaci%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Indexación<a class="anchor-link" href="#Indexaci%C3%B3n"> </a>
+</h2>
+<p>Por indexación nos referimos a la selección de un subconjunto de un <code>DataFrame</code> o de una <code>Series</code>. Por ahora hemos visto un uso básico de los corchetes <code>[ ]</code>, el operador índice, para acceder a columnas de un <code>DataFrame</code> y a valores de una <code>Series</code>. En el caso de las <code>Series</code> los casos de uso del operador no difieren prácticamente de lo que se puede hacer con un arreglo de NumPy, sin embargo en el caso de los <code>DataFrame</code>s se complejiza ya que permite seleccionar por filas (no lo vimos) o por columnas (sí lo vimos).</p>
 <p>Los corchetes existen en Pandas por conveniencia para hacer algunas operaciones más simples, lo cual también traerá aparejado limitaciones. Pandas va a determinar si estamos queriendo acceder a la tabla usando el índice que se llama <em>index</em> (nombres filas) o el que se llama <em>columns</em>.</p>
 <p>A su vez <strong>hay dos maneras de utilizar los índices</strong>:</p>
 <ul>
@@ -1597,7 +1731,7 @@ memory usage: 1.7+ MB
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># un nombre columna, devuelve una Series</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;barrio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'barrio'</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -1628,16 +1762,21 @@ Name: barrio, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>No es posible obtener una sola fila</strong> con <code>[ ]</code>, pero sí un subconjunto de filas y también un subconjunto de columnas. Antes de mostrar cómo hacerlo, introducimos tres nuevos conceptos: <code>slice</code>, lista de índices y máscara booleana.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Cortes">Cortes<a class="anchor-link" href="#Cortes"> </a></h3><p>Existe en Python un tipo de objeto llamado <code>slice</code>, traducido como corte o rebanada, cuyo fin es ayudar a producir sublistas a partir de listas, "cortando" una lista desde una posición inicial hasta una posición final. En realidad la lista original no es modificada sino que se devuelve una nueva, usando los elementos que ya existen en la original (los objetos no son copiados).</p>
+<h3 id="Cortes">
+<a class="anchor" href="#Cortes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cortes<a class="anchor-link" href="#Cortes"> </a>
+</h3>
+<p>Existe en Python un tipo de objeto llamado <code>slice</code>, traducido como corte o rebanada, cuyo fin es ayudar a producir sublistas a partir de listas, "cortando" una lista desde una posición inicial hasta una posición final. En realidad la lista original no es modificada sino que se devuelve una nueva, usando los elementos que ya existen en la original (los objetos no son copiados).</p>
 
 </div>
 </div>
@@ -1649,7 +1788,7 @@ Name: barrio, dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">frutas</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;naranja&#39;</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="s1">&#39;ananá&#39;</span><span class="p">,</span> <span class="s1">&#39;durazno&#39;</span><span class="p">,</span> <span class="s1">&#39;uva&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">frutas</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'naranja'</span><span class="p">,</span> <span class="s1">'banana'</span><span class="p">,</span> <span class="s1">'ananá'</span><span class="p">,</span> <span class="s1">'durazno'</span><span class="p">,</span> <span class="s1">'uva'</span><span class="p">]</span>
 <span class="n">frutas</span>
 </pre></div>
 
@@ -1665,7 +1804,7 @@ Name: barrio, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;naranja&#39;, &#39;banana&#39;, &#39;ananá&#39;, &#39;durazno&#39;, &#39;uva&#39;]</pre>
+<pre>['naranja', 'banana', 'ananá', 'durazno', 'uva']</pre>
 </div>
 
 </div>
@@ -1676,7 +1815,8 @@ Name: barrio, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Sabemos cómo obtener valores individuales.</p>
 
@@ -1705,7 +1845,7 @@ Name: barrio, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;ananá&#39;</pre>
+<pre>'ananá'</pre>
 </div>
 
 </div>
@@ -1716,7 +1856,8 @@ Name: barrio, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Supongamos que nos interesa conseguir una sublista con las tres primeras frutas, serían los elementos en las posiciones 0, 1, 2, por lo que deberíamos cortar desde 0 hasta 3 (no inclusive).</p>
 
@@ -1779,7 +1920,7 @@ Name: barrio, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;naranja&#39;, &#39;banana&#39;, &#39;ananá&#39;]</pre>
+<pre>['naranja', 'banana', 'ananá']</pre>
 </div>
 
 </div>
@@ -1790,7 +1931,8 @@ Name: barrio, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Podemos obtener el mismo resultado con un atajo. Los atajos reciben el nombre de <strong>azúcar sintáctica</strong>, son expresiones cómodas para idiomas frecuentes, que existen en paralelo a las formas regulares del lenguaje.</p>
 
@@ -1819,7 +1961,7 @@ Name: barrio, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;naranja&#39;, &#39;banana&#39;, &#39;ananá&#39;]</pre>
+<pre>['naranja', 'banana', 'ananá']</pre>
 </div>
 
 </div>
@@ -1853,7 +1995,7 @@ Name: barrio, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;naranja&#39;, &#39;banana&#39;, &#39;ananá&#39;]</pre>
+<pre>['naranja', 'banana', 'ananá']</pre>
 </div>
 
 </div>
@@ -1887,7 +2029,7 @@ Name: barrio, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;durazno&#39;, &#39;uva&#39;]</pre>
+<pre>['durazno', 'uva']</pre>
 </div>
 
 </div>
@@ -1921,7 +2063,7 @@ Name: barrio, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;naranja&#39;, &#39;banana&#39;, &#39;ananá&#39;, &#39;durazno&#39;, &#39;uva&#39;]</pre>
+<pre>['naranja', 'banana', 'ananá', 'durazno', 'uva']</pre>
 </div>
 
 </div>
@@ -1989,7 +2131,7 @@ Name: barrio, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;naranja&#39;, &#39;banana&#39;, &#39;ananá&#39;, &#39;durazno&#39;, &#39;uva&#39;]</pre>
+<pre>['naranja', 'banana', 'ananá', 'durazno', 'uva']</pre>
 </div>
 
 </div>
@@ -2000,13 +2142,17 @@ Name: barrio, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Listas-de-&#237;ndices-y-m&#225;scaras-booleanas">Listas de &#237;ndices y m&#225;scaras booleanas<a class="anchor-link" href="#Listas-de-&#237;ndices-y-m&#225;scaras-booleanas"> </a></h3>
+<h3 id="Listas-de-índices-y-máscaras-booleanas">
+<a class="anchor" href="#Listas-de-%C3%ADndices-y-m%C3%A1scaras-booleanas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Listas de índices y máscaras booleanas<a class="anchor-link" href="#Listas-de-%C3%ADndices-y-m%C3%A1scaras-booleanas"> </a>
+</h3>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Los arreglos de NumPy son como las listas de Python pero con funcionalidades agregadas. Admiten indexado por posición, por corte y añaden nuevas maneras de formar sub-arreglos, mediante</p>
 <ul>
@@ -2026,7 +2172,7 @@ Name: barrio, dtype: object</pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="n">frutas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;naranja&#39;</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="s1">&#39;ananá&#39;</span><span class="p">,</span> <span class="s1">&#39;durazno&#39;</span><span class="p">,</span> <span class="s1">&#39;uva&#39;</span><span class="p">])</span>
+<span class="n">frutas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">'naranja'</span><span class="p">,</span> <span class="s1">'banana'</span><span class="p">,</span> <span class="s1">'ananá'</span><span class="p">,</span> <span class="s1">'durazno'</span><span class="p">,</span> <span class="s1">'uva'</span><span class="p">])</span>
 <span class="n">frutas</span>
 </pre></div>
 
@@ -2042,7 +2188,7 @@ Name: barrio, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>array([&#39;naranja&#39;, &#39;banana&#39;, &#39;ananá&#39;, &#39;durazno&#39;, &#39;uva&#39;], dtype=&#39;&lt;U7&#39;)</pre>
+<pre>array(['naranja', 'banana', 'ananá', 'durazno', 'uva'], dtype='&lt;U7')</pre>
 </div>
 
 </div>
@@ -2053,9 +2199,13 @@ Name: barrio, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Listas-de-posiciones">Listas de posiciones<a class="anchor-link" href="#Listas-de-posiciones"> </a></h4><p>Supongamos que queremos obtener los elementos naranja, ananá, uva. A diferencia de las listas que solo permiten enteros o cortes, NumPy nos permite pasar una lista con las posiciones de interés.</p>
+<h4 id="Listas-de-posiciones">
+<a class="anchor" href="#Listas-de-posiciones" aria-hidden="true"><span class="octicon octicon-link"></span></a>Listas de posiciones<a class="anchor-link" href="#Listas-de-posiciones"> </a>
+</h4>
+<p>Supongamos que queremos obtener los elementos naranja, ananá, uva. A diferencia de las listas que solo permiten enteros o cortes, NumPy nos permite pasar una lista con las posiciones de interés.</p>
 
 </div>
 </div>
@@ -2083,7 +2233,7 @@ Name: barrio, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>array([&#39;naranja&#39;, &#39;ananá&#39;, &#39;uva&#39;], dtype=&#39;&lt;U7&#39;)</pre>
+<pre>array(['naranja', 'ananá', 'uva'], dtype='&lt;U7')</pre>
 </div>
 
 </div>
@@ -2094,7 +2244,8 @@ Name: barrio, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>En Python existe un tipo de objeto llamado rango (<code>range</code>), que se puede crear —como casi todos los tipos de objetos en el lenguaje— utilizando una función homónima, que representa una colección de números desde un valor inicial hasta un valor final (no inclusive) utilizando un intervalo determinado. A diferencia de <code>slice</code>, los rangos pueden ser convertidos en listas.</p>
 <p>Si se trata de un patrón regular, es mejor definir un rango antes que una lista.</p>
@@ -2194,7 +2345,7 @@ Name: barrio, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>array([&#39;naranja&#39;, &#39;ananá&#39;, &#39;uva&#39;], dtype=&#39;&lt;U7&#39;)</pre>
+<pre>array(['naranja', 'ananá', 'uva'], dtype='&lt;U7')</pre>
 </div>
 
 </div>
@@ -2205,9 +2356,13 @@ Name: barrio, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="M&#225;scaras">M&#225;scaras<a class="anchor-link" href="#M&#225;scaras"> </a></h4><p><strong>La máscara debe tener el mismo largo que el arreglo</strong> y estar compuesta por valores booleanos (<code>bool</code>). En este caso, cinco elementos.</p>
+<h4 id="Máscaras">
+<a class="anchor" href="#M%C3%A1scaras" aria-hidden="true"><span class="octicon octicon-link"></span></a>Máscaras<a class="anchor-link" href="#M%C3%A1scaras"> </a>
+</h4>
+<p><strong>La máscara debe tener el mismo largo que el arreglo</strong> y estar compuesta por valores booleanos (<code>bool</code>). En este caso, cinco elementos.</p>
 
 </div>
 </div>
@@ -2236,7 +2391,7 @@ Name: barrio, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>array([&#39;naranja&#39;, &#39;ananá&#39;, &#39;uva&#39;], dtype=&#39;&lt;U7&#39;)</pre>
+<pre>array(['naranja', 'ananá', 'uva'], dtype='&lt;U7')</pre>
 </div>
 
 </div>
@@ -2247,10 +2402,11 @@ Name: barrio, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Se filtran aquellos elementos cuya posición se corresponde con las posiciones de los valores <code>False</code> de la máscara, se seleccionan aquellos donde <code>True</code>. La máscara sirve para ocultar algunas partes y mostrar otras.</p>
-<hr />
+<hr>
 <p>Podemos utilizar una lista de etiquetas para obtener un subconjunto de columnas.</p>
 
 </div>
@@ -2264,7 +2420,7 @@ Name: barrio, dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># lista de nombres de columnas, devuelve un DataFrame</span>
-<span class="n">df</span><span class="p">[[</span><span class="s1">&#39;barrio&#39;</span><span class="p">,</span> <span class="s1">&#39;ambientes&#39;</span><span class="p">,</span> <span class="s1">&#39;precio&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[[</span><span class="s1">'barrio'</span><span class="p">,</span> <span class="s1">'ambientes'</span><span class="p">,</span> <span class="s1">'precio'</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -2345,7 +2501,8 @@ Name: barrio, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Podemos utilizar un corte para obtener un subconjunto de filas <strong>por posición</strong>.</p>
 
@@ -2476,7 +2633,8 @@ Name: barrio, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Nota</strong>: En muchos casos los nombres de filas van a coincidir con las posiciones de filas, ya que si no especificamos un índice, el índice por defecto que asigna Pandas a las filas va de 0 a N-1, siendo N la cantidad de filas. <strong>Estas etiquetas coinciden con la posición</strong>.</p>
 <p>También podemos utilizar una máscara. Hay formas muy prácticas de generar máscaras, la que se presenta a continuación solo tiene fines demostrativos y jamás volverá a ser utilizada.</p>
@@ -2582,7 +2740,8 @@ Name: barrio, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Resumimos las capacidades de <code>[ ]</code>:</p>
 <ul>
@@ -2596,7 +2755,8 @@ Name: barrio, dtype: object</pre>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Alternativamente se puede acceder a una columna como si fuera un atributo del <code>DataFrame</code>.</p>
 
@@ -2610,7 +2770,7 @@ Name: barrio, dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># funciona como df[&#39;barrio&#39;]; es como df$barrio en R</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># funciona como df['barrio']; es como df$barrio en R</span>
 <span class="n">df</span><span class="o">.</span><span class="n">barrio</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
@@ -2642,17 +2802,23 @@ Name: barrio, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Filas-y-columnas">Filas y columnas<a class="anchor-link" href="#Filas-y-columnas"> </a></h3><p>¿Qué pasa si queremos filtrar utilizando ambos índices simultáneamente? En principio podríamos hacer</p>
+<h3 id="Filas-y-columnas">
+<a class="anchor" href="#Filas-y-columnas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filas y columnas<a class="anchor-link" href="#Filas-y-columnas"> </a>
+</h3>
+<p>¿Qué pasa si queremos filtrar utilizando ambos índices simultáneamente? En principio podríamos hacer</p>
 
 <pre><code>df[columnas][filas]
 
 </code></pre>
 <p>sin embargo esta manera efectúa dos selecciones, una seguida de la otra, no es simultánea, lo que traerá más adelante implicancias para la asignación. Para esta situación Pandas provee las siguientes formas de indexar.</p>
 <ul>
-<li><code>loc[filas, columnas]</code> para acceder por etiquetas,</li>
-<li><code>iloc[filas, columnas]</code> para acceder por posición.</li>
+<li>
+<code>loc[filas, columnas]</code> para acceder por etiquetas,</li>
+<li>
+<code>iloc[filas, columnas]</code> para acceder por posición.</li>
 </ul>
 <p>Es un poco confuso al principio, la i de <code>iloc</code> hace pensar en la fila (o en la columna) número i, o sea en la posición i.</p>
 <p>La limitación de estas formas es que <strong>no es posible mezclar etiquetas con posiciones</strong>; por ejemplo posición de filas y etiquetas de columnas, una combinación bastante deseable.</p>
@@ -2789,9 +2955,12 @@ Name: barrio, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Por-etiquetas">Por etiquetas<a class="anchor-link" href="#Por-etiquetas"> </a></h4>
+<h4 id="Por-etiquetas">
+<a class="anchor" href="#Por-etiquetas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Por etiquetas<a class="anchor-link" href="#Por-etiquetas"> </a>
+</h4>
 </div>
 </div>
 </div>
@@ -2803,7 +2972,7 @@ Name: barrio, dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># valor de una celda, fila y columna; devuelve un escalar (valor suelto)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;fecha&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="s1">'fecha'</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -2818,7 +2987,7 @@ Name: barrio, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;2018-02-21&#39;</pre>
+<pre>'2018-02-21'</pre>
 </div>
 
 </div>
@@ -2829,7 +2998,8 @@ Name: barrio, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>La selección de todas las columnas en R se logra con <code>df[filas,]</code> pero en Python esta sintaxis no es válida, opciones son <code>df.loc[filas]</code> o <code>df.loc[filas, :]</code>.</p>
 
@@ -2887,7 +3057,7 @@ Name: 100, dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># varias filas (lista de etiquetas), una columna; devuelve una Series</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span> <span class="s1">&#39;fecha&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span> <span class="s1">'fecha'</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -2924,7 +3094,7 @@ Name: fecha, dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># varias filas, varias columnas; devuelve un DataFrame</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;superficie_cubierta&#39;</span><span class="p">,</span> <span class="s1">&#39;superficie_total&#39;</span><span class="p">]]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="s1">'superficie_cubierta'</span><span class="p">,</span> <span class="s1">'superficie_total'</span><span class="p">]]</span>
 </pre></div>
 
     </div>
@@ -2989,7 +3159,8 @@ Name: fecha, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>La selección de todas las filas en R se logra con <code>df[,columnas]</code> pero en Python esta sintáxis no es válida, se requiere de un corte total <code>slice(None)</code> o más común, su azúcar sintáctica <code>df.loc[:, columnas]</code>.</p>
 
@@ -3004,7 +3175,7 @@ Name: fecha, dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># todas las filas, algunas columnas; devuelve un DataFrame</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;superficie_cubierta&#39;</span><span class="p">,</span> <span class="s1">&#39;superficie_total&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">'superficie_cubierta'</span><span class="p">,</span> <span class="s1">'superficie_total'</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -3079,7 +3250,8 @@ Name: fecha, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Si bien las máscaras trabajan por posición y la indexación de <code>loc</code> es por etiquetas, funcionan de todas formas — es confuso pero será uno de los idiomas más útiles e incluso hasta cobrará sentido más adelante.</p>
 
@@ -3094,7 +3266,7 @@ Name: fecha, dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># utilizamos la máscara del ejemplo anterior</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">máscara</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;superficie_cubierta&#39;</span><span class="p">,</span> <span class="s1">&#39;superficie_total&#39;</span><span class="p">]]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">máscara</span><span class="p">,</span> <span class="p">[</span><span class="s1">'superficie_cubierta'</span><span class="p">,</span> <span class="s1">'superficie_total'</span><span class="p">]]</span>
 </pre></div>
 
     </div>
@@ -3154,7 +3326,8 @@ Name: fecha, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>IMPORTANTE</strong>: Pandas hace su propia interpretación de los cortes en la indexación por etiquetas.</p>
 <ol>
@@ -3188,15 +3361,15 @@ Name: fecha, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;fecha&#39;,
- &#39;tipo&#39;,
- &#39;lat&#39;,
- &#39;lon&#39;,
- &#39;precio&#39;,
- &#39;superficie_total&#39;,
- &#39;superficie_cubierta&#39;,
- &#39;ambientes&#39;,
- &#39;barrio&#39;]</pre>
+<pre>['fecha',
+ 'tipo',
+ 'lat',
+ 'lon',
+ 'precio',
+ 'superficie_total',
+ 'superficie_cubierta',
+ 'ambientes',
+ 'barrio']</pre>
 </div>
 
 </div>
@@ -3207,7 +3380,8 @@ Name: fecha, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Por ejemplo, <code>slice('tipo', 'precio')</code> tiene el mismo efecto que <code>['tipo', 'lat', 'lon', 'precio']</code>.</p>
 
@@ -3221,7 +3395,7 @@ Name: fecha, dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;tipo&#39;</span><span class="p">:</span><span class="s1">&#39;precio&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="s1">'tipo'</span><span class="p">:</span><span class="s1">'precio'</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -3251,7 +3425,8 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Veamos el caso de las etiquetas de las filas.</p>
 
@@ -3292,7 +3467,8 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Un corte desde la tercera etiqueta (14611) hasta la quinta (16962), <code>slice(14611, 16962)</code>, es como pasar la lista <code>[14611, 22362, 16962]</code>. Si el orden del índice fuese otro, la selección generada por el mismo corte, sería otra.</p>
 
@@ -3399,9 +3575,12 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Por-posici&#243;n">Por posici&#243;n<a class="anchor-link" href="#Por-posici&#243;n"> </a></h4>
+<h4 id="Por-posición">
+<a class="anchor" href="#Por-posici%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Por posición<a class="anchor-link" href="#Por-posici%C3%B3n"> </a>
+</h4>
 </div>
 </div>
 </div>
@@ -3530,7 +3709,8 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>IMPORTANTE</strong>: con <code>iloc</code> las columnas se seleccionan por su posición, no por sus etiquetas.</p>
 
@@ -3560,15 +3740,15 @@ Name: 100, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;fecha&#39;,
- &#39;tipo&#39;,
- &#39;lat&#39;,
- &#39;lon&#39;,
- &#39;precio&#39;,
- &#39;superficie_total&#39;,
- &#39;superficie_cubierta&#39;,
- &#39;ambientes&#39;,
- &#39;barrio&#39;]</pre>
+<pre>['fecha',
+ 'tipo',
+ 'lat',
+ 'lon',
+ 'precio',
+ 'superficie_total',
+ 'superficie_cubierta',
+ 'ambientes',
+ 'barrio']</pre>
 </div>
 
 </div>
@@ -3662,16 +3842,21 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>IMPORTANTE</strong>: <code>iloc</code> no acepta máscaras.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Resumen">Resumen<a class="anchor-link" href="#Resumen"> </a></h3><ul>
+<h3 id="Resumen">
+<a class="anchor" href="#Resumen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resumen<a class="anchor-link" href="#Resumen"> </a>
+</h3>
+<ul>
 <li>Como con listas, es posible indexar por posición.</li>
 <li>Como con diccionarios, es posible indexar por etiqueta.</li>
 <li>Como con arreglos de NumPy, es posible indexar por máscaras booleanas.</li>
@@ -3683,13 +3868,17 @@ Name: 100, dtype: object</pre>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Asignaci&#243;n">Asignaci&#243;n<a class="anchor-link" href="#Asignaci&#243;n"> </a></h3>
+<h3 id="Asignación">
+<a class="anchor" href="#Asignaci%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Asignación<a class="anchor-link" href="#Asignaci%C3%B3n"> </a>
+</h3>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Las distintas formas de indexar también sirven para guardar valores.</p>
 <p>Supongamos que nos informan que las propiedades con etiquetas 333 y 666 están mal anotadas como departamentos, que en realidad son casas.</p>
@@ -3793,7 +3982,7 @@ Name: 100, dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># asignamos el valor casa a las filas deseadas en la columna correspondiente</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">333</span><span class="p">,</span> <span class="mi">666</span><span class="p">],</span> <span class="s1">&#39;tipo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;casa&#39;</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">333</span><span class="p">,</span> <span class="mi">666</span><span class="p">],</span> <span class="s1">'tipo'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'casa'</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">333</span><span class="p">,</span> <span class="mi">666</span><span class="p">]]</span>
 </pre></div>
@@ -3876,7 +4065,8 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Adicionalmente nos reportan que el precio de la propiedad con etiqueta 666 ha sido actualizado.</p>
 
@@ -3890,7 +4080,7 @@ Name: 100, dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">666</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;fecha&#39;</span><span class="p">,</span> <span class="s1">&#39;precio&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2018-10-28&#39;</span><span class="p">,</span> <span class="mi">510000</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">666</span><span class="p">,</span> <span class="p">[</span><span class="s1">'fecha'</span><span class="p">,</span> <span class="s1">'precio'</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'2018-10-28'</span><span class="p">,</span> <span class="mi">510000</span><span class="p">]</span>
 
 <span class="c1"># pasamos una lista de etiquetas para que devuelva un DataFrame,</span>
 <span class="c1"># esto es válido más allá de que sea una lista de un solo elemento</span>
@@ -3963,9 +4153,13 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#205;ndices-jer&#225;rquicos">&#205;ndices jer&#225;rquicos<a class="anchor-link" href="#&#205;ndices-jer&#225;rquicos"> </a></h2><p>Hasta ahora vimos cómo trabajar con índices creados por defecto (cuando las etiquetas van de 0 a N-1) y con índices impuestos al cargar un archivo (las etiquetas de las columnas), sin embargo el índice puede ser modificado según necesidad. Hay varias formas de definir un nuevo índice, una muy común es elegir a una columna para que se convierta en el nuevo índice.</p>
+<h2 id="Índices-jerárquicos">
+<a class="anchor" href="#%C3%8Dndices-jer%C3%A1rquicos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Índices jerárquicos<a class="anchor-link" href="#%C3%8Dndices-jer%C3%A1rquicos"> </a>
+</h2>
+<p>Hasta ahora vimos cómo trabajar con índices creados por defecto (cuando las etiquetas van de 0 a N-1) y con índices impuestos al cargar un archivo (las etiquetas de las columnas), sin embargo el índice puede ser modificado según necesidad. Hay varias formas de definir un nuevo índice, una muy común es elegir a una columna para que se convierta en el nuevo índice.</p>
 
 </div>
 </div>
@@ -3977,7 +4171,7 @@ Name: 100, dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;barrio&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'barrio'</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -4101,21 +4295,24 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Nota</strong>: Muchos métodos que transforman <code>DataFrame</code>s nos devuelven un nuevo <code>DataFrame</code>, mientras que el original permanece intacto. El argumento <code>inplace=True</code> se usa para que el método transforme el <code>DataFrame</code> original; en este caso el método no devuelve nada (<code>None</code>).</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Al convertir a la columna barrio en índice, esta columna dejó de existir. Esto quiere decir que no podemos invocar a la columna como antes, haciendo <code>df['barrio']</code> o <code>df.barrio</code>, en todo caso podemos pedir <code>df.index</code>. Es importante recordar que aunque las etiquetas de las filas parezcan una columna, <strong>no lo son</strong>, así como las etiquetas de las columnas aunque parecen ser una fila, tampoco lo son.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>De aquí en más, podemos hacer indexación con las nuevas etiquetas.</p>
 
@@ -4130,7 +4327,7 @@ Name: 100, dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># traer todas las propiedades en Palermo</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;PALERMO&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">'PALERMO'</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -4260,7 +4457,7 @@ Name: 100, dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># traer todas las propiedades en Palermo y Chacarita</span>
-<span class="n">resultado</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s1">&#39;PALERMO&#39;</span><span class="p">,</span><span class="s1">&#39;CHACARITA&#39;</span><span class="p">],</span> <span class="p">:]</span>
+<span class="n">resultado</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s1">'PALERMO'</span><span class="p">,</span><span class="s1">'CHACARITA'</span><span class="p">],</span> <span class="p">:]</span>
 
 <span class="n">resultado</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
@@ -4448,7 +4645,8 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Cuando necesitemos recuperar al índice como columna, podemos traerla de vuelta.</p>
 
@@ -4581,9 +4779,10 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr />
+<hr>
 <p>Pandas tiene la capacidad de convertir a más de una columna en índice, lo que recibe el nombre de <strong>multi-índice</strong>, en la que cada ex-columna aporta un nivel de indexación, estableciéndose también una jerarquía de indexación. Los valores existentes en las columnas se convierten en etiquetas.</p>
 
 </div>
@@ -4596,7 +4795,7 @@ Name: 100, dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;barrio&#39;</span><span class="p">,</span><span class="s1">&#39;tipo&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">'barrio'</span><span class="p">,</span><span class="s1">'tipo'</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -4720,7 +4919,8 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>En este caso barrio es el nivel 0 de indexación, tiene precedencia por sobre tipo, que viene a ser el nivel 1. Vamos a poder referenciar a los niveles por nombre y por posición.</p>
 
@@ -4749,7 +4949,7 @@ Name: 100, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>FrozenList([&#39;barrio&#39;, &#39;tipo&#39;])</pre>
+<pre>FrozenList(['barrio', 'tipo'])</pre>
 </div>
 
 </div>
@@ -4760,7 +4960,8 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Seleccionar filas utilizando solo el nivel superior es como si trabajásemos con un índice simple, lo que veníamos haciendo.</p>
 
@@ -4775,7 +4976,7 @@ Name: 100, dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># notar que la tabla devuelta carece del nivel superior</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;PALERMO&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">'PALERMO'</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -4890,7 +5091,8 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Antes de continuar es necesario introducir a las tuplas (<code>tuple</code>), otro tipo de objeto nativo de Python. Son muy parecidas a las listas, se diferencian en algo que no nos importa mucho ahora: las listas son objetos mutables y las tuplas son inmutables. La forma literal de crearlas es utilizando paréntesis en vez de corchetes.</p>
 
@@ -4931,7 +5133,8 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Para hacer una selección utilizando más niveles del multi-índice se requiere escribir las etiquetas deseadas dentro de tuplas respetando la jerarquía de niveles, así <code>(nivel 0, nivel 1, ...)</code>.</p>
 
@@ -4946,7 +5149,7 @@ Name: 100, dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># seleccionamos departamentos en Palermo</span>
-<span class="n">filas</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;PALERMO&#39;</span><span class="p">,</span> <span class="s1">&#39;departamento&#39;</span><span class="p">)</span>
+<span class="n">filas</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'PALERMO'</span><span class="p">,</span> <span class="s1">'departamento'</span><span class="p">)</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">filas</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -5083,7 +5286,7 @@ Name: 100, dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># seleccionamos propiedades en San Telmo y Chacarita que son departamentos</span>
-<span class="n">filas</span> <span class="o">=</span> <span class="p">([</span><span class="s1">&#39;SAN TELMO&#39;</span><span class="p">,</span><span class="s1">&#39;CHACARITA&#39;</span><span class="p">],</span> <span class="s1">&#39;departamento&#39;</span><span class="p">)</span>
+<span class="n">filas</span> <span class="o">=</span> <span class="p">([</span><span class="s1">'SAN TELMO'</span><span class="p">,</span><span class="s1">'CHACARITA'</span><span class="p">],</span> <span class="s1">'departamento'</span><span class="p">)</span>
 
 <span class="c1"># al usar multi-índice es IMPORTANTE especificar también las columnas, aunque no queramos filtrarlas</span>
 <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">filas</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -5206,7 +5409,8 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Para seleccionar las propiedades en todos los barrios que son departamentos tenemos que pedir todas las etiquetas del nivel 0 (todos los barrios) y la etiqueta del nivel 1 (departamento).</p>
 <p>En principio podríamos pensar lo siguiente, ya que <code>:</code> representaría todas las etiquetas de los barrios.</p>
@@ -5227,7 +5431,7 @@ Name: 100, dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">filas</span> <span class="o">=</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="s1">&#39;departamento&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">filas</span> <span class="o">=</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="s1">'departamento'</span><span class="p">)</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">filas</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -5351,7 +5555,8 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Pandas provee una manera de recuperar el azúcar sintáctica.</p>
 
@@ -5365,7 +5570,7 @@ Name: 100, dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">filas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">IndexSlice</span><span class="p">[:,</span> <span class="s1">&#39;departamento&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">filas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">IndexSlice</span><span class="p">[:,</span> <span class="s1">'departamento'</span><span class="p">]</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">filas</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -5489,7 +5694,8 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>La gente suele escribir menos recurriendo a esta artimaña.</p>
 
@@ -5506,7 +5712,7 @@ Name: 100, dtype: object</pre>
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># darle un alias a pd.IndexSlice</span>
 <span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">IndexSlice</span>
 
-<span class="n">idx</span><span class="p">[:,</span> <span class="s1">&#39;departamento&#39;</span><span class="p">]</span>
+<span class="n">idx</span><span class="p">[:,</span> <span class="s1">'departamento'</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -5521,7 +5727,7 @@ Name: 100, dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(slice(None, None, None), &#39;departamento&#39;)</pre>
+<pre>(slice(None, None, None), 'departamento')</pre>
 </div>
 
 </div>
@@ -5532,7 +5738,8 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Otra opción que tenemos a mano para seleccionar todos los departamentos, más simple aunque solo sirve para selección y <strong>no para asignación</strong>, es el método <em>cross-section</em> (<code>xs</code>) que selecciona datos según valor de un índice particular.</p>
 
@@ -5546,7 +5753,7 @@ Name: 100, dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s1">&#39;departamento&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;tipo&#39;</span><span class="p">,</span> <span class="n">drop_level</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s1">'departamento'</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">'tipo'</span><span class="p">,</span> <span class="n">drop_level</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -5668,7 +5875,8 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>No lo hemos mostrado pero el índice de las columnas también puede ser un multi-índice.</p>
 
@@ -5693,9 +5901,13 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Operaciones-vectorizadas">Operaciones vectorizadas<a class="anchor-link" href="#Operaciones-vectorizadas"> </a></h2><p>Vector y arreglo son dos términos intercambiables. El título se refiere a operaciones sobre arreglos de NumPy que se realizan elemento a elemento (<em>element-wise</em>) que también están Pandas por estar construido sobre NumPy. Además estas operaciones están preparadas para tratar con valores ausentes. Ninguna de estas dos funcionalidades está presente en Python puro.</p>
+<h2 id="Operaciones-vectorizadas">
+<a class="anchor" href="#Operaciones-vectorizadas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operaciones vectorizadas<a class="anchor-link" href="#Operaciones-vectorizadas"> </a>
+</h2>
+<p>Vector y arreglo son dos términos intercambiables. El título se refiere a operaciones sobre arreglos de NumPy que se realizan elemento a elemento (<em>element-wise</em>) que también están Pandas por estar construido sobre NumPy. Además estas operaciones están preparadas para tratar con valores ausentes. Ninguna de estas dos funcionalidades está presente en Python puro.</p>
 
 </div>
 </div>
@@ -5737,14 +5949,16 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Nota</strong>: Los valores ausentes <code>NA</code> no existen nativamente en Python, como sí existen en R. NumPy lo mitiga usando <code>NaN</code> (<em>not a number</em>) para representarlos. <code>NaN</code> es un valor del tipo <code>float</code>. Como los arreglos de NumPy pueden tener un solo <code>dtype</code>, un arreglo de enteros es promovido a un arreglo de flotantes y un arreglo de booleanos es llevado a uno de objetos (<code>object</code>) en presencia de valores ausentes, ya que por ejemplo, no podríamos tener un arreglo con enteros y <code>NaN</code> (<code>float</code>) simultáneamente.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Los operadores (<code>+</code>, <code>-</code>, ...) terminan invocando a funciones; existen dentro de la sintáxis del lenguaje por practicidad. Cuando alguno de los operandos es un arreglo de NumPy, se invocan funciones de NumPy correspondientes (<code>np.add</code>, <code>np.substract</code>, ...) en vez de funciones de Python puro. También las podemos llamar directamente.</p>
 
@@ -5784,7 +5998,8 @@ Name: 100, dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Como característica, son <strong>funciones universales</strong> (<code>ufunc</code>), ya que hacen su trabajo elemento a elemento independientemente de las dimensiones de los argumentos (escalar, columna, tabla).</p>
 <p>Pandas a su vez implementa las funciones de NumPy como métodos (aunque en la mayor parte del tiempo usamos operadores).</p>
@@ -5831,7 +6046,8 @@ Name: precio, dtype: float64</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Las operaciones vectorizadas en cualquiera de sus sabores (operadores, funciones, métodos) son ideales para trabajar sobre las columnas existentes y crear nuevas.</p>
 
@@ -5845,7 +6061,7 @@ Name: precio, dtype: float64</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;precio_m2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">precio</span> <span class="o">/</span> <span class="n">df</span><span class="o">.</span><span class="n">superficie_total</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">'precio_m2'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">precio</span> <span class="o">/</span> <span class="n">df</span><span class="o">.</span><span class="n">superficie_total</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -5970,9 +6186,13 @@ Name: precio, dtype: float64</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Operadores-y-funciones-comunes">Operadores y funciones comunes<a class="anchor-link" href="#Operadores-y-funciones-comunes"> </a></h3><p>Existen operadores como <code>+</code> que requieren dos operandos, llamados operadores binarios y operadores como <code>-</code> (negación) que trabajan con un solo operando, los operadores unarios.</p>
+<h3 id="Operadores-y-funciones-comunes">
+<a class="anchor" href="#Operadores-y-funciones-comunes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operadores y funciones comunes<a class="anchor-link" href="#Operadores-y-funciones-comunes"> </a>
+</h3>
+<p>Existen operadores como <code>+</code> que requieren dos operandos, llamados operadores binarios y operadores como <code>-</code> (negación) que trabajan con un solo operando, los operadores unarios.</p>
 <p><strong>Comparación</strong></p>
 
 <pre><code>==  np.equal
@@ -6015,7 +6235,8 @@ Name: precio, dtype: float64</pre>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>IMPORTANTE</strong>: <code>and</code> y <code>or</code> realizan una sola evaluación booleana en el objeto entero, mientras que <code>&amp;</code> y <code>|</code> realizan múltiples evaluaciones sobre el contenido (elementos de la colección) de los objetos. Cuando trabajamos con arreglos, esto último es lo que normalmente queremos.</p>
 
@@ -6094,9 +6315,13 @@ Name: precio, dtype: float64</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Operaciones-con-texto">Operaciones con texto<a class="anchor-link" href="#Operaciones-con-texto"> </a></h3><p>Los <em>strings</em> (<code>str</code>) de Python poseen una gran variedad de métodos muy útiles. Pandas implementa estos métodos y atributos (junto con otros más) como operaciones vectorizadas que se acceden desde el atributo <code>Series.str</code> y <code>DataFrame.str</code>.</p>
+<h3 id="Operaciones-con-texto">
+<a class="anchor" href="#Operaciones-con-texto" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operaciones con texto<a class="anchor-link" href="#Operaciones-con-texto"> </a>
+</h3>
+<p>Los <em>strings</em> (<code>str</code>) de Python poseen una gran variedad de métodos muy útiles. Pandas implementa estos métodos y atributos (junto con otros más) como operaciones vectorizadas que se acceden desde el atributo <code>Series.str</code> y <code>DataFrame.str</code>.</p>
 
 </div>
 </div>
@@ -6108,7 +6333,7 @@ Name: precio, dtype: float64</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">frutas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;manzana&#39;</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">frutas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">'manzana'</span><span class="p">,</span> <span class="s1">'banana'</span><span class="p">])</span>
 
 <span class="n">frutas</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 </pre></div>
@@ -6138,9 +6363,13 @@ dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Operaciones-con-objetos-temporales">Operaciones con objetos temporales<a class="anchor-link" href="#Operaciones-con-objetos-temporales"> </a></h3><p>Python viene con objetos del tipo fecha (<code>date</code>), hora (<code>time</code>), fecha y hora (<code>datetime</code>) e intervalos temporales (<code>timedelta</code>). Los métodos y atributos de estos objetos aparecen vectorizados bajo el atributo <code>Series.dt</code> y <code>DataFrame.dt</code>.</p>
+<h3 id="Operaciones-con-objetos-temporales">
+<a class="anchor" href="#Operaciones-con-objetos-temporales" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operaciones con objetos temporales<a class="anchor-link" href="#Operaciones-con-objetos-temporales"> </a>
+</h3>
+<p>Python viene con objetos del tipo fecha (<code>date</code>), hora (<code>time</code>), fecha y hora (<code>datetime</code>) e intervalos temporales (<code>timedelta</code>). Los métodos y atributos de estos objetos aparecen vectorizados bajo el atributo <code>Series.dt</code> y <code>DataFrame.dt</code>.</p>
 
 </div>
 </div>
@@ -6152,7 +6381,7 @@ dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fechas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;1990-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2018-10-31&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fechas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">'1990-01-01'</span><span class="p">,</span> <span class="s1">'2018-10-31'</span><span class="p">])</span>
 
 <span class="n">fechas</span>
 </pre></div>
@@ -6256,16 +6485,21 @@ dtype: int64</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Nota</strong>: NumPy no implementa operaciones con texto y tiempo pero Pandas sí.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Selecci&#243;n-usando-columnas">Selecci&#243;n usando columnas<a class="anchor-link" href="#Selecci&#243;n-usando-columnas"> </a></h2><p>En vez de usar el índice de las filas podemos seleccionar filas usando las columnas. Para ello generamos máscaras booleanas usando columnas (que de por sí tienen un largo igual al de la tabla) y operaciones que devuelvan valores booleanos. Las operaciones de comparación son bastante útiles en este contexto ya que nos permiten seleccionar filas según valores en las columnas.</p>
+<h2 id="Selección-usando-columnas">
+<a class="anchor" href="#Selecci%C3%B3n-usando-columnas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Selección usando columnas<a class="anchor-link" href="#Selecci%C3%B3n-usando-columnas"> </a>
+</h2>
+<p>En vez de usar el índice de las filas podemos seleccionar filas usando las columnas. Para ello generamos máscaras booleanas usando columnas (que de por sí tienen un largo igual al de la tabla) y operaciones que devuelvan valores booleanos. Las operaciones de comparación son bastante útiles en este contexto ya que nos permiten seleccionar filas según valores en las columnas.</p>
 
 </div>
 </div>
@@ -6401,7 +6635,8 @@ dtype: int64</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>IMPORTANTE</strong>: Por una cuestión de precedencia de operadores, de querer combinar máscaras usando operaciones <em>bitwise</em>, si las máscaras son creadas usando operadores de comparación, deben ser encerradas entre paréntesis. Esto es porque Python resuelve antes los operadores como <code>&amp;</code> y <code>|</code> que los operadores como <code>&lt;</code> e <code>==</code>; usamos los paréntesis para indicarle a Python el orden de evaluación pretendido: primero las comparaciones, luego las operaciones <em>bitwise</em>. Como en matemáticas, lo que está dentro de paréntesis debe resolverse primero (tiene precedencia) sobre lo que está afuera.</p>
 
@@ -6669,17 +6904,24 @@ dtype: int64</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Alineamiento-autom&#225;tico">Alineamiento autom&#225;tico<a class="anchor-link" href="#Alineamiento-autom&#225;tico"> </a></h2><p>En casos en los que intervengan más de una tabla o columna, como cuando queremos añadir una columna nueva a una tabla, podríamos pensar en cuidar aspectos como que la columna tenga el mismo largo que la tabla y que el orden de los elementos en la nueva columna se condiga con el orden de las filas de la tabla. Esto normalmente es así al trabajar con arreglos de NumPy.</p>
+<h2 id="Alineamiento-automático">
+<a class="anchor" href="#Alineamiento-autom%C3%A1tico" aria-hidden="true"><span class="octicon octicon-link"></span></a>Alineamiento automático<a class="anchor-link" href="#Alineamiento-autom%C3%A1tico"> </a>
+</h2>
+<p>En casos en los que intervengan más de una tabla o columna, como cuando queremos añadir una columna nueva a una tabla, podríamos pensar en cuidar aspectos como que la columna tenga el mismo largo que la tabla y que el orden de los elementos en la nueva columna se condiga con el orden de las filas de la tabla. Esto normalmente es así al trabajar con arreglos de NumPy.</p>
 <p>Afortunadamente nada de esto debe preocuparnos al usar Pandas. Los índices cumplen una función de gran utilidad en las operaciones y en las asignaciones, donde les elementos son alianeados según sus índices para que todo salga como lo esperamos.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Operaciones">Operaciones<a class="anchor-link" href="#Operaciones"> </a></h3>
+<h3 id="Operaciones">
+<a class="anchor" href="#Operaciones" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operaciones<a class="anchor-link" href="#Operaciones"> </a>
+</h3>
 </div>
 </div>
 </div>
@@ -6690,9 +6932,9 @@ dtype: int64</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">algunas_frutas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;🥝&#39;</span><span class="p">,</span> <span class="s1">&#39;🥥&#39;</span><span class="p">,</span> <span class="s1">&#39;🍇&#39;</span><span class="p">,</span> <span class="s1">&#39;🍌&#39;</span><span class="p">,</span> <span class="s1">&#39;🍎&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">algunas_frutas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">'🥝'</span><span class="p">,</span> <span class="s1">'🥥'</span><span class="p">,</span> <span class="s1">'🍇'</span><span class="p">,</span> <span class="s1">'🍌'</span><span class="p">,</span> <span class="s1">'🍎'</span><span class="p">])</span>
 
-<span class="n">algunas_frutas</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;kiwi&#39;</span><span class="p">,</span> <span class="s1">&#39;coco&#39;</span><span class="p">,</span> <span class="s1">&#39;uva&#39;</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="s1">&#39;manzana&#39;</span><span class="p">]</span>
+<span class="n">algunas_frutas</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'kiwi'</span><span class="p">,</span> <span class="s1">'coco'</span><span class="p">,</span> <span class="s1">'uva'</span><span class="p">,</span> <span class="s1">'banana'</span><span class="p">,</span> <span class="s1">'manzana'</span><span class="p">]</span>
 
 <span class="n">algunas_frutas</span>
 </pre></div>
@@ -6732,9 +6974,9 @@ dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">otras_frutas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;🍇&#39;</span><span class="p">,</span> <span class="s1">&#39;🍐&#39;</span><span class="p">,</span> <span class="s1">&#39;🍎&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">otras_frutas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">'🍇'</span><span class="p">,</span> <span class="s1">'🍐'</span><span class="p">,</span> <span class="s1">'🍎'</span><span class="p">])</span>
 
-<span class="n">otras_frutas</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;uva&#39;</span><span class="p">,</span> <span class="s1">&#39;pera&#39;</span><span class="p">,</span> <span class="s1">&#39;manzana&#39;</span><span class="p">]</span>
+<span class="n">otras_frutas</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'uva'</span><span class="p">,</span> <span class="s1">'pera'</span><span class="p">,</span> <span class="s1">'manzana'</span><span class="p">]</span>
 
 <span class="n">otras_frutas</span>
 </pre></div>
@@ -6805,7 +7047,8 @@ dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>El índice de la <code>Series</code> resultante tiene todas las etiquetas de ambos operandos, con los valores resultantes de la operación. Notar que los elementos no estaban alineados.</p>
 <p><strong>Nota</strong>: Cuando alguno de los operandos es <code>NaN</code> el resultado de la operación es <code>NaN</code>.</p>
@@ -6813,9 +7056,12 @@ dtype: object</pre>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Asignaci&#243;n">Asignaci&#243;n<a class="anchor-link" href="#Asignaci&#243;n"> </a></h3>
+<h3 id="Asignación">
+<a class="anchor" href="#Asignaci%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Asignación<a class="anchor-link" href="#Asignaci%C3%B3n"> </a>
+</h3>
 </div>
 </div>
 </div>
@@ -6827,7 +7073,7 @@ dtype: object</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># convertimos a una Series en un DataFrame de una columna y nombramos a esa columna</span>
-<span class="n">dg</span> <span class="o">=</span> <span class="n">algunas_frutas</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;algunas&#39;</span><span class="p">)</span>
+<span class="n">dg</span> <span class="o">=</span> <span class="n">algunas_frutas</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'algunas'</span><span class="p">)</span>
 
 <span class="n">dg</span>
 </pre></div>
@@ -6905,7 +7151,7 @@ dtype: object</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dg</span><span class="p">[</span><span class="s1">&#39;otras&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">otras_frutas</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dg</span><span class="p">[</span><span class="s1">'otras'</span><span class="p">]</span> <span class="o">=</span> <span class="n">otras_frutas</span>
 
 <span class="n">dg</span>
 </pre></div>
@@ -6982,16 +7228,21 @@ dtype: object</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Se respeta el índice de la tabla, es decir no se le agregan las etiquetas que <code>otras_frutas</code> tiene de más. Los valores se asignan alineados y los valores con etiquetas no presentes en <code>otras_frutas</code> quedan ausentes en la nueva columna.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="M&#225;scaras">M&#225;scaras<a class="anchor-link" href="#M&#225;scaras"> </a></h3><p>La alineación automática funciona aún en el indexado, siempre y cuando la máscara sea una <code>Series</code> y su índice coincida con el del objeto sobre el cual se indexa, lo que suele ser el caso cuando trabajamos con las columnas del <code>DataFrame</code>. Lo que veremos a continuación no funcionaría con una máscara que sea un arreglo de NumPy ya que carece de índice.</p>
+<h3 id="Máscaras">
+<a class="anchor" href="#M%C3%A1scaras" aria-hidden="true"><span class="octicon octicon-link"></span></a>Máscaras<a class="anchor-link" href="#M%C3%A1scaras"> </a>
+</h3>
+<p>La alineación automática funciona aún en el indexado, siempre y cuando la máscara sea una <code>Series</code> y su índice coincida con el del objeto sobre el cual se indexa, lo que suele ser el caso cuando trabajamos con las columnas del <code>DataFrame</code>. Lo que veremos a continuación no funcionaría con una máscara que sea un arreglo de NumPy ya que carece de índice.</p>
 
 </div>
 </div>
@@ -7351,16 +7602,21 @@ Name: ambientes, dtype: bool</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Nota</strong>: Que el indexado haga uso de las etiquetas de la máscara es la razón por la cuál las máscaras funcionan en el indexado por etiquetas (<code>loc</code>) y no en el indexado por posición (<code>iloc</code>).</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Ejemplo-integrador">Ejemplo integrador<a class="anchor-link" href="#Ejemplo-integrador"> </a></h2><p>El siguiente ejemplo asigna a aquellos avisos que carecen de superficie cubierta, su superficie total.</p>
+<h2 id="Ejemplo-integrador">
+<a class="anchor" href="#Ejemplo-integrador" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ejemplo integrador<a class="anchor-link" href="#Ejemplo-integrador"> </a>
+</h2>
+<p>El siguiente ejemplo asigna a aquellos avisos que carecen de superficie cubierta, su superficie total.</p>
 
 </div>
 </div>
@@ -7372,7 +7628,7 @@ Name: ambientes, dtype: bool</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">superficie_cubierta</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span> <span class="s1">&#39;superficie_cubierta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">superficie_total</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">superficie_cubierta</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span> <span class="s1">'superficie_cubierta'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">superficie_total</span>
 </pre></div>
 
     </div>
@@ -7382,10 +7638,12 @@ Name: ambientes, dtype: bool</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ol>
-<li><code>loc</code> para indexar por filas y columnas; necesitamos indexar por etiquetas para hacer referencia a la columna sobre la cual hacer la asignación por su nombre.</li>
+<li>
+<code>loc</code> para indexar por filas y columnas; necesitamos indexar por etiquetas para hacer referencia a la columna sobre la cual hacer la asignación por su nombre.</li>
 <li>Creamos una máscara usando la columna superficie_cubierta y la operación vectorizada <code>isnull</code>, que servirá para seleccionar aquellas filas en las que superficie_cubierta es <code>NaN</code>.</li>
 <li>Asignamos los valores presentes en la columna superficie_total y no nos preocupamos por hacer una selección (como la del punto anterior) sobre estos valores ya que la alineación automática se encargará de alinear las filas de ambos lados de la asignación por su etiqueta.</li>
 </ol>
@@ -7393,9 +7651,13 @@ Name: ambientes, dtype: bool</pre>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Visualizaci&#243;n-b&#225;sica">Visualizaci&#243;n b&#225;sica<a class="anchor-link" href="#Visualizaci&#243;n-b&#225;sica"> </a></h2><p>Ver más: <a href="http://pandas.pydata.org/pandas-docs/stable/visualization.html">http://pandas.pydata.org/pandas-docs/stable/visualization.html</a></p>
+<h2 id="Visualización-básica">
+<a class="anchor" href="#Visualizaci%C3%B3n-b%C3%A1sica" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visualización básica<a class="anchor-link" href="#Visualizaci%C3%B3n-b%C3%A1sica"> </a>
+</h2>
+<p>Ver más: <a href="http://pandas.pydata.org/pandas-docs/stable/visualization.html">http://pandas.pydata.org/pandas-docs/stable/visualization.html</a></p>
 
 </div>
 </div>
@@ -7418,17 +7680,25 @@ Name: ambientes, dtype: bool</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Tanto <code>Series</code> como <code>DataFrame</code>s tienen un atributo llamado <code>plot</code> que habilita los siguientes métodos para distintos gráficos típicos.</p>
 <ul>
-<li><code>line</code> y <code>area</code> para líneas y líneas sólidas.</li>
-<li><code>bar</code> y <code>barh</code> para barras verticales y horizontales.</li>
-<li><code>pie</code> para tortas.</li>
-<li><code>scatter</code> para puntos.</li>
-<li><code>hist</code> y <code>hexbin</code> para histogramas e histogramas 2D.</li>
-<li><code>density</code> o <code>kde</code> para densidad de probabilidad.</li>
-<li><code>box</code> para <em>boxplot</em>.</li>
+<li>
+<code>line</code> y <code>area</code> para líneas y líneas sólidas.</li>
+<li>
+<code>bar</code> y <code>barh</code> para barras verticales y horizontales.</li>
+<li>
+<code>pie</code> para tortas.</li>
+<li>
+<code>scatter</code> para puntos.</li>
+<li>
+<code>hist</code> y <code>hexbin</code> para histogramas e histogramas 2D.</li>
+<li>
+<code>density</code> o <code>kde</code> para densidad de probabilidad.</li>
+<li>
+<code>box</code> para <em>boxplot</em>.</li>
 </ul>
 <p><strong>IMPORTANTE</strong>: Cuando graficamos en base a un <code>DataFrame</code>, cada columna se interpreta como una variable.</p>
 
@@ -7467,8 +7737,7 @@ Name: ambientes, dtype: bool</pre>
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-" />
+<img src="data:image/png;base64,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%0A">
 </div>
 
 </div>
@@ -7479,9 +7748,13 @@ Name: ambientes, dtype: bool</pre>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Actividad-de-investigaci&#243;n">Actividad de investigaci&#243;n<a class="anchor-link" href="#Actividad-de-investigaci&#243;n"> </a></h2><p>Consultar la ayuda o la web para saber más de los métodos que se encuentran a continuación. Por ejemplo:</p>
+<h2 id="Actividad-de-investigación">
+<a class="anchor" href="#Actividad-de-investigaci%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Actividad de investigación<a class="anchor-link" href="#Actividad-de-investigaci%C3%B3n"> </a>
+</h2>
+<p>Consultar la ayuda o la web para saber más de los métodos que se encuentran a continuación. Por ejemplo:</p>
 
 </div>
 </div>
@@ -7508,7 +7781,7 @@ Name: ambientes, dtype: bool</pre>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Help on function sort_values in module pandas.core.frame:
 
-sort_values(self, by, axis=0, ascending=True, inplace=False, kind=&#39;quicksort&#39;, na_position=&#39;last&#39;, ignore_index=False)
+sort_values(self, by, axis=0, ascending=True, inplace=False, kind='quicksort', na_position='last', ignore_index=False)
     Sort by the values along either axis.
     
     Parameters
@@ -7516,15 +7789,15 @@ sort_values(self, by, axis=0, ascending=True, inplace=False, kind=&#39;quicksort
             by : str or list of str
                 Name or list of names to sort by.
     
-                - if `axis` is 0 or `&#39;index&#39;` then `by` may contain index
+                - if `axis` is 0 or `'index'` then `by` may contain index
                   levels and/or column labels.
-                - if `axis` is 1 or `&#39;columns&#39;` then `by` may contain column
+                - if `axis` is 1 or `'columns'` then `by` may contain column
                   levels and/or index labels.
     
                 .. versionchanged:: 0.23.0
     
                    Allow specifying index or column level names.
-    axis : {0 or &#39;index&#39;, 1 or &#39;columns&#39;}, default 0
+    axis : {0 or 'index', 1 or 'columns'}, default 0
          Axis to be sorted.
     ascending : bool or list of bool, default True
          Sort ascending vs. descending. Specify list for multiple sort
@@ -7532,12 +7805,12 @@ sort_values(self, by, axis=0, ascending=True, inplace=False, kind=&#39;quicksort
          the by.
     inplace : bool, default False
          If True, perform operation in-place.
-    kind : {&#39;quicksort&#39;, &#39;mergesort&#39;, &#39;heapsort&#39;}, default &#39;quicksort&#39;
+    kind : {'quicksort', 'mergesort', 'heapsort'}, default 'quicksort'
          Choice of sorting algorithm. See also ndarray.np.sort for more
          information.  `mergesort` is the only stable algorithm. For
          DataFrames, this option is only applied when sorting on a single
          column or label.
-    na_position : {&#39;first&#39;, &#39;last&#39;}, default &#39;last&#39;
+    na_position : {'first', 'last'}, default 'last'
          Puts NaNs at the beginning if `first`; `last` puts NaNs at the
          end.
     ignore_index : bool, default False
@@ -7553,9 +7826,9 @@ sort_values(self, by, axis=0, ascending=True, inplace=False, kind=&#39;quicksort
     Examples
     --------
     &gt;&gt;&gt; df = pd.DataFrame({
-    ...     &#39;col1&#39;: [&#39;A&#39;, &#39;A&#39;, &#39;B&#39;, np.nan, &#39;D&#39;, &#39;C&#39;],
-    ...     &#39;col2&#39;: [2, 1, 9, 8, 7, 4],
-    ...     &#39;col3&#39;: [0, 1, 9, 4, 2, 3],
+    ...     'col1': ['A', 'A', 'B', np.nan, 'D', 'C'],
+    ...     'col2': [2, 1, 9, 8, 7, 4],
+    ...     'col3': [0, 1, 9, 4, 2, 3],
     ... })
     &gt;&gt;&gt; df
         col1 col2 col3
@@ -7568,7 +7841,7 @@ sort_values(self, by, axis=0, ascending=True, inplace=False, kind=&#39;quicksort
     
     Sort by col1
     
-    &gt;&gt;&gt; df.sort_values(by=[&#39;col1&#39;])
+    &gt;&gt;&gt; df.sort_values(by=['col1'])
         col1 col2 col3
     0   A    2    0
     1   A    1    1
@@ -7579,7 +7852,7 @@ sort_values(self, by, axis=0, ascending=True, inplace=False, kind=&#39;quicksort
     
     Sort by multiple columns
     
-    &gt;&gt;&gt; df.sort_values(by=[&#39;col1&#39;, &#39;col2&#39;])
+    &gt;&gt;&gt; df.sort_values(by=['col1', 'col2'])
         col1 col2 col3
     1   A    1    1
     0   A    2    0
@@ -7590,7 +7863,7 @@ sort_values(self, by, axis=0, ascending=True, inplace=False, kind=&#39;quicksort
     
     Sort Descending
     
-    &gt;&gt;&gt; df.sort_values(by=&#39;col1&#39;, ascending=False)
+    &gt;&gt;&gt; df.sort_values(by='col1', ascending=False)
         col1 col2 col3
     4   D    7    2
     5   C    4    3
@@ -7601,7 +7874,7 @@ sort_values(self, by, axis=0, ascending=True, inplace=False, kind=&#39;quicksort
     
     Putting NAs first
     
-    &gt;&gt;&gt; df.sort_values(by=&#39;col1&#39;, ascending=False, na_position=&#39;first&#39;)
+    &gt;&gt;&gt; df.sort_values(by='col1', ascending=False, na_position='first')
         col1 col2 col3
     3   NaN  8    4
     4   D    7    2
@@ -7620,20 +7893,33 @@ sort_values(self, by, axis=0, ascending=True, inplace=False, kind=&#39;quicksort
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Ordenar-valores">Ordenar valores<a class="anchor-link" href="#Ordenar-valores"> </a></h4><ul>
+<h4 id="Ordenar-valores">
+<a class="anchor" href="#Ordenar-valores" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ordenar valores<a class="anchor-link" href="#Ordenar-valores"> </a>
+</h4>
+<ul>
 <li>sort_values</li>
 <li>sort_index</li>
 </ul>
-<h4 id="Tirar-filas/columnas">Tirar filas/columnas<a class="anchor-link" href="#Tirar-filas/columnas"> </a></h4><ul>
+<h4 id="Tirar-filas/columnas">
+<a class="anchor" href="#Tirar-filas/columnas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tirar filas/columnas<a class="anchor-link" href="#Tirar-filas/columnas"> </a>
+</h4>
+<ul>
 <li>drop</li>
 <li>drop_duplicates</li>
 </ul>
-<h4 id="Renombrar-filas/columnas">Renombrar filas/columnas<a class="anchor-link" href="#Renombrar-filas/columnas"> </a></h4><ul>
+<h4 id="Renombrar-filas/columnas">
+<a class="anchor" href="#Renombrar-filas/columnas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Renombrar filas/columnas<a class="anchor-link" href="#Renombrar-filas/columnas"> </a>
+</h4>
+<ul>
 <li>rename</li>
 </ul>
-<h4 id="Datos-ausentes">Datos ausentes<a class="anchor-link" href="#Datos-ausentes"> </a></h4><ul>
+<h4 id="Datos-ausentes">
+<a class="anchor" href="#Datos-ausentes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Datos ausentes<a class="anchor-link" href="#Datos-ausentes"> </a>
+</h4>
+<ul>
 <li>dropna</li>
 <li>fillna</li>
 </ul>
@@ -7641,21 +7927,37 @@ sort_values(self, by, axis=0, ascending=True, inplace=False, kind=&#39;quicksort
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Recursos-adicionales">Recursos adicionales<a class="anchor-link" href="#Recursos-adicionales"> </a></h2><h4 id="Documentaci&#243;n">Documentaci&#243;n<a class="anchor-link" href="#Documentaci&#243;n"> </a></h4><ul>
+<h2 id="Recursos-adicionales">
+<a class="anchor" href="#Recursos-adicionales" aria-hidden="true"><span class="octicon octicon-link"></span></a>Recursos adicionales<a class="anchor-link" href="#Recursos-adicionales"> </a>
+</h2>
+<h4 id="Documentación">
+<a class="anchor" href="#Documentaci%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documentación<a class="anchor-link" href="#Documentaci%C3%B3n"> </a>
+</h4>
+<ul>
 <li><a href="https://pandas.pydata.org/pandas-docs/stable/api.html">API</a></li>
 </ul>
-<h4 id="Art&#237;culos">Art&#237;culos<a class="anchor-link" href="#Art&#237;culos"> </a></h4><ul>
+<h4 id="Artículos">
+<a class="anchor" href="#Art%C3%ADculos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Artículos<a class="anchor-link" href="#Art%C3%ADculos"> </a>
+</h4>
+<ul>
 <li><a href="http://gregreda.com/2013/10/26/intro-to-pandas-data-structures/">Intro to Pandas</a></li>
 <li><a href="https://tomaugspurger.github.io/modern-1-intro">Modern Pandas</a></li>
 </ul>
-<h4 id="Machetes">Machetes<a class="anchor-link" href="#Machetes"> </a></h4><ul>
+<h4 id="Machetes">
+<a class="anchor" href="#Machetes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Machetes<a class="anchor-link" href="#Machetes"> </a>
+</h4>
+<ul>
 <li><a href="https://www.dataquest.io/blog/pandas-cheat-sheet/">DataQuest cheat sheet</a></li>
 <li><a href="https://s3.amazonaws.com/assets.datacamp.com/blog_assets/PandasPythonForDataScience.pdf">DataCamp cheat sheet</a></li>
 <li><a href="http://pandas.pydata.org/Pandas_Cheat_Sheet.pdf">Pandas cheat sheet</a></li>
 </ul>
-<h4 id="Libros">Libros<a class="anchor-link" href="#Libros"> </a></h4><ul>
+<h4 id="Libros">
+<a class="anchor" href="#Libros" aria-hidden="true"><span class="octicon octicon-link"></span></a>Libros<a class="anchor-link" href="#Libros"> </a>
+</h4>
+<ul>
 <li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/">Python for data science</a></li>
 <li>Python for data analysis</li>
 </ul>
@@ -7667,20 +7969,28 @@ sort_values(self, by, axis=0, ascending=True, inplace=False, kind=&#39;quicksort
 
 
 
-  </div><a class="u-url" href="/blog/2020/07/30/Pandas-parte-1.html" hidden></a>
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="matiasbattocchia/datito"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/datito/pandas/2020/07/30/Pandas-parte-1.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
-  <data class="u-url" href="/blog/"></data>
+  <data class="u-url" href="/datito/"></data>
 
   <div class="wrapper">
 
     <div class="footer-col-wrapper">
       <div class="footer-col">
         <p class="feed-subscribe">
-          <a href="/blog/feed.xml">
+          <a href="/datito/feed.xml">
             <svg class="svg-icon orange">
-              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+              <use xlink:href="/datito/assets/minima-social-icons.svg#rss"></use>
             </svg><span>Subscribe</span>
           </a>
         </p>
@@ -7690,7 +8000,7 @@ sort_values(self, by, axis=0, ascending=True, inplace=False, kind=&#39;quicksort
       </div>
     </div>
 
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/matiasbattocchia" title="matiasbattocchia"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/matiasbattocchia" title="matiasbattocchia"><svg class="svg-icon grey"><use xlink:href="/datito/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
 </div>
 
   </div>
