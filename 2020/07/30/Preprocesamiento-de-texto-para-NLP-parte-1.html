@@ -1,0 +1,2627 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Preprocesamiento de texto para NLP (parte 1) | datito</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Preprocesamiento de texto para NLP (parte 1)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="(^・x・^)" />
+<meta property="og:description" content="(^・x・^)" />
+<link rel="canonical" href="https://matiasbattocchia.github.io/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-1.html" />
+<meta property="og:url" content="https://matiasbattocchia.github.io/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-1.html" />
+<meta property="og:site_name" content="datito" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-30T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"(^・x・^)","@type":"BlogPosting","headline":"Preprocesamiento de texto para NLP (parte 1)","dateModified":"2020-07-30T00:00:00-05:00","datePublished":"2020-07-30T00:00:00-05:00","url":"https://matiasbattocchia.github.io/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-1.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://matiasbattocchia.github.io/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-1.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://matiasbattocchia.github.io/blog/feed.xml" title="datito" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Preprocesamiento de texto para NLP (parte 1) | datito</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Preprocesamiento de texto para NLP (parte 1)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="(^・x・^)" />
+<meta property="og:description" content="(^・x・^)" />
+<link rel="canonical" href="https://matiasbattocchia.github.io/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-1.html" />
+<meta property="og:url" content="https://matiasbattocchia.github.io/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-1.html" />
+<meta property="og:site_name" content="datito" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-30T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"(^・x・^)","@type":"BlogPosting","headline":"Preprocesamiento de texto para NLP (parte 1)","dateModified":"2020-07-30T00:00:00-05:00","datePublished":"2020-07-30T00:00:00-05:00","url":"https://matiasbattocchia.github.io/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-1.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://matiasbattocchia.github.io/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-1.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://matiasbattocchia.github.io/blog/feed.xml" title="datito" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">datito</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Preprocesamiento de texto para NLP (parte 1)</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-07-30T00:00:00-05:00" itemprop="datePublished">
+        Jul 30, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      21 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/matiasbattocchia/blog/tree/master/_notebooks/Preprocesamiento de texto para NLP parte 1.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/blog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/matiasbattocchia/blog/master?filepath=_notebooks%2FPreprocesamiento+de+texto+para+NLP+parte+1.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/matiasbattocchia/blog/blob/master/_notebooks/Preprocesamiento de texto para NLP parte 1.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/Preprocesamiento de texto para NLP parte 1.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En concreto, los pasos son:</p>
+<ol>
+<li><strong>Limpieza</strong>, la remoción del contenido no deseado.</li>
+<li><strong>Normalización</strong>, la conversión diferentes formas a una sola. </li>
+<li><strong>Tokenización</strong>, la separación del texto en tókenes (unidades mínimas, por ejemplo palabras).</li>
+<li>Separación en <strong>conjuntos de datos</strong>: entrenamiento, validación, prueba.</li>
+<li>Generación del <strong>vocabulario</strong>, la lista de tókenes conocidos.</li>
+<li><strong>Numericalización</strong>, el mapeo de tókenes a números enteros.</li>
+</ol>
+<p>Estos pasos son comunes distintas aproximaciones al procesamiento del lenguaje. En la <a href="">parte 2</a> mostraremos pasos útiles para abarcarlo usando <em>deep learning</em>.</p>
+<ol>
+<li><strong>Loteo</strong>, la generación de porciones de muestras de entrenamiento.</li>
+<li><strong>Relleno</strong>, la conversión del lote en un tensor de PyTorch.</li>
+<li>Carga de <strong><em>embeddings</em></strong>, opcionalmente el uso de <em>embeddings</em> precalculados.</li>
+</ol>
+<p>Nota: El órden de los primeros tres pasos (limpieza, normalización, tokenización) puede variar según conveniencia. El resto de los pasos mantiene el órden.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Dataset-de-ejemplo">Dataset de ejemplo<a class="anchor-link" href="#Dataset-de-ejemplo"> </a></h2><p>¿Qué sería de esta publicación sin algunos ejemplos? Vamos a usar el dataset de la competencia <a href="https://metadata.fundacionsadosky.org.ar/competition/21">clasificación de preguntas de clientes</a> de Meta:Data.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;train.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    
+    <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Pregunta</th>
+      <th>Intencion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>9221</th>
+      <td>hice una compra y no tengo las acciones acreditadas</td>
+      <td>Cat_153</td>
+    </tr>
+    <tr>
+      <th>1298</th>
+      <td>quiero saber si yo puedo solicitar un préstamo</td>
+      <td>Cat_248</td>
+    </tr>
+    <tr>
+      <th>4488</th>
+      <td>perdi la credencial universitaria. como solicito una nueva?</td>
+      <td>Cat_294</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>cambiar moneda tarjeta debitar exterior</td>
+      <td>Cat_289</td>
+    </tr>
+    <tr>
+      <th>19970</th>
+      <td>quiero adherir al debito de la tarjeta el servicio epec. me pide que ingrese numero cuenta de digitos pero en la factura no aparece un numero</td>
+      <td>Cat_129</td>
+    </tr>
+    <tr>
+      <th>3510</th>
+      <td>llegar tarjeta recargable solicití¬≠</td>
+      <td>Cat_293</td>
+    </tr>
+    <tr>
+      <th>14373</th>
+      <td>buenas tardes</td>
+      <td>Cat_19</td>
+    </tr>
+    <tr>
+      <th>5485</th>
+      <td>saber de cuanto es el pago mínimo de tarjeta visa</td>
+      <td>Cat_351</td>
+    </tr>
+    <tr>
+      <th>6752</th>
+      <td>verificar reclamo</td>
+      <td>Cat_135</td>
+    </tr>
+    <tr>
+      <th>10645</th>
+      <td>que sucede cuando se me vence el plazo fijo?</td>
+      <td>Cat_180</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Expresiones-regulares">Expresiones regulares<a class="anchor-link" href="#Expresiones-regulares"> </a></h2><p>Si las expresiones regulares no te resultan familiares entonces vale la pena estudiarlas brevemente, ya que las usaremos. Podés mirar este <a href="https://robologs.net/2019/05/05/como-utilizar-expresiones-regulares-regex-en-python">tutorial</a> que encontramos en la web.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Limpieza">Limpieza<a class="anchor-link" href="#Limpieza"> </a></h2><p>Muchas técnicas modernas no realizan limpieza alguna. Dependiendo de lo que queramos hacer tal vez convenga deshacernos de algunos elementos. En el dataset de ejemplo los signos de puntuación no parecen tener gran relevancia, quizás tampoco la tengan los números (que aparentemente han sido removidos de antemano).</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">limpiar</span><span class="p">(</span><span class="n">texto</span><span class="p">):</span>
+    <span class="n">puntuación</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;[,;.:¡!¿?@#$%&amp;[\]()</span><span class="si">{}</span><span class="s1">&lt;&gt;~=+\-*/|</span><span class="se">\\</span><span class="s1">_^`&quot;</span><span class="se">\&#39;</span><span class="s1">]&#39;</span>
+    
+    <span class="c1"># signos de puntuación</span>
+    <span class="n">texto</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">puntuación</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">texto</span><span class="p">)</span>
+    
+    <span class="c1"># dígitos [0-9]</span>
+    <span class="n">texto</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;\d&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">texto</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">texto</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En esta función substituimos los signos de puntuación</p>
+
+<pre><code>, ; . : ¡ ! ¿ ? @ # $ % &amp; [ ] ( ) { } &lt; &gt; ~ = + - * / | \ _ ^ ` " '
+
+</code></pre>
+<p>por espacios (me gusta más; usar string vacío <code>''</code> para eliminarlos) medieante expresiones regulares (algunos caracteres tuvieron que ser escapados anteponiendo <code>\</code> por tener un significado especial para la expresión regular). Hacemos lo mismo con los dígitos. Veamos un ejemplo de funcionamiento.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">limpiar</span><span class="p">(</span><span class="s1">&#39;hoy 13 trabajan?&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;hoy    trabajan &#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Otros elementos que podríamos pensar en remover son caracteres invisibles, espacios redundantes. Veremos que esto en particular también puede ser resulto en la tokenización.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Normalizaci&#243;n">Normalizaci&#243;n<a class="anchor-link" href="#Normalizaci&#243;n"> </a></h2><p>Normalizar es la tarea de llevar lo que puede ser expresado de múltiples maneras como fechas, números y abreviaturas a una única forma. Por ejemplo</p>
+
+<pre><code> 13/03/30 -&gt; trece de marzo de dos mil treinta
+ DC -&gt; departamento de computación
+
+</code></pre>
+<p>Se trata de una práctica clásica de la época de los modelos de lenguaje probabilísticos, que intentaban reducir lo más posible la cantidad de palabras. En cierta forma 1 palabra = 1 atributo (lo que en los '90s conocimos como convertibilidad). Elegir atributos es ingeniería de atributos, la parte central del <em>machine learning</em>, y lo justamente lo que el <em>deep learning</em> busca automatizar.</p>
+<p>Sin embargo hay una normalización muy común hoy, el <strong>convertir todo el texto a minúsculas</strong>. En el caso del español, una normalización común es la <strong>remoción de tildes</strong>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">normalizar</span><span class="p">(</span><span class="n">texto</span><span class="p">):</span>
+    <span class="c1"># todo a minúsculas</span>
+    <span class="n">texto</span> <span class="o">=</span> <span class="n">texto</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="c1"># tildes y diacríticas</span>
+    <span class="n">texto</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;á&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">texto</span><span class="p">)</span>
+    <span class="n">texto</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;é&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="n">texto</span><span class="p">)</span>
+    <span class="n">texto</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;í&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="n">texto</span><span class="p">)</span>
+    <span class="n">texto</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;ó&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">texto</span><span class="p">)</span>
+    <span class="n">texto</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;ú&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="n">texto</span><span class="p">)</span>
+    <span class="n">texto</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;ü&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="n">texto</span><span class="p">)</span>
+    <span class="n">texto</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;ñ&#39;</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="n">texto</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">texto</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">normalizar</span><span class="p">(</span><span class="s1">&#39;Me podrán dar información de un préstamo personal&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;me podran dar informacion de un prestamo personal&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Hay una librería llamada <a href="https://pypi.org/project/Unidecode">unidecode</a> que realiza transliteración: representa letras o palabras de un alfabeto en otro, útil si tenemos caracteres en ruso (cirílico) o chino (caracteres Han), aún útil para el alfabeto latino cuando queremos pasar de Unicode a ASCII (lo que substituiría las tildes).</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="ch">#!pip install unidecode</span>
+
+<span class="kn">from</span> <span class="nn">unidecode</span> <span class="kn">import</span> <span class="n">unidecode</span>
+
+<span class="n">unidecode</span><span class="p">(</span><span class="s1">&#39;Me podrán dar información de un préstamo personal&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;Me podran dar informacion de un prestamo personal&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Una normalización que vale la pena intentar con este dataset es la <strong>correción ortográfica</strong> con un paquete como <a href="https://pypi.org/project/pyspellchecker">pyspellchecker</a>. Quizás con artículos de diarios en los que la redacción está más cuidada esto no valga la pena, pero en contextos más informales como este, conversaciones por char, Twitter, las palabras mal escritas en realidad refieren a una sola palabra y no a distintos significados.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Tokenizaci&#243;n">Tokenizaci&#243;n<a class="anchor-link" href="#Tokenizaci&#243;n"> </a></h2><p>Tokenizar es separar el texto en partes más pequeñas llamadas tókenes. Una unidad muy común es la palabras pero depende de lo que queramos hacer, si es que no hemos eliminado a los signos de puntuación estos también serían tókenes. Las palabras frecuentemente están compuestas por una raíz, prefijo y/o sufijo, por lo que podríamos decidir separarlos también. En inglés es común separar <code>it's</code> en <code>it</code> y <code>'s</code>, si bien en español esta situación no es común.</p>
+<p>A diferencia de la limpieza y la normalización, la tokenización <strong>es un paso indispesable</strong> en la preparación de texto para su procesamiento.</p>
+<p>Para el dataset en cuestión la tokenización es simple, vamos a separar seǵun espacios y demás caracteres invisibles como <code>\t</code> (tabulación) y <code>\n</code> (salto de línea). De haber signos de puntuación, pro ejemplo si quisiéramos procesar un documento extenso en oraciones, el proceso es más complejo ya que <code>final.</code> tiene un punto en vez de un espacio, y no siempre los puntos demarcan el final de un tóken como en <code>A.M.</code> y <code>P.M.</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Debemos definir si elementos como los signos de puntuación son tókenes o si simplemente delimitan palabras o tókenes, en cuyo caso desaparecerían en el proceso. Mismo con los caracteres invisibles, si estuviésemos haciendo un modelo que programe en Python, la indentación es fundamental y deberiera mantenerse.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">tokenizar</span><span class="p">(</span><span class="n">texto</span><span class="p">):</span>
+    <span class="c1"># IMPORTANTE: podría devolver una lista vacía</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">texto</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>split</code> también se encarga de los caracteres invisibles repetidos.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tokenizar</span><span class="p">(</span><span class="s1">&#39;hola vengo       a flotar&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;hola&#39;, &#39;vengo&#39;, &#39;a&#39;, &#39;flotar&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Acá estamos cambiando el tipo de datos, ya que de un string hemos pasado a una lista de strings.</p>
+<p>Si la expresión dentro de la función no te resulta familiar, es una construcción llamada <em>list comprehension</em> y es una manera muy efectiva de armar una lista. Es lo mismo que hacer</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lista</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">lista</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    
+<span class="n">lista</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>pero de una manera más expresiva y también más eficiente (está optimizado por el lenguaje)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Varios modelos de lenguaje utilizan caracteres en vez de palabras como tókenes, esto es útil por varios motivos que listaremos más adelante. Otros utilizan partes de palabras como sílabas (las partes se determinan estadísticamente). Ver <a href="https://arxiv.org/pdf/1508.07909.pdf">https://arxiv.org/pdf/1508.07909.pdf</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Tokenizaci&#243;n-utilizando-alguna-librer&#237;a">Tokenizaci&#243;n utilizando alguna librer&#237;a<a class="anchor-link" href="#Tokenizaci&#243;n-utilizando-alguna-librer&#237;a"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="ch">#!pip install spacy</span>
+<span class="c1">#!python -m spacy download es_core_news_sm</span>
+
+<span class="kn">import</span> <span class="nn">spacy</span>
+
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;es_core_news_sm&#39;</span><span class="p">)</span>
+
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;Esto es una frase.&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">([</span><span class="n">tóken</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;Esto&#39;, &#39;es&#39;, &#39;una&#39;, &#39;frase&#39;, &#39;.&#39;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Otros-pre-procesos">Otros pre-procesos<a class="anchor-link" href="#Otros-pre-procesos"> </a></h2><p>Clásicamente se aplicaban alguno de estos para reducir aún más la cantidad de palabras:</p>
+<h4 id="Stemming"><em>Stemming</em><a class="anchor-link" href="#Stemming"> </a></h4><p><em>Stem</em>, de raíz, reduce la inflección de las palabras, mapeando un grupo de palabras a la misma raíz, sin importar si la raíz es una palabras válida en el lenguaje.</p>
+
+<pre><code> caminando, caminar, camino -&gt; camin
+
+</code></pre>
+<h4 id="Lemmatization"><em>Lemmatization</em><a class="anchor-link" href="#Lemmatization"> </a></h4><p>A diferencia del <em>stemming</em>, la lematización reduce las palabras inflexadas a palabras que pertenecen al lenguaje. La raíz pasa a llamarse <em>lema</em>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Primera-parte-del-pre-procesamiento">Primera parte del pre-procesamiento<a class="anchor-link" href="#Primera-parte-del-pre-procesamiento"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">preprocesar</span><span class="p">(</span><span class="n">texto</span><span class="p">):</span>
+    <span class="n">texto</span> <span class="o">=</span> <span class="n">limpiar</span><span class="p">(</span><span class="n">texto</span><span class="p">)</span>
+    <span class="n">texto</span> <span class="o">=</span> <span class="n">normalizar</span><span class="p">(</span><span class="n">texto</span><span class="p">)</span>
+    <span class="n">texto</span> <span class="o">=</span> <span class="n">tokenizar</span><span class="p">(</span><span class="n">texto</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">texto</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Conjuntos-de-datos">Conjuntos de datos<a class="anchor-link" href="#Conjuntos-de-datos"> </a></h2><p>En la competencias normalmente encontramos dos archivos, el de entrenamiento y el de inferencia —que le suelen llamar de prueba y es el que tenemos que predecir para entregar—. Del que suelen llamar <code>train</code> también tenemos que obtener el de validación.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">infer_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;test.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">train_df</span><span class="p">,</span> <span class="n">valid_df</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="https://www.googleapis.com/download/storage/v1/b/kaggle-user-content/o/inbox%2F3061129%2Fc9ef73f33bf2b505d48be10211ffa47c%2FScikit.jfif?generation=1580787055399439&amp;alt=media" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ahora estamos en condiciones de pre-procesar todo lo que tenemos:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_docs</span> <span class="o">=</span> <span class="p">[</span><span class="n">preprocesar</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">train_df</span><span class="p">[</span><span class="s1">&#39;Pregunta&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+<span class="n">valid_docs</span> <span class="o">=</span> <span class="p">[</span><span class="n">preprocesar</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">valid_df</span><span class="p">[</span><span class="s1">&#39;Pregunta&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+<span class="n">infer_docs</span> <span class="o">=</span> <span class="p">[</span><span class="n">preprocesar</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">infer_df</span><span class="p">[</span><span class="s1">&#39;Pregunta&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Hemos pasado de una Series de Pandas, array de NumPy o una <strong>lista de strings</strong></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_df</span><span class="p">[</span><span class="s1">&#39;Pregunta&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([&#39;que se requiere para un préstamo personal?&#39;,
+       &#39;me piden mi número de cuenta es mi cbu?&#39;,
+       &#39;necesitar adherir aysa tarjeta&#39;,
+       &#39;te financian igual un usado o un 0km?&#39;], dtype=object)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>a una <strong>lista de listas de strings</strong></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_docs</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[&#39;que&#39;, &#39;se&#39;, &#39;requiere&#39;, &#39;para&#39;, &#39;un&#39;, &#39;prestamo&#39;, &#39;personal&#39;],
+ [&#39;me&#39;, &#39;piden&#39;, &#39;mi&#39;, &#39;numero&#39;, &#39;de&#39;, &#39;cuenta&#39;, &#39;es&#39;, &#39;mi&#39;, &#39;cbu&#39;],
+ [&#39;necesitar&#39;, &#39;adherir&#39;, &#39;aysa&#39;, &#39;tarjeta&#39;],
+ [&#39;te&#39;, &#39;financian&#39;, &#39;igual&#39;, &#39;un&#39;, &#39;usado&#39;, &#39;o&#39;, &#39;un&#39;, &#39;km&#39;]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Un poco de nomenclatura: estamos llamando corpus a la colección de textos. Nos referimos también a los textos como documentos. También estamos usando el término lote (<em>batch</em>) para referirnos a un (sub)conjunto de documentos.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Vocabulario">Vocabulario<a class="anchor-link" href="#Vocabulario"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Este paso es importante. Aquí definimos y limitamos la tókenes que vamos a utilizar. El lenguaje es infinito, para convertirlo en un problema tratable muchas veces los que hacemos es reducirlo. Clave para varias prácticas de reducción es contar las frecuencias de los tókenes, esto es, cuántas veces aparece cada tóken en todo el corpus. Como mencionamos las palabras más frecuentes no aportan mucha información y las más infrecuentes si bien son las que más información tienen no llegarán a ser representativas para nuestro modelo. Descartar palabras poco frecuentes también afecta a errores ortográficos.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Útil para este paso es la clase <code>Counter</code> de la librería estándar de Python.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">])</span>
+
+<span class="c1"># obtener los dos elementos más comunes y sus frecuencias</span>
+<span class="n">c</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(&#39;a&#39;, 3), (&#39;b&#39;, 2)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Una función de la librería estándar llamada <code>chain</code> nos dará una mano convirtiendo la lista de listas de tókenes en una lista de tókenes, similar a <code>numpy.flatten</code>, ya que <code>Counter</code> espera una lista con elementos a contar y nuestros tókenes están separados por documentos, hay que juntarlos.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+
+<span class="nb">list</span><span class="p">(</span><span class="n">chain</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;c&#39;, &#39;d&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>chain</code> encadena las listas que le pasamos como argumentos variables. Podemos usar el operador <em>splat</em> <code>*</code> para contentar a la función (convertir la lista principal en una serie de argumentos).</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span> <span class="o">*</span><span class="p">[</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">]</span> <span class="p">]</span> <span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;c&#39;, &#39;d&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En vez de una lista podemos pedir un conjunto (<code>set</code>), en el que los elementos no se repiten. Este bien podría ser el vocabulario.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span> <span class="o">*</span><span class="p">[</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">]</span> <span class="p">]</span> <span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En definitiva, es la lista oficial de tókenes.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># versión 1</span>
+<span class="k">class</span> <span class="nc">Vocab</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vocabulario</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">lote</span><span class="p">))</span>
+        
+        <span class="k">return</span> <span class="bp">self</span>
+    
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vocabulario</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Es importante generar el vocabulario con el dataset de entrenamiento, ya que como mencionamos se trata de la lista de palabras conocidas. Le agregamos un <code>__len__</code> porque también es útil conocer el tamaño del vocabulario.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">Vocab</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_docs</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-3-04b70b8e4c3d&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>v <span class="ansi-blue-fg">=</span> Vocab<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>fit<span class="ansi-blue-fg">(</span>train_docs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> len<span class="ansi-blue-fg">(</span>v<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;train_docs&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>¿Qué pasa con las palabras que no están en la lista? Se las conoce como tókenen <strong>fuera del vocabulario</strong> (<em>out-of-vocabulary</em>, abreviado OOV). Estas requieren acciones especiales, podríamos</p>
+<ul>
+<li>ignorarlas</li>
+<li>reemplazarlas por un tóken especial</li>
+<li>inferirlas (ver más adelante, embeddings)</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># versión 1.1</span>
+<span class="k">class</span> <span class="nc">Vocab</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tóken_desconocido</span><span class="o">=</span><span class="s1">&#39;&lt;unk&gt;&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span> <span class="o">=</span> <span class="n">tóken_desconocido</span>
+        
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vocabulario</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">lote</span><span class="p">)))</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vocabulario</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+    
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">:</span> <span class="c1"># reemplazar</span>
+            <span class="k">return</span> <span class="p">[[</span><span class="n">tóken</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vocabulario</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># ignorar</span>
+            <span class="k">return</span> <span class="p">[[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vocabulario</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vocabulario</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Vocab</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_docs</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span>
+    <span class="p">[</span><span class="s1">&#39;poder&#39;</span><span class="p">,</span> <span class="s1">&#39;gestionar&#39;</span><span class="p">,</span> <span class="s1">&#39;clave&#39;</span><span class="p">,</span> <span class="s1">&#39;paso&#39;</span><span class="p">,</span> <span class="s1">&#39;pagina&#39;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">&#39;desde&#39;</span><span class="p">,</span> <span class="s1">&#39;cuando&#39;</span><span class="p">,</span> <span class="s1">&#39;arranco&#39;</span><span class="p">,</span> <span class="s1">&#39;con&#39;</span><span class="p">,</span> <span class="s1">&#39;el&#39;</span><span class="p">,</span> <span class="s1">&#39;programa&#39;</span><span class="p">,</span> <span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="s1">&#39;millas&#39;</span><span class="p">],</span>
+<span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[&#39;poder&#39;, &#39;gestionar&#39;, &#39;clave&#39;, &#39;paso&#39;, &#39;pagina&#39;],
+ [&#39;desde&#39;, &#39;cuando&#39;, &#39;&lt;unk&gt;&#39;, &#39;con&#39;, &#39;el&#39;, &#39;programa&#39;, &#39;de&#39;, &#39;millas&#39;]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Numericalizaci&#243;n">Numericalizaci&#243;n<a class="anchor-link" href="#Numericalizaci&#243;n"> </a></h2><p>También conocido como indexación. Así como a las unidades mínimas que consideramos las llamamos tókenes, a los números que los representan los llamamos <strong>índices</strong>. Ya que el vocabulario tiene la lista de tókenes, le vamos a pedir una responsabilidad adicional: que mantenga una asignación entre tókenes y números enteros. Posiblemente ya te ha sucedido pasarle valores no númericos a un estimador y ver cómo falla.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vocabulario</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">,</span><span class="s1">&#39;&lt;unk&gt;&#39;</span><span class="p">]</span>
+
+<span class="p">{</span><span class="n">tóken</span><span class="p">:</span> <span class="n">índice</span> <span class="k">for</span> <span class="n">índice</span><span class="p">,</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vocabulario</span><span class="p">)}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;a&#39;: 0, &#39;b&#39;: 1, &#39;c&#39;: 2, &#39;d&#39;: 3, &#39;&lt;unk&gt;&#39;: 4}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>que es lo mismo que</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mapeo</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">índice</span><span class="p">,</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vocabulario</span><span class="p">):</span>
+    <span class="n">mapeo</span><span class="p">[</span><span class="n">tóken</span><span class="p">]</span> <span class="o">=</span> <span class="n">índice</span>
+
+<span class="n">mapeo</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;a&#39;: 0, &#39;b&#39;: 1, &#39;c&#39;: 2, &#39;d&#39;: 3, &#39;&lt;unk&gt;&#39;: 4}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>¿Qué es lo que hace <code>enumerate</code>? Como su nombre lo indica, enumera los elementos de una colección.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">vocabulario</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(0, &#39;a&#39;), (1, &#39;b&#39;), (2, &#39;c&#39;), (3, &#39;d&#39;), (4, &#39;&lt;unk&gt;&#39;)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># versión 2</span>
+<span class="k">class</span> <span class="nc">Vocab</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tóken_desconocido</span><span class="o">=</span><span class="s1">&#39;&lt;unk&gt;&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span> <span class="o">=</span> <span class="n">tóken_desconocido</span>
+        
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">lote</span><span class="p">)))</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">:</span>
+            <span class="n">vocabulario</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span> <span class="o">=</span> <span class="p">{</span><span class="n">tóken</span><span class="p">:</span> <span class="n">índice</span> <span class="k">for</span> <span class="n">índice</span><span class="p">,</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vocabulario</span><span class="p">)}</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+    
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">:</span> <span class="c1"># reemplazar</span>
+            <span class="k">return</span> <span class="p">[[</span><span class="n">tóken</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># ignorar</span>
+            <span class="k">return</span> <span class="p">[[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Comprobemos que la nueva versión de <code>Vocab</code> funciona como la anterior. Además veamos qué sucedo cuando no queremos el tóken para palabras fuera de vocabulario.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Vocab</span><span class="p">(</span><span class="n">tóken_desconocido</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_docs</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span>
+    <span class="p">[</span><span class="s1">&#39;poder&#39;</span><span class="p">,</span> <span class="s1">&#39;gestionar&#39;</span><span class="p">,</span> <span class="s1">&#39;clave&#39;</span><span class="p">,</span> <span class="s1">&#39;paso&#39;</span><span class="p">,</span> <span class="s1">&#39;pagina&#39;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">&#39;desde&#39;</span><span class="p">,</span> <span class="s1">&#39;cuando&#39;</span><span class="p">,</span> <span class="s1">&#39;arranco&#39;</span><span class="p">,</span> <span class="s1">&#39;con&#39;</span><span class="p">,</span> <span class="s1">&#39;el&#39;</span><span class="p">,</span> <span class="s1">&#39;programa&#39;</span><span class="p">,</span> <span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="s1">&#39;millas&#39;</span><span class="p">],</span>
+<span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[&#39;poder&#39;, &#39;gestionar&#39;, &#39;clave&#39;, &#39;paso&#39;, &#39;pagina&#39;],
+ [&#39;desde&#39;, &#39;cuando&#39;, &#39;con&#39;, &#39;el&#39;, &#39;programa&#39;, &#39;de&#39;, &#39;millas&#39;]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ahora vamos a agregar métodos para convertir tókenes a índices y viceversa.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># versión 2.1</span>
+<span class="k">class</span> <span class="nc">Vocab</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tóken_desconocido</span><span class="o">=</span><span class="s1">&#39;&lt;unk&gt;&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span> <span class="o">=</span> <span class="n">tóken_desconocido</span>
+        
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="c1"># agregamos `sorted` porque el orden al aplicar `set` no está asegurado</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">lote</span><span class="p">))))</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">:</span>
+            <span class="n">vocabulario</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span> <span class="o">=</span> <span class="p">{</span><span class="n">tóken</span><span class="p">:</span> <span class="n">índice</span> <span class="k">for</span> <span class="n">índice</span><span class="p">,</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vocabulario</span><span class="p">)}</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+    
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">:</span> <span class="c1"># reemplazar</span>
+            <span class="k">return</span> <span class="p">[[</span><span class="n">tóken</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># ignorar</span>
+            <span class="k">return</span> <span class="p">[[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">tókenes_a_índices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="n">lote</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">lote</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="p">[</span><span class="n">tóken</span><span class="p">]</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">índices_a_tókenes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="n">mapeo_inverso</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        
+        <span class="k">return</span> <span class="p">[[</span><span class="n">mapeo_inverso</span><span class="p">[</span><span class="n">índice</span><span class="p">]</span> <span class="k">for</span> <span class="n">índice</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">Vocab</span><span class="p">(</span><span class="n">tóken_desconocido</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_docs</span><span class="p">)</span>
+
+<span class="n">v</span><span class="o">.</span><span class="n">tókenes_a_índices</span><span class="p">([</span>
+    <span class="p">[</span><span class="s1">&#39;que&#39;</span><span class="p">,</span> <span class="s1">&#39;se&#39;</span><span class="p">,</span> <span class="s1">&#39;requiere&#39;</span><span class="p">,</span> <span class="s1">&#39;para&#39;</span><span class="p">,</span> <span class="s1">&#39;un&#39;</span><span class="p">,</span> <span class="s1">&#39;prestamo&#39;</span><span class="p">,</span> <span class="s1">&#39;personal&#39;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">&#39;me&#39;</span><span class="p">,</span> <span class="s1">&#39;piden&#39;</span><span class="p">,</span> <span class="s1">&#39;mi&#39;</span><span class="p">,</span> <span class="s1">&#39;numero&#39;</span><span class="p">,</span> <span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="s1">&#39;cuenta&#39;</span><span class="p">,</span> <span class="s1">&#39;es&#39;</span><span class="p">,</span> <span class="s1">&#39;mi&#39;</span><span class="p">,</span> <span class="s1">&#39;cbu&#39;</span><span class="p">],</span>
+<span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[4160, 4683, 4484, 3703, 5294, 4011, 3825],
+ [3275, 3854, 3319, 3554, 1532, 1462, 2151, 3319, 950]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v</span><span class="o">.</span><span class="n">índices_a_tókenes</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">4160</span><span class="p">,</span> <span class="mi">4683</span><span class="p">,</span> <span class="mi">4484</span><span class="p">,</span> <span class="mi">3703</span><span class="p">,</span> <span class="mi">5294</span><span class="p">,</span> <span class="mi">4011</span><span class="p">,</span> <span class="mi">3825</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">3275</span><span class="p">,</span> <span class="mi">3854</span><span class="p">,</span> <span class="mi">3319</span><span class="p">,</span> <span class="mi">3554</span><span class="p">,</span> <span class="mi">1532</span><span class="p">,</span> <span class="mi">1462</span><span class="p">,</span> <span class="mi">2151</span><span class="p">,</span> <span class="mi">3319</span><span class="p">,</span> <span class="mi">950</span><span class="p">],</span>
+<span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[&#39;que&#39;, &#39;se&#39;, &#39;requiere&#39;, &#39;para&#39;, &#39;un&#39;, &#39;prestamo&#39;, &#39;personal&#39;],
+ [&#39;me&#39;, &#39;piden&#39;, &#39;mi&#39;, &#39;numero&#39;, &#39;de&#39;, &#39;cuenta&#39;, &#39;es&#39;, &#39;mi&#39;, &#39;cbu&#39;]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Casos-especiales">Casos especiales<a class="anchor-link" href="#Casos-especiales"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>¿Qué sucede con los documentos que al ser tokenizados regresan vacíos? ¿O con documentos compuestos enteramente por palabras fuera del vocabulario?</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">documentos_problemáticos</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;??? ???&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Banks charge high fees for foreign ATM&#39;</span>
+<span class="p">]</span>
+
+<span class="p">[</span><span class="n">preprocesar</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">documentos_problemáticos</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[], [&#39;banks&#39;, &#39;charge&#39;, &#39;high&#39;, &#39;fees&#39;, &#39;for&#39;, &#39;foreign&#39;, &#39;atm&#39;]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">Vocab</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_docs</span><span class="p">)</span>
+
+<span class="n">v</span><span class="o">.</span><span class="n">transform</span><span class="p">([[],</span> <span class="p">[</span><span class="s1">&#39;banks&#39;</span><span class="p">,</span> <span class="s1">&#39;charge&#39;</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">,</span> <span class="s1">&#39;fees&#39;</span><span class="p">,</span> <span class="s1">&#39;for&#39;</span><span class="p">,</span> <span class="s1">&#39;foreign&#39;</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[], [&#39;&lt;unk&gt;&#39;, &#39;&lt;unk&gt;&#39;, &#39;&lt;unk&gt;&#39;, &#39;&lt;unk&gt;&#39;, &#39;&lt;unk&gt;&#39;, &#39;&lt;unk&gt;&#39;]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v</span><span class="o">.</span><span class="n">tókenes_a_índices</span><span class="p">([[],</span> <span class="p">[</span><span class="s1">&#39;banks&#39;</span><span class="p">,</span> <span class="s1">&#39;charge&#39;</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">,</span> <span class="s1">&#39;fees&#39;</span><span class="p">,</span> <span class="s1">&#39;for&#39;</span><span class="p">,</span> <span class="s1">&#39;foreign&#39;</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[], [5583, 5583, 5583, 5583, 5583, 5583]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v</span><span class="o">.</span><span class="n">índices_a_tókenes</span><span class="p">([[],</span> <span class="p">[</span><span class="mi">5583</span><span class="p">,</span> <span class="mi">5583</span><span class="p">,</span> <span class="mi">5583</span><span class="p">,</span> <span class="mi">5583</span><span class="p">,</span> <span class="mi">5583</span><span class="p">,</span> <span class="mi">5583</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[], [&#39;&lt;unk&gt;&#39;, &#39;&lt;unk&gt;&#39;, &#39;&lt;unk&gt;&#39;, &#39;&lt;unk&gt;&#39;, &#39;&lt;unk&gt;&#39;, &#39;&lt;unk&gt;&#39;]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>La conclusión es que <a href="https://www.youtube.com/watch?v=UiZWxx1i6iA">no pasa nada</a> (al menos por ahora).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Bonus:-reducci&#243;n-del-vocabulario">Bonus: reducci&#243;n del vocabulario<a class="anchor-link" href="#Bonus:-reducci&#243;n-del-vocabulario"> </a></h2><p>La idea es limitar los tókenes que vamos a utilizar. En cierta forma cada tóken es un atributo (<em>feature</em>) y quisiéramos proveer atributos que sean de utilidad para el estimador.</p>
+<p>El lenguaje es infinito, para convertirlo en un problema tratable muchas veces los que hacemos es reducirlo. Clave para varias prácticas de reducción es contar las frecuencias de los tókenes, esto es, cuántas veces aparece cada tóken en todo el corpus. Como mencionamos las palabras más frecuentes no aportan mucha información y las más infrecuentes si bien son las que más información tienen no llegarán a ser representativas para nuestro modelo. Descartar palabras poco frecuentes también afecta a errores ortográficos.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Útil para este paso es la clase <code>Counter</code> de la librería estándar de Python.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">])</span>
+
+<span class="c1"># obtener los elementos ordenados de más comunes a menos</span>
+<span class="n">c</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(&#39;a&#39;, 3), (&#39;b&#39;, 2), (&#39;c&#39;, 1)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Acerca de contar palabras, no te pierdas la <a href="https://nbviewer.jupyter.org/url/norvig.com/ipython/How%20to%20Do%20Things%20with%20Words.ipynb#(2">ley de Zipf</a>-Models:-Bag-of-Words).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="M&#225;s-comunes">M&#225;s comunes<a class="anchor-link" href="#M&#225;s-comunes"> </a></h3><p>Una estrategia simple es ordenar a los tókenes según frecuencia y poner un límite duro al vocabulario, de modo de quedarnos con los <code>límite</code> más comunes.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">límite</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">vocabulario</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">c</span><span class="p">)[:</span><span class="n">límite</span><span class="p">]</span>
+<span class="n">vocabulario</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;a&#39;, &#39;b&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Por-frecuencia-de-t&#243;ken">Por frecuencia de t&#243;ken<a class="anchor-link" href="#Por-frecuencia-de-t&#243;ken"> </a></h3><p>Podríamos descartar los que aparecen</p>
+<ul>
+<li>más de <code>máximo</code> veces,</li>
+<li>menos de <code>mínimo</code> veces.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">máximo</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">mínimo</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">vocabulario</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span><span class="p">,</span> <span class="n">frecuencia</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span> <span class="k">if</span> <span class="n">máximo</span> <span class="o">&gt;=</span> <span class="n">frecuencia</span> <span class="o">&gt;=</span> <span class="n">mínimo</span><span class="p">]</span>
+<span class="n">vocabulario</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;a&#39;, &#39;b&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Por-frecuencia-de-documento">Por frecuencia de documento<a class="anchor-link" href="#Por-frecuencia-de-documento"> </a></h3><p>O bien, en vez de contar las apariciones absolutas, contar en cuántos documentos aparece cada tóken. Un tóken que aparezca en todos los documentos no colaboraría en una tarea de clasificación, a distinguir documentos pero uno que aparezca en la mitad de los documentos podría ser útil para separarlos en dos grupos.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+
+<span class="n">lote</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s1">&#39;hola&#39;</span><span class="p">,</span> <span class="s1">&#39;buen&#39;</span><span class="p">,</span> <span class="s1">&#39;día&#39;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">&#39;hola&#39;</span><span class="p">,</span> <span class="s1">&#39;buenas&#39;</span><span class="p">,</span> <span class="s1">&#39;tardes&#39;</span><span class="p">],</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">:</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">doc</span><span class="p">))</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(&#39;hola&#39;, 2), (&#39;buen&#39;, 1), (&#39;día&#39;, 1), (&#39;tardes&#39;, 1), (&#39;buenas&#39;, 1)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Vamos a normalizar la frecuencias por la cantidad total de documentos ($D$) y de manera similar al punto anterior podríamos descartar los elementos que aparecen en:</p>
+<ul>
+<li>más del <code>máximo</code> proporción de los documentos.</li>
+<li>menos del <code>mínimo</code> proporción de los documentos.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">D</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lote</span><span class="p">)</span>
+
+<span class="n">máximo</span> <span class="o">=</span> <span class="o">.</span><span class="mi">9</span>
+<span class="n">mínimo</span> <span class="o">=</span> <span class="o">.</span><span class="mi">1</span>
+
+<span class="n">vocabulario</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span><span class="p">,</span> <span class="n">frecuencia</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span> <span class="k">if</span> <span class="n">máximo</span> <span class="o">&gt;=</span> <span class="n">frecuencia</span><span class="o">/</span><span class="n">D</span> <span class="o">&gt;=</span> <span class="n">mínimo</span><span class="p">]</span>
+<span class="n">vocabulario</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;buen&#39;, &#39;día&#39;, &#39;tardes&#39;, &#39;buenas&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Stop-words"><em>Stop words</em><a class="anchor-link" href="#Stop-words"> </a></h3><p>Hay listas armadas de palabras muy comunes (<em>stop words</em>). Podemos elaborarla de alguna manera o usar alguna existente.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="ch">#!pip install nltk</span>
+
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;stopwords&#39;</span><span class="p">)</span>
+    
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+
+<span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;spanish&#39;</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[nltk_data] Downloading package stopwords to /home/matias/nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;de&#39;, &#39;la&#39;, &#39;que&#39;, &#39;el&#39;, &#39;en&#39;, &#39;y&#39;, &#39;a&#39;, &#39;los&#39;, &#39;del&#39;, &#39;se&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Un detalle a cuidar es que la tokenización usada para la lista de <em>stop words</em> tiene que haber sido la misma o similar que la usada para los documentos.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">filtrar_stop_words</span><span class="p">(</span><span class="n">lote</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;spanish&#39;</span><span class="p">)]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+
+<span class="n">filtrar_stop_words</span><span class="p">([</span>
+    <span class="p">[</span><span class="s1">&#39;que&#39;</span><span class="p">,</span> <span class="s1">&#39;se&#39;</span><span class="p">,</span> <span class="s1">&#39;requiere&#39;</span><span class="p">,</span> <span class="s1">&#39;para&#39;</span><span class="p">,</span> <span class="s1">&#39;un&#39;</span><span class="p">,</span> <span class="s1">&#39;prestamo&#39;</span><span class="p">,</span> <span class="s1">&#39;personal&#39;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">&#39;me&#39;</span><span class="p">,</span> <span class="s1">&#39;piden&#39;</span><span class="p">,</span> <span class="s1">&#39;mi&#39;</span><span class="p">,</span> <span class="s1">&#39;numero&#39;</span><span class="p">,</span> <span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="s1">&#39;cuenta&#39;</span><span class="p">,</span> <span class="s1">&#39;es&#39;</span><span class="p">,</span> <span class="s1">&#39;mi&#39;</span><span class="p">,</span> <span class="s1">&#39;cbu&#39;</span><span class="p">],</span>
+<span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[&#39;requiere&#39;, &#39;prestamo&#39;, &#39;personal&#39;], [&#39;piden&#39;, &#39;numero&#39;, &#39;cuenta&#39;, &#39;cbu&#39;]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Por-longitud">Por longitud<a class="anchor-link" href="#Por-longitud"> </a></h3><p>Esta técnica no requiere contar la frecuencia de los tókenes, simplemente filtramos tókenes muy cortos o muy largos ya que en general son ruidos.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">filtrar_por_longitud</span><span class="p">(</span><span class="n">lote</span><span class="p">,</span> <span class="n">máxima</span><span class="p">,</span> <span class="n">mínima</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span> <span class="k">if</span> <span class="n">máxima</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tóken</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">mínima</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+
+<span class="n">filtrar_por_longitud</span><span class="p">([</span>
+    <span class="p">[</span><span class="s1">&#39;que&#39;</span><span class="p">,</span> <span class="s1">&#39;se&#39;</span><span class="p">,</span> <span class="s1">&#39;requiere&#39;</span><span class="p">,</span> <span class="s1">&#39;para&#39;</span><span class="p">,</span> <span class="s1">&#39;un&#39;</span><span class="p">,</span> <span class="s1">&#39;prestamo&#39;</span><span class="p">,</span> <span class="s1">&#39;personal&#39;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">&#39;me&#39;</span><span class="p">,</span> <span class="s1">&#39;piden&#39;</span><span class="p">,</span> <span class="s1">&#39;mi&#39;</span><span class="p">,</span> <span class="s1">&#39;numero&#39;</span><span class="p">,</span> <span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="s1">&#39;cuenta&#39;</span><span class="p">,</span> <span class="s1">&#39;es&#39;</span><span class="p">,</span> <span class="s1">&#39;mi&#39;</span><span class="p">,</span> <span class="s1">&#39;cbu&#39;</span><span class="p">],</span>
+<span class="p">],</span> <span class="n">máxima</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">mínima</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[&#39;que&#39;, &#39;requiere&#39;, &#39;para&#39;, &#39;prestamo&#39;, &#39;personal&#39;],
+ [&#39;piden&#39;, &#39;numero&#39;, &#39;cuenta&#39;, &#39;cbu&#39;]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Implementaci&#243;n">Implementaci&#243;n<a class="anchor-link" href="#Implementaci&#243;n"> </a></h3><p>Veamos cómo acomodamos lo que hemos visto ahora en la clase <code>Vocab</code>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># versión 3</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="k">class</span> <span class="nc">Vocab</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tóken_desconocido</span><span class="o">=</span><span class="s1">&#39;&lt;unk&gt;&#39;</span><span class="p">,</span> <span class="n">frecuencia_mínima</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">frecuencia_máxima</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                 <span class="n">longitud_mínima</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">longitud_máxima</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">stop_words</span><span class="o">=</span><span class="p">[],</span> <span class="n">límite_vocabulario</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span> <span class="o">=</span> <span class="n">tóken_desconocido</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_mínima</span> <span class="o">=</span> <span class="n">frecuencia_mínima</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_máxima</span> <span class="o">=</span> <span class="n">frecuencia_máxima</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">longitud_mínima</span> <span class="o">=</span> <span class="n">longitud_mínima</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">longitud_máxima</span> <span class="o">=</span> <span class="n">longitud_máxima</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_words</span> <span class="o">=</span> <span class="n">stop_words</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">límite_vocabulario</span> <span class="o">=</span> <span class="n">límite_vocabulario</span>
+    
+    <span class="k">def</span> <span class="nf">reducir_vocabulario</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="n">contador_absoluto</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">lote</span><span class="p">))</span>
+        
+        <span class="n">contador_documentos</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+        
+        <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">:</span>
+            <span class="n">contador_documentos</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">doc</span><span class="p">))</span>
+        
+        <span class="c1"># frecuencia mínima</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_mínima</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span> <span class="c1"># frecuencia de tóken</span>
+            <span class="n">vocabulario_mín</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span><span class="p">,</span> <span class="n">frecuencia</span> <span class="ow">in</span> <span class="n">contador_absoluto</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span> <span class="k">if</span> <span class="n">frecuencia</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_mínima</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># frecuencia de documento</span>
+            <span class="n">vocabulario_mín</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span><span class="p">,</span> <span class="n">frecuencia</span> <span class="ow">in</span> <span class="n">contador_documentos</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span> <span class="k">if</span> <span class="n">frecuencia</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">lote</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_mínima</span><span class="p">]</span>
+        
+        <span class="c1"># frecuencia máxima</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_máxima</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span> <span class="c1"># frecuencia de tóken</span>
+            <span class="n">vocabulario_máx</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span><span class="p">,</span> <span class="n">frecuencia</span> <span class="ow">in</span> <span class="n">contador_absoluto</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_máxima</span> <span class="o">&gt;=</span> <span class="n">frecuencia</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># frecuencia de documento</span>
+            <span class="n">vocabulario_máx</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span><span class="p">,</span> <span class="n">frecuencia</span> <span class="ow">in</span> <span class="n">contador_documentos</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_máxima</span> <span class="o">&gt;=</span> <span class="n">frecuencia</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">lote</span><span class="p">)]</span>
+
+        <span class="c1"># intersección de vocabulario_mín y vocabulario_máx preservando el órden</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">vocabulario_mín</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">vocabulario_máx</span><span class="p">]</span>
+
+        <span class="c1"># longitud</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">vocabulario</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">longitud_máxima</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tóken</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">longitud_mínima</span><span class="p">]</span>
+        
+        <span class="c1"># stop words</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">vocabulario</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_words</span><span class="p">]</span>
+        
+        <span class="c1"># límite</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="n">vocabulario</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">límite_vocabulario</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">vocabulario</span>
+        
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reducir_vocabulario</span><span class="p">(</span><span class="n">lote</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">:</span>
+            <span class="n">vocabulario</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span> <span class="o">=</span> <span class="p">{</span><span class="n">tóken</span><span class="p">:</span> <span class="n">índice</span> <span class="k">for</span> <span class="n">índice</span><span class="p">,</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vocabulario</span><span class="p">)}</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+    
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">:</span> <span class="c1"># reemplazar</span>
+            <span class="k">return</span> <span class="p">[[</span><span class="n">tóken</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># ignorar</span>
+            <span class="k">return</span> <span class="p">[[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">tókenes_a_índices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="n">lote</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">lote</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="p">[</span><span class="n">tóken</span><span class="p">]</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">índices_a_tókenes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="n">mapeo_inverso</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        
+        <span class="k">return</span> <span class="p">[[</span><span class="n">mapeo_inverso</span><span class="p">[</span><span class="n">índice</span><span class="p">]</span> <span class="k">for</span> <span class="n">índice</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Vocab</span><span class="p">(</span><span class="n">longitud_mínima</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_docs</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span>
+    <span class="p">[</span><span class="s1">&#39;poder&#39;</span><span class="p">,</span> <span class="s1">&#39;gestionar&#39;</span><span class="p">,</span> <span class="s1">&#39;clave&#39;</span><span class="p">,</span> <span class="s1">&#39;paso&#39;</span><span class="p">,</span> <span class="s1">&#39;pagina&#39;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">&#39;desde&#39;</span><span class="p">,</span> <span class="s1">&#39;cuando&#39;</span><span class="p">,</span> <span class="s1">&#39;arranco&#39;</span><span class="p">,</span> <span class="s1">&#39;con&#39;</span><span class="p">,</span> <span class="s1">&#39;el&#39;</span><span class="p">,</span> <span class="s1">&#39;programa&#39;</span><span class="p">,</span> <span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="s1">&#39;millas&#39;</span><span class="p">],</span>
+<span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[&#39;poder&#39;, &#39;gestionar&#39;, &#39;clave&#39;, &#39;paso&#39;, &#39;pagina&#39;],
+ [&#39;desde&#39;, &#39;cuando&#39;, &#39;&lt;unk&gt;&#39;, &#39;con&#39;, &#39;&lt;unk&gt;&#39;, &#39;programa&#39;, &#39;&lt;unk&gt;&#39;, &#39;millas&#39;]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="El-pre-procesamiento-hasta-ahora">El pre-procesamiento hasta ahora<a class="anchor-link" href="#El-pre-procesamiento-hasta-ahora"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">Vocab</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_docs</span><span class="p">)</span>
+
+<span class="n">train_índices</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">tókenes_a_índices</span><span class="p">(</span><span class="n">train_docs</span><span class="p">)</span>
+<span class="n">valid_índices</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">tókenes_a_índices</span><span class="p">(</span><span class="n">valid_docs</span><span class="p">)</span>
+<span class="n">infer_índices</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">tókenes_a_índices</span><span class="p">(</span><span class="n">infer_docs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Con esto concluye la primera parte. Hay varias librerías que tienen clases que se encargan de efectuar los pasos que hemos visto. Tienen un comportamiento por defecto, que es configurable (los parámetros que hemos visto) y a su vez, personalizable, para reemplazar algunos o todos los pasos por código propio. En general son librerías desarrolladas por angloparlantes, funcionan <em>out-of-the-box</em> bien para el inglés; cuando queremos procesar texto en español vale la pena tener más control sobre estos procesos.</p>
+<ul>
+<li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">CountVectorizer</a> de scikit-learn.</li>
+<li><a href="https://docs.fast.ai/text.data.html#TextDataBunch.from_df">TextDataBunch</a> de fast.ai.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Pre-procesando-las-etiquetas">Pre-procesando las etiquetas<a class="anchor-link" href="#Pre-procesando-las-etiquetas"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Las etiquetas del dataset también necesitan ser convertidas a números enteros consecutivos. No lo pensamos para este fin pero <code>Vocab</code> sería útil en este aspecto. El único tema es que <code>Vocab.fit</code> y demás métodos esperan listas de listas de tókenes y a las etiquetas las encontramos en forma de listas de tókenes simplemente.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_df</span><span class="p">[</span><span class="s1">&#39;Intencion&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([&#39;Cat_248&#39;, &#39;Cat_42&#39;, &#39;Cat_132&#39;, ..., &#39;Cat_293&#39;, &#39;Cat_138&#39;,
+       &#39;Cat_219&#39;], dtype=object)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Podemos llevar la columna de las etiquetas a una lista de listas con <code>train_df['Intencion'].values.reshape(-1,1)</code>, de manera de poder interfacearlo con <code>Vocab</code>. Algo como <code>train_df[['Intencion']].values</code> para que Pandas devuelva un <code>DataFrame</code> en vez de una <code>Series</code> también funcionaría.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_etiquetas</span> <span class="o">=</span> <span class="n">train_df</span><span class="p">[[</span><span class="s1">&#39;Intencion&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">valid_etiquetas</span> <span class="o">=</span> <span class="n">valid_df</span><span class="p">[[</span><span class="s1">&#39;Intencion&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">train_etiquetas</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[&#39;Cat_248&#39;],
+       [&#39;Cat_42&#39;],
+       [&#39;Cat_132&#39;],
+       ...,
+       [&#39;Cat_293&#39;],
+       [&#39;Cat_138&#39;],
+       [&#39;Cat_219&#39;]], dtype=object)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Todo lo que tenga que ver con limitación del vocabulario o agregado de tókenes especiales no nos interesa para este caso de uso.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vocabulario_etiquetas</span> <span class="o">=</span> <span class="n">Vocab</span><span class="p">(</span><span class="n">tóken_desconocido</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_etiquetas</span><span class="p">)</span>
+
+<span class="n">train_etiquetas</span> <span class="o">=</span> <span class="n">vocabulario_etiquetas</span><span class="o">.</span><span class="n">tókenes_a_índices</span><span class="p">(</span><span class="n">train_etiquetas</span><span class="p">)</span>
+<span class="n">valid_etiquetas</span> <span class="o">=</span> <span class="n">vocabulario_etiquetas</span><span class="o">.</span><span class="n">tókenes_a_índices</span><span class="p">(</span><span class="n">valid_etiquetas</span><span class="p">)</span>
+
+<span class="n">train_etiquetas</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[6], [128], [0], [104], [6], [17], [8], [202], [306], [166]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ya casi estamos. Solo debemos reconvertir a las etiquetas en una lista de índices (su dimensión original) con un recurso que ya conocemos.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_etiquetas</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">train_etiquetas</span><span class="p">))</span>
+<span class="n">valid_etiquetas</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">valid_etiquetas</span><span class="p">))</span>
+
+<span class="n">train_etiquetas</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[6, 128, 0, 104, 6, 17, 8, 202, 306, 166]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Fuentes-consultadas">Fuentes consultadas<a class="anchor-link" href="#Fuentes-consultadas"> </a></h2><ul>
+<li><a href="http://anie.me/On-Torchtext/">http://anie.me/On-Torchtext/</a></li>
+<li><a href="https://medium.com/@datamonsters/text-preprocessing-in-python-steps-tools-and-examples-bf025f872908">https://medium.com/@datamonsters/text-preprocessing-in-python-steps-tools-and-examples-bf025f872908</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-1.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>(^・x・^)</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/matiasbattocchia" title="matiasbattocchia"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,1 +1,1 @@
-Sitemap: https://matiasbattocchia.github.io/fastpages/sitemap.xml
+Sitemap: https://matiasbattocchia.github.io/blog/sitemap.xml

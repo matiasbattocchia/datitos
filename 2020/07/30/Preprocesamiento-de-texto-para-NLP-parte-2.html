@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Preprocesamiento de texto para NLP (parte 2) | datito</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Preprocesamiento de texto para NLP (parte 2)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="(^・x・^)" />
+<meta property="og:description" content="(^・x・^)" />
+<link rel="canonical" href="https://matiasbattocchia.github.io/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-2.html" />
+<meta property="og:url" content="https://matiasbattocchia.github.io/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-2.html" />
+<meta property="og:site_name" content="datito" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-30T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"(^・x・^)","@type":"BlogPosting","headline":"Preprocesamiento de texto para NLP (parte 2)","dateModified":"2020-07-30T00:00:00-05:00","datePublished":"2020-07-30T00:00:00-05:00","url":"https://matiasbattocchia.github.io/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-2.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://matiasbattocchia.github.io/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-2.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://matiasbattocchia.github.io/blog/feed.xml" title="datito" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Preprocesamiento de texto para NLP (parte 2) | datito</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Preprocesamiento de texto para NLP (parte 2)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="(^・x・^)" />
+<meta property="og:description" content="(^・x・^)" />
+<link rel="canonical" href="https://matiasbattocchia.github.io/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-2.html" />
+<meta property="og:url" content="https://matiasbattocchia.github.io/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-2.html" />
+<meta property="og:site_name" content="datito" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-30T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"(^・x・^)","@type":"BlogPosting","headline":"Preprocesamiento de texto para NLP (parte 2)","dateModified":"2020-07-30T00:00:00-05:00","datePublished":"2020-07-30T00:00:00-05:00","url":"https://matiasbattocchia.github.io/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-2.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://matiasbattocchia.github.io/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-2.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://matiasbattocchia.github.io/blog/feed.xml" title="datito" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">datito</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Preprocesamiento de texto para NLP (parte 2)</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-07-30T00:00:00-05:00" itemprop="datePublished">
+        Jul 30, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      14 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/matiasbattocchia/blog/tree/master/_notebooks/Preprocesamiento de texto para NLP parte 2.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/blog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/matiasbattocchia/blog/master?filepath=_notebooks%2FPreprocesamiento+de+texto+para+NLP+parte+2.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/matiasbattocchia/blog/blob/master/_notebooks/Preprocesamiento de texto para NLP parte 2.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/Preprocesamiento de texto para NLP parte 2.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="PyTorch">PyTorch<a class="anchor-link" href="#PyTorch"> </a></h2><p>El típico bucle de entrenamiento de PyTorch tiene esta pinta.</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">época</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_ÉPOCAS</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">lote</span> <span class="ow">in</span> <span class="n">datos_entrenamiento</span><span class="p">:</span>
+        <span class="c1"># reseteamos los gradientes</span>
+        <span class="n">optimizador</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+
+        <span class="n">predicciones</span> <span class="o">=</span> <span class="n">red_neuronal</span><span class="p">(</span><span class="n">lote</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">pérdida</span> <span class="o">=</span> <span class="n">criterio</span><span class="p">(</span><span class="n">predicciones</span><span class="p">,</span> <span class="n">lote</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="c1"># calculamos los gradientes</span>
+        <span class="n">pérdida</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+
+        <span class="c1"># aplicamos los gradientes</span>
+        <span class="n">optimizador</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</pre></div>
+<p>Recordemos que a diferencia de otros modelos las redes neuronales revisitan varias veces el dataset, en lo que se llaman épocas, cada época es un recorrido por todas las muestras de entrenamiento.</p>
+<p>En una época el dataset se puede mostrar entero, de a una muestra, o como es común hoy en día de a grupos o lotes (<em>batches</em>). La experiencia mostró que es útil variar el orden de las muestras en cada época.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>PyTorch provee ciertas facilidades para el manejo de los datos con las clases definidas en <a href="https://pytorch.org/docs/stable/data.html">torch.utils.data</a> a ser:</p>
+<ol>
+<li><code>Dataset</code>. Organiza los datos. Le pasamos un número o índice de muestra y nos devuelve la muestra usualmente como una tupla <code>(atributos, etiqueta)</code>.</li>
+<li><code>Sampler</code>. Salvo que lo queramos de otra manera, se encarga de brindar un orden aleatoreo de los índices del dataset; uno diferente cada vez que le preguntamos.</li>
+<li><code>BatchSampler</code>. Por defecto, se inicializa con un <code>Sampler</code> y el tamaño de lote. Se encarga de armar grupos de índices; diferentes cada vez que le preguntamos.</li>
+<li><code>DataLoader</code>. Valiéndose de los grupos de índices de <code>BatchSampler</code>, obtiene muestras de <code>Dataset</code>. De esta manera para cada época devuelve lotes de muestras al azar.  </li>
+</ol>
+<p>Por <code>Sampler</code> y <code>BatchSampler</code> no nos detendremos ya el comportamiento por defecto, que es barajar el dataset en cada época y armar lotes del mismo tamaño es todo lo que necesitamos.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Dataset">Dataset<a class="anchor-link" href="#Dataset"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="k">class</span> <span class="nc">Textset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documentos</span><span class="p">,</span> <span class="n">etiquetas</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">documentos</span> <span class="o">=</span> <span class="n">documentos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">etiquetas</span>  <span class="o">=</span> <span class="n">etiquetas</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">documentos</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">documentos</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">documentos</span><span class="p">[</span><span class="n">item</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">etiquetas</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Es una clase que necesita implementar <code>__len__</code> y <code>__getitem__</code>. Podría encargarse de levantar y pre-procesar el dataset, que por comodidad lo hemos cargado con Pandas y pre-procesado por fuera: el constructor (<code>__init__</code>) podría recibir el nombre del archivo, leerlo y aplicarle las funciones pertinentes. No lo hemos hecho internamente porque el vocabulario debe nutrirse del dataset de entrenamiento ya pre-procesado [falta].</p>
+<p>También necesitaremos crear un <code>Textset</code> para el dataset de inferencia, para el cual no contamos con las etiquetas. En el caso de no pasar etiquetas generamos una lista llena de NaNs del mismo largo que la lista de documentos.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_ds</span> <span class="o">=</span> <span class="n">Textset</span><span class="p">(</span><span class="n">train_índices</span><span class="p">,</span> <span class="n">etiquetas_train_índices</span><span class="p">)</span>
+
+<span class="nb">len</span><span class="p">(</span><span class="n">train_ds</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>18093</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_ds</span><span class="p">[</span><span class="mi">10_000</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>([8, 169, 1, 4652, 0, 17, 65], 40)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Es bastante similar a lo que una lista de tuplas podría lograr, aunque fue una buena oportunidad para juntar los documentos y las etiquetas que luego de cargar el DataFrame y hasta ahora recorrieron caminos separados. Lo realmente importante es el <code>DataLoader</code>, no podemos usar una lista como dataset porque requiere que sea una instancia de <code>Dataset</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="DataLoader">DataLoader<a class="anchor-link" href="#DataLoader"> </a></h2><p><code>DataLoader</code> es un <em>iterable</em>. Los iterables son colecciones de elementos que se pueden recorrer; implementan el método <code>__iter__</code>, del que se espera que devuelva un objeto <em>iterador</em> (<code>iterador = iter(iterable)</code>). A su vez el iterador implementa el método <code>__next__</code> que se encarga devolver secuencialmente los elementos de la colección hasta que se agota; una vez que esto sucede el iterador debe ser descartado y en todo caso le pedimos al iterable que nos arme un nuevo iterador. Cuando usamos la construcción <code>for ítem in iterable</code>, el intérprete de Python implícitamente obtiene un iterador.</p>
+<p>Ver la <a href="https://docs.python.org/3/tutorial/classes.html#iterators">sección de interables</a> en el tutorial de Python.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lista</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">([</span><span class="s1">&#39;uno&#39;</span><span class="p">,</span><span class="s1">&#39;dos&#39;</span><span class="p">])</span>
+
+<span class="nb">next</span><span class="p">(</span><span class="n">lista</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;uno&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">next</span><span class="p">(</span><span class="n">lista</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;dos&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">next</span><span class="p">(</span><span class="n">lista</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">StopIteration</span>                             Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-203-cfa830c9416d&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>next<span class="ansi-blue-fg">(</span>lista<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">StopIteration</span>: </pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>No hay próximo elemento. Cuando se llega al fin del iterador se levanta la excepción <code>StopIteration</code>.</p>
+<p>Suficientes detalles por ahora. Todo esto para decir que <code>DataLoader</code> es un iterable que particularmente devuelve un iterador distinto cada vez, a diferencia de una lista en la que los elementos siempre se recorren en el mismo orden. Es decir, se trata de una colección de lotes pero cada iterador agrupa lotes según como dicte <code>BatchSampler</code>, que suele ser aleatorio.</p>
+<p>En cada <strong>época</strong> le pedimos un iterador a <code>DataLoader</code>, por lo que recorremos todo el <code>Dataset</code> agrupado en lotes de manera diferente cada vez.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+
+<span class="n">train_dl</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_ds</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Le estamos diciendo a <code>DataLoader</code> que queremos lotes de 32 muestras (<code>batch_size</code>) y que el armado de los lotes sea aleatorio (<code>shuffle</code>).</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">un_lote</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">train_dl</span><span class="p">))</span>
+<span class="n">un_lote</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[tensor([  12, 5168,   26,    9,   16,    8,   24,   10,    8,   15,   49,   49,
+            46,   16,   15,    8,    1,   62,   26,   12,    8,    7,   12,  157,
+            44, 2082,    5,   62,    1,   76,    8,   74]),
+  tensor([ 140,   10,   75,    4,    4,   22,   84, 1519,   48,   75,   27,  357,
+           105,   40,   48, 1911,  213,  585,   14,   48,   19,  203,  102,  164,
+            57,    0,    2,   22, 1009,  262,  274,  630]),
+  tensor([  17,   51,  371, 1058,   64,    4,   71,   27,   17,    9,    1,    2,
+            59,   57,    2,    6,    0,  928,   62,    6, 1973,    3,   17,  713,
+            10,   36,   56,    4,   18,   21,    1,    5]),
+  tensor([  56,   67,   83,    0,   22,  724,   18,   24,    3,  765,   64,  207,
+          1454,    2,  765,   36,  179,    2,  358,   13,   38,  236,   56,    3,
+             3,    0,    5,   32,    1,   98, 1009,    6])],
+ tensor([144, 153, 247,   3,  55,   0, 223,  15,  18,   6,  26, 160,  89, 199,
+         149,  49, 260, 285,  13,   3, 198,  18,  23,   0,   1, 103,  35, 112,
+         128,  20, 128,   3])]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Está bueno que ya veamos tensores de PyTorch porque vamos a necesitar los datos en forma de tensor para alimentar a la red neuronal. Sin embargo, algo no parece andar bien con el lote que acabamos de obtener.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">un_lote</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>2</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Tenemos dos elementos adentro del lote, podríamos pensar que el primero agrupa documentos y el segundo, etiquetas.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">un_lote</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">un_lote</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(torch.Tensor, 32)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Las etiquetas del lote están perfecto, son un tensor de una dimensión con largo 32.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">un_lote</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">un_lote</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(list, 4)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En cambio la agrupación de documentos no tiene sentido. Es otra lista de tamaño 4 con tensores adentro. ¿Qué está pasando?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Tensores">Tensores<a class="anchor-link" href="#Tensores"> </a></h2><p>El problema parece radicar en los tensores. Son estructuras que las podemos imaginar como una columna cuando tienen una dimensión, una tabla cuando son dos, un cubo cuando tres...</p>
+<p>Los tensores son similares a los <code>ndarrays</code> de NumPy, con el aditivo que también pueden ser usados en la GPU para acelerar los cómputos. Ver más de tensores en el <a href="https://pytorch.org/tutorials/beginner/blitz/tensor_tutorial.html">tutorial de PyTorch</a>.</p>
+<p>En el caso de los documentos que a la altura del <code>Dataset</code> son listas de listas de índices, son dos dimensiones, y al llevarlos a una tabla vemos que tendríamos tantas filas como documentos y tantas columnas como índices tenga el documento más largo de la colección pero que <strong>no todos los documentos tienen tantos índices como columnas la tabla</strong>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">índices</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span>
+<span class="p">]</span>
+
+<span class="n">índices</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[2, 2], [4, 4, 4, 4], [7, 7, 7, 7, 7, 7, 7]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">índices</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-232-121200966211&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-green-fg">import</span> torch
+<span class="ansi-green-intense-fg ansi-bold">      2</span> 
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span>torch<span class="ansi-blue-fg">.</span>tensor<span class="ansi-blue-fg">(</span>índices<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">ValueError</span>: expected sequence of length 2 at dim 1 (got 4)</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Como anticipamos, no le gustó nada.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="T&#243;kenes-especiales">T&#243;kenes especiales<a class="anchor-link" href="#T&#243;kenes-especiales"> </a></h2><p>Lo mencionamos al pasar, a veces se utilizan tókenes especiales como <code>&lt;separador de palabra&gt;</code>, <code>&lt;separador de oración&gt;</code>, <code>&lt;inicio del texto&gt;</code>, <code>&lt;fin del texto&gt;</code>. Hay de todo tipo, según la tarea a realizar. Uno que está presente generalmente en los proyectos es el tóken de relleno <code>&lt;relleno&gt;</code> (en inglés <em>padding</em>).</p>
+<p>El tóken de relleno nos va a servir para hacer que todos los documentos tengan el mismo largo y finalmente podamos convertirlos en un tensor. No lo vamos a hacer inmediatamente ya que no nos interesa que tengan el mismo largo en todo el dataset sino en todo el lote. Como los lotes son generados en el DataLoader, este último tendrá que encargarse de rellenar los documentos.</p>
+<p>Vamos a modificar <code>Vocab</code> quien se encarga de la lista de tókenes para que incluya a <code>&lt;relleno&gt;</code>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># versión 4</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="k">class</span> <span class="nc">Vocab</span><span class="p">():</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">índice_relleno</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tóken_relleno</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tóken_desconocido</span><span class="o">=</span><span class="s1">&#39;&lt;unk&gt;&#39;</span><span class="p">,</span> <span class="n">tóken_relleno</span><span class="o">=</span><span class="s1">&#39;&lt;pad&gt;&#39;</span><span class="p">,</span> <span class="n">frecuencia_mínima</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">frecuencia_máxima</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                 <span class="n">longitud_mínima</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">longitud_máxima</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">stop_words</span><span class="o">=</span><span class="p">[],</span> <span class="n">límite_vocabulario</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span> <span class="o">=</span> <span class="n">tóken_desconocido</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tóken_relleno</span> <span class="o">=</span> <span class="n">tóken_relleno</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_mínima</span> <span class="o">=</span> <span class="n">frecuencia_mínima</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_máxima</span> <span class="o">=</span> <span class="n">frecuencia_máxima</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">longitud_mínima</span> <span class="o">=</span> <span class="n">longitud_mínima</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">longitud_máxima</span> <span class="o">=</span> <span class="n">longitud_máxima</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_words</span> <span class="o">=</span> <span class="n">stop_words</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">límite_vocabulario</span> <span class="o">=</span> <span class="n">límite_vocabulario</span>
+    
+    <span class="c1"># ningún cambio aquí</span>
+    <span class="k">def</span> <span class="nf">reducir_vocabulario</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="n">contador_absoluto</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">lote</span><span class="p">))</span>
+        
+        <span class="n">contador_documentos</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+        
+        <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">:</span>
+            <span class="n">contador_documentos</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">doc</span><span class="p">))</span>
+        
+        <span class="c1"># frecuencia mínima</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_mínima</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span> <span class="c1"># frecuencia de tóken</span>
+            <span class="n">vocabulario_mín</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span><span class="p">,</span> <span class="n">frecuencia</span> <span class="ow">in</span> <span class="n">contador_absoluto</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span> <span class="k">if</span> <span class="n">frecuencia</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_mínima</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># frecuencia de documento</span>
+            <span class="n">vocabulario_mín</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span><span class="p">,</span> <span class="n">frecuencia</span> <span class="ow">in</span> <span class="n">contador_documentos</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span> <span class="k">if</span> <span class="n">frecuencia</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">lote</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_mínima</span><span class="p">]</span>
+        
+        <span class="c1"># frecuencia máxima</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_máxima</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span> <span class="c1"># frecuencia de tóken</span>
+            <span class="n">vocabulario_máx</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span><span class="p">,</span> <span class="n">frecuencia</span> <span class="ow">in</span> <span class="n">contador_absoluto</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_máxima</span> <span class="o">&gt;=</span> <span class="n">frecuencia</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># frecuencia de documento</span>
+            <span class="n">vocabulario_máx</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span><span class="p">,</span> <span class="n">frecuencia</span> <span class="ow">in</span> <span class="n">contador_documentos</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_máxima</span> <span class="o">&gt;=</span> <span class="n">frecuencia</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">lote</span><span class="p">)]</span>
+
+        <span class="c1"># intersección de vocabulario_mín y vocabulario_máx preservando el órden</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">vocabulario_mín</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">vocabulario_máx</span><span class="p">]</span>
+
+        <span class="c1"># longitud</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">vocabulario</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">longitud_máxima</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tóken</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">longitud_mínima</span><span class="p">]</span>
+        
+        <span class="c1"># stop words</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">vocabulario</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_words</span><span class="p">]</span>
+        
+        <span class="c1"># límite</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="n">vocabulario</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">límite_vocabulario</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">vocabulario</span>
+        
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reducir_vocabulario</span><span class="p">(</span><span class="n">lote</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">:</span>
+            <span class="n">vocabulario</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_relleno</span><span class="p">:</span>
+            <span class="n">vocabulario</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_relleno</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span> <span class="o">=</span> <span class="p">{</span><span class="n">tóken</span><span class="p">:</span> <span class="n">índice</span> <span class="k">for</span> <span class="n">índice</span><span class="p">,</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vocabulario</span><span class="p">)}</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+    
+    <span class="c1"># ningún cambio aquí</span>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">:</span> <span class="c1"># reemplazar</span>
+            <span class="k">return</span> <span class="p">[[</span><span class="n">tóken</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># ignorar</span>
+            <span class="k">return</span> <span class="p">[[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+    
+    <span class="c1"># ningún cambio aquí</span>
+    <span class="k">def</span> <span class="nf">tókenes_a_índices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="n">lote</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">lote</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="p">[</span><span class="n">tóken</span><span class="p">]</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+    
+    <span class="c1"># ningún cambio aquí</span>
+    <span class="k">def</span> <span class="nf">índices_a_tókenes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="n">mapeo_inverso</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        
+        <span class="k">return</span> <span class="p">[[</span><span class="n">mapeo_inverso</span><span class="p">[</span><span class="n">índice</span><span class="p">]</span> <span class="k">for</span> <span class="n">índice</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>El índice del tóken de relleno suele ser 0 y para continuar con esta tradición en vez de hacerle <code>append</code> al vocabulario le hicimos un <em>prepend</em> para que el tóken encabece el listado. Además usamos el decorador <code>@property</code> para tener un atributo <code>índice_relleno</code> (en vez de un método) que nos devuelva el índice del tóken.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">Vocab</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_docs</span><span class="p">)</span>
+
+<span class="n">v</span><span class="o">.</span><span class="n">índice_relleno</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="La-funci&#243;n-que-rellena">La funci&#243;n que rellena<a class="anchor-link" href="#La-funci&#243;n-que-rellena"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">rellenar_documentos</span><span class="p">(</span><span class="n">lote</span><span class="p">,</span> <span class="n">largos</span><span class="p">,</span> <span class="n">índice_relleno</span><span class="p">):</span>
+    <span class="n">máximo_largo</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">largos</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="p">[</span><span class="n">doc</span> <span class="o">+</span> <span class="p">[</span><span class="n">índice_relleno</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">máximo_largo</span> <span class="o">-</span> <span class="n">largos</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">doc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lote</span><span class="p">)]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Le tenemos que pasar el lote, el largo o tamaño de cada documento del lote y el índice de relleno.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">índices</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span>
+<span class="p">]</span>
+
+<span class="n">largos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span>
+
+<span class="n">rellenos</span> <span class="o">=</span> <span class="n">rellenar_documentos</span><span class="p">(</span><span class="n">índices</span><span class="p">,</span> <span class="n">largos</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">índice_relleno</span><span class="p">)</span>
+
+<span class="n">rellenos</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[2, 2, 0, 0, 0, 0, 0], [4, 4, 4, 4, 0, 0, 0], [7, 7, 7, 7, 7, 7, 7]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">rellenos</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([[2, 2, 0, 0, 0, 0, 0],
+        [4, 4, 4, 4, 0, 0, 0],
+        [7, 7, 7, 7, 7, 7, 7]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>¡Ahora sí funcionó!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Tama&#241;o-del-documento">Tama&#241;o del documento<a class="anchor-link" href="#Tama&#241;o-del-documento"> </a></h2><p>Vamos a incluir el tamaño del documento (en cantidad de tókenes/índices) junto a cada ítem del dataset ya que nos va a hacer falta para la función que rellena.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="k">class</span> <span class="nc">Textset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documentos</span><span class="p">,</span> <span class="n">etiquetas</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">documentos</span> <span class="o">=</span> <span class="n">documentos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">etiquetas</span>  <span class="o">=</span> <span class="n">etiquetas</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">documentos</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">documentos</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">documentos</span><span class="p">[</span><span class="n">item</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">documentos</span><span class="p">[</span><span class="n">item</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">etiquetas</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_ds</span> <span class="o">=</span> <span class="n">Textset</span><span class="p">(</span><span class="n">train_índices</span><span class="p">,</span> <span class="n">etiquetas_train_índices</span><span class="p">)</span>
+
+<span class="n">train_ds</span><span class="p">[</span><span class="mi">10_000</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>([8, 169, 1, 4652, 0, 17, 65], 7, 40)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Bonus:-AtributoDiccionario">Bonus: <strong>Atri</strong>buto<strong>Dicc</strong>ionario<a class="anchor-link" href="#Bonus:-AtributoDiccionario"> </a></h2><p>¿Alguna vez quisiste acceder a los elementos de un diccionario como si fuesen atributos de un objeto? Es decir así</p>
+<div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;uno&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;dos&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;tres&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">}</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">uno</span> <span class="c1"># =&gt; 1</span>
+</pre></div>
+<p>en vez de así</p>
+<div class="highlight"><pre><span></span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;uno&#39;</span><span class="p">]</span> <span class="c1"># =&gt; 1</span>
+</pre></div>
+<p>Con esta magia ahora es posible:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># https://stackoverflow.com/questions/4984647/accessing-dict-keys-like-an-attribute</span>
+
+<span class="k">class</span> <span class="nc">AtriDicc</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">AtriDicc</span><span class="p">(</span><span class="n">uno</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dos</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">tres</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">uno</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Vamos a <em>pimpiar</em> la clase <code>Textset</code> con esto para que en vez de devolver elementos del dataset como tuplas <code>(documento, largo, etiqueta)</code> en el que debemos acordarnos que el orden de los elementos, devolvemos un <code>AtriDicc</code> en el que accedemos las cosas por su nombre y es más cómodo que un diccionario.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="k">class</span> <span class="nc">Textset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documentos</span><span class="p">,</span> <span class="n">etiquetas</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">documentos</span> <span class="o">=</span> <span class="n">documentos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">etiquetas</span>  <span class="o">=</span> <span class="n">etiquetas</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">documentos</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">documentos</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">AtriDicc</span><span class="p">(</span>
+            <span class="n">documento</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">documentos</span><span class="p">[</span><span class="n">item</span><span class="p">],</span>
+            <span class="n">largo</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">documentos</span><span class="p">[</span><span class="n">item</span><span class="p">]),</span>
+            <span class="n">etiqueta</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">etiquetas</span><span class="p">[</span><span class="n">item</span><span class="p">],</span>
+        <span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_ds</span> <span class="o">=</span> <span class="n">Textset</span><span class="p">(</span><span class="n">train_índices</span><span class="p">,</span> <span class="n">etiquetas_train_índices</span><span class="p">)</span>
+
+<span class="n">train_ds</span><span class="p">[</span><span class="mi">10_000</span><span class="p">]</span><span class="o">.</span><span class="n">documento</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[8, 169, 1, 4652, 0, 17, 65]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Funci&#243;n-collate">Funci&#243;n <em>collate</em><a class="anchor-link" href="#Funci&#243;n-collate"> </a></h2><p><em>Collate</em> significa juntar diferentes piezas de información para ver sus similaridades y diferencias, también puede ser colectar y organizar las hojas de un reporte, un libro. En el contexto de <code>DataLoader</code> quiere decir arreglar el lote. Entonces esta función recibe una lista de elementos del <code>Dataset</code>, en nuestro caso una lista de de <code>AtriDicc</code>s, y debe devolver el lote en una forma útil y en lo posible realizar conversiones a tensores.</p>
+<p><code>DataLoader</code> posee una <em>collate function</em> por defecto que utiliza internamente y que en muchos casos funciona correctamente, pero otros como ahora que tenemos documentos de distinto largo nos toca definir una función propia.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">torch.nn.utils.rnn</span> <span class="kn">import</span> <span class="n">pack_padded_sequence</span>
+
+<span class="k">def</span> <span class="nf">rellenar_lote</span><span class="p">(</span><span class="n">lote</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Prepara lotes para ingresar a nn.Embedding&quot;&quot;&quot;</span>
+    <span class="n">documentos</span> <span class="o">=</span> <span class="p">[</span><span class="n">elemento</span><span class="o">.</span><span class="n">documento</span> <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+    <span class="n">largos</span>     <span class="o">=</span> <span class="p">[</span><span class="n">elemento</span><span class="o">.</span><span class="n">largo</span>     <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+    <span class="n">etiquetas</span>  <span class="o">=</span> <span class="p">[</span><span class="n">elemento</span><span class="o">.</span><span class="n">etiqueta</span>  <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+
+    <span class="n">rellenos</span> <span class="o">=</span> <span class="n">rellenar_documentos</span><span class="p">(</span><span class="n">documentos</span><span class="p">,</span> <span class="n">largos</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">índice_relleno</span><span class="p">)</span>  
+    <span class="c1"># para RNNs descomentar esta línea</span>
+    <span class="c1">#rellenos = pack_padded_sequence(rellenos, largos, batch_first=True, enforce_sorted=False)</span>
+    
+    <span class="k">return</span> <span class="n">AtriDicc</span><span class="p">(</span>
+        <span class="n">documentos</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">rellenos</span><span class="p">),</span>
+        <span class="n">etiquetas</span>  <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">etiquetas</span><span class="p">),</span>
+    <span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Cuando instanciamos un <code>DataLoader</code> le pasamos la función que acabamos de definir.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_dl</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_ds</span><span class="p">,</span> <span class="n">collate_fn</span><span class="o">=</span><span class="n">rellenar_lote</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">un_lote</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">train_dl</span><span class="p">))</span>
+<span class="n">un_lote</span><span class="o">.</span><span class="n">documentos</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([[781,  31,  17, 104, 111,   9, 383,  93,  18,  11, 489,   0,   0],
+        [ 20,   4,  11,   7, 272,  78,  29,  96,   5, 396,  16,  86,  16],
+        [ 26,  69,  17, 313,   4, 258,  22,   4, 102,   0,   0,   0,   0]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">un_lote</span><span class="o">.</span><span class="n">etiquetas</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([ 80, 316,  16])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Funciona de maravillas.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Una-funci&#243;n-alternativa">Una funci&#243;n alternativa<a class="anchor-link" href="#Una-funci&#243;n-alternativa"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>La función anterior es compatible con el módulo de PyTorch <code>nn.Embedding</code> que suele se la puerta de entrada en los modelos de procesamiento de texto. Todavía no hemos hablado nada de los <em>embeddings</em>. Quizás sea un momento para mencionar a <code>nn.EmbeddingBag</code>, que tiene requerimientos completamente diferentes al primer módulo.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">offsetear_lote</span><span class="p">(</span><span class="n">lote</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Prepara lotes para ingresar a nn.EmbeddingBag&quot;&quot;&quot;</span>
+    <span class="n">documentos</span> <span class="o">=</span> <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">elemento</span><span class="o">.</span><span class="n">documento</span><span class="p">)</span> <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+    <span class="n">offsets</span>    <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">elemento</span><span class="o">.</span><span class="n">largo</span> <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> 
+    <span class="n">etiquetas</span>  <span class="o">=</span> <span class="p">[</span><span class="n">elemento</span><span class="o">.</span><span class="n">etiqueta</span> <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">AtriDicc</span><span class="p">(</span>
+        <span class="n">documentos</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">documentos</span><span class="p">),</span>
+        <span class="n">offsets</span>    <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">offsets</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">etiquetas</span>  <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">etiquetas</span><span class="p">),</span>
+    <span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Esta función yuxtapone los documentos por un lado, y por otro (<code>offsets</code>) indica cuándo comienza cada documento en ese continuo.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_dl</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_ds</span><span class="p">,</span> <span class="n">collate_fn</span><span class="o">=</span><span class="n">offsetear_lote</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">un_lote</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">train_dl</span><span class="p">))</span>
+<span class="n">un_lote</span><span class="o">.</span><span class="n">documentos</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([  35,   14,    8,  544,   46,    6, 2493,   30,  384,    2, 1062,   27,
+         236,    5,  778,  378,   22,    4,   53,    1,  866,    9,   17, 1564,
+         109,   68,  186,   16,    6, 1419])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">un_lote</span><span class="o">.</span><span class="n">offsets</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([ 0,  9, 16])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Avanzado:-Memory-pinning">Avanzado: Memory pinning<a class="anchor-link" href="#Avanzado:-Memory-pinning"> </a></h2><p><a href="https://pytorch.org/docs/stable/data.html#memory-pinning">https://pytorch.org/docs/stable/data.html#memory-pinning</a></p>
+<p>Cuando los lotes son de un tipo personalizado, normal cuando se utiliza una <em>collate function</em> propia, es necesario que el tipo defina el método <code>pin_memory</code>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">AttrDict</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">pin_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">atributo</span><span class="p">,</span> <span class="n">valor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">atributo</span><span class="p">]</span> <span class="o">=</span> <span class="n">valor</span><span class="o">.</span><span class="n">pin_memory</span><span class="p">()</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">valor</span><span class="p">,</span> <span class="s1">&#39;pin_memory&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">valor</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="El-pre-procesamiento-hasta-ahora">El pre-procesamiento hasta ahora<a class="anchor-link" href="#El-pre-procesamiento-hasta-ahora"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vocabulario_documentos</span> <span class="o">=</span> <span class="n">Vocab</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_docs</span><span class="p">)</span>
+
+<span class="n">train_índices</span> <span class="o">=</span> <span class="n">vocabulario_documentos</span><span class="o">.</span><span class="n">tókenes_a_índices</span><span class="p">(</span><span class="n">train_docs</span><span class="p">)</span>
+<span class="n">valid_índices</span> <span class="o">=</span> <span class="n">vocabulario_documentos</span><span class="o">.</span><span class="n">tókenes_a_índices</span><span class="p">(</span><span class="n">valid_docs</span><span class="p">)</span>
+<span class="n">infer_índices</span> <span class="o">=</span> <span class="n">vocabulario_documentos</span><span class="o">.</span><span class="n">tókenes_a_índices</span><span class="p">(</span><span class="n">infer_docs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_ds</span> <span class="o">=</span> <span class="n">Textset</span><span class="p">(</span><span class="n">train_índices</span><span class="p">)</span>
+<span class="n">valid_ds</span> <span class="o">=</span> <span class="n">Textset</span><span class="p">(</span><span class="n">valid_índices</span><span class="p">)</span>
+<span class="n">infer_ds</span> <span class="o">=</span> <span class="n">Textset</span><span class="p">(</span><span class="n">infer_índices</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Solo definimos el modelo, no lo entrenamos. Elegimos la función <code>offsetear_lote</code> ya que el modelo usa <code>nn.EmbeddingBag</code>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+
+<span class="n">train_dl</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_ds</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="n">collate_fn</span><span class="o">=</span><span class="n">offsetear_lote</span><span class="p">,</span> <span class="n">pin_memory</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">valid_dl</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">valid_ds</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">collate_fn</span><span class="o">=</span><span class="n">offsetear_lote</span><span class="p">,</span> <span class="n">pin_memory</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">infer_dl</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">infer_ds</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">collate_fn</span><span class="o">=</span><span class="n">offsetear_lote</span><span class="p">,</span> <span class="n">pin_memory</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+
+<span class="k">class</span> <span class="nc">ClasificadorBolsa</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">,</span> <span class="n">num_class</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">EmbeddingBag</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">num_class</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">offsets</span><span class="p">):</span>
+        <span class="n">embedded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">offsets</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">embedded</span><span class="p">)</span>
+
+<span class="n">modelo</span> <span class="o">=</span> <span class="n">ClasificadorBolsa</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vocabulario_documentos</span><span class="p">),</span> <span class="mi">8</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">vocabulario_etiquetas</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Con esto concluye la segunda parte. Quedaron los <em>embeddings</em> para la tercera. Ahora deberíamos tener más control sobre la carga de datos en PyTorch. Muchos ejemplos de uso y tutoriales dan por sentada esta parte al utilizar datasets de ejemplos, que ya vienen pre-procesados y/o que la carga por defecto de PyTorch maneja sin inconvenientes.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/blog/2020/07/30/Preprocesamiento-de-texto-para-NLP-parte-2.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>(^・x・^)</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/matiasbattocchia" title="matiasbattocchia"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
