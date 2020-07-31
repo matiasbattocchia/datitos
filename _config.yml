@@ -1,7 +1,7 @@
 title: datitos
 description: Tutoriales de ciencia de datos y emojis de animales
 github_username: matiasbattocchia
-github_repo: datito
+github_repo: datitos
 
 # OPTIONAL: override baseurl and url if using a custom domain
 # Note: leave out the trailing / from this value.
@@ -25,7 +25,7 @@ url: 'https://matiasbattocchia.github.io' # the base hostname & protocol for you
 #
 # 3. You must replace the parameter `baseurl` in _action_files/settings.ini with the same value as you set here but WITHOUT QUOTES.
 #
-baseurl: '/datito' # the subpath of your site, e.g. "/blog".
+baseurl: '/datitos' # the subpath of your site, e.g. "/blog".
 
 permalink: /:title:output_ext
 
