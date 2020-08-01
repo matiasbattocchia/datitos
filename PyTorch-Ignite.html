@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Ejemplo de cómo usar Ignite | datitos</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Ejemplo de cómo usar Ignite" />
+<meta name="author" content="Matías Battocchia" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="/ᐠ｡‸｡ᐟ Una librería de alto nivel que facilita el entrenamiento y la evaluación de redes neuronales en PyTorch" />
+<meta property="og:description" content="/ᐠ｡‸｡ᐟ Una librería de alto nivel que facilita el entrenamiento y la evaluación de redes neuronales en PyTorch" />
+<link rel="canonical" href="https://matiasbattocchia.github.io/datitos/PyTorch-Ignite.html" />
+<meta property="og:url" content="https://matiasbattocchia.github.io/datitos/PyTorch-Ignite.html" />
+<meta property="og:site_name" content="datitos" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-01T00:00:00-05:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Matías Battocchia"},"description":"/ᐠ｡‸｡ᐟ Una librería de alto nivel que facilita el entrenamiento y la evaluación de redes neuronales en PyTorch","mainEntityOfPage":{"@type":"WebPage","@id":"https://matiasbattocchia.github.io/datitos/PyTorch-Ignite.html"},"@type":"BlogPosting","url":"https://matiasbattocchia.github.io/datitos/PyTorch-Ignite.html","headline":"Ejemplo de cómo usar Ignite","dateModified":"2020-07-01T00:00:00-05:00","datePublished":"2020-07-01T00:00:00-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/datitos/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://matiasbattocchia.github.io/datitos/feed.xml" title="datitos" /><link rel="shortcut icon" type="image/x-icon" href="/datitos/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Ejemplo de cómo usar Ignite | datitos</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Ejemplo de cómo usar Ignite" />
+<meta name="author" content="Matías Battocchia" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="/ᐠ｡‸｡ᐟ Una librería de alto nivel que facilita el entrenamiento y la evaluación de redes neuronales en PyTorch" />
+<meta property="og:description" content="/ᐠ｡‸｡ᐟ Una librería de alto nivel que facilita el entrenamiento y la evaluación de redes neuronales en PyTorch" />
+<link rel="canonical" href="https://matiasbattocchia.github.io/datitos/PyTorch-Ignite.html" />
+<meta property="og:url" content="https://matiasbattocchia.github.io/datitos/PyTorch-Ignite.html" />
+<meta property="og:site_name" content="datitos" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-01T00:00:00-05:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Matías Battocchia"},"description":"/ᐠ｡‸｡ᐟ Una librería de alto nivel que facilita el entrenamiento y la evaluación de redes neuronales en PyTorch","mainEntityOfPage":{"@type":"WebPage","@id":"https://matiasbattocchia.github.io/datitos/PyTorch-Ignite.html"},"@type":"BlogPosting","url":"https://matiasbattocchia.github.io/datitos/PyTorch-Ignite.html","headline":"Ejemplo de cómo usar Ignite","dateModified":"2020-07-01T00:00:00-05:00","datePublished":"2020-07-01T00:00:00-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://matiasbattocchia.github.io/datitos/feed.xml" title="datitos" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/datitos/">datitos</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/datitos/about/">About Me</a><a class="page-link" href="/datitos/search/">Search</a><a class="page-link" href="/datitos/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Ejemplo de cómo usar Ignite</h1><p class="page-description">/ᐠ｡‸｡ᐟ Una librería de alto nivel que facilita el entrenamiento y la evaluación de redes neuronales en PyTorch</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-07-01T00:00:00-05:00" itemprop="datePublished">
+        Jul 1, 2020
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Matías Battocchia</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/datitos/categories/#pytorch">pytorch</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/matiasbattocchia/datitos/tree/master/_notebooks/2020-07-01-PyTorch-Ignite.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/datitos/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/matiasbattocchia/datitos/master?filepath=_notebooks%2F2020-07-01-PyTorch-Ignite.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/datitos/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/matiasbattocchia/datitos/blob/master/_notebooks/2020-07-01-PyTorch-Ignite.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/datitos/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Recursos">Recursos </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-07-01-PyTorch-Ignite.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Recientemente han salido varias librerías de alto nivel para PyTorch. Una vez planteados los datasets y los modelos todavía queda bastante por programar, sobre todo los bucles de entrenamiento y validación, código que salvando detalles de implementación es siempre el mismo (<em>boilerplate</em>). Librerías como <a href="https://pytorch-lightning.readthedocs.io">PyTorch Lighting</a> y <a href="https://pytorch.org/ignite">PyTorch Ignite</a> prometen ahorrarnos el código repetitivo y concentrarnos en lo particular.</p>
+<p>Se instala con</p>
+<div class="highlight"><pre><span></span>pip install pytorch-ignite
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">balanced_accuracy_score</span>
+
+<span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="kn">import</span> <span class="n">Engine</span><span class="p">,</span> <span class="n">Events</span>
+<span class="kn">from</span> <span class="nn">ignite.metrics</span> <span class="kn">import</span> <span class="n">Accuracy</span><span class="p">,</span> <span class="n">Loss</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">'cuda'</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">'cpu'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Definimos el triángulo modelo-optimizador-criterio. Lo de siempre.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">modelo</span> <span class="o">=</span> <span class="n">Modelo</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="n">optimizador</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">modelo</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
+
+<span class="n">criterio</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Bucle de entrenamiento</strong>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">entrenar</span><span class="p">(</span><span class="n">motor</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+    <span class="n">modelo</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+
+    <span class="n">optimizador</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    
+    <span class="n">predicciones</span> <span class="o">=</span> <span class="n">modelo</span><span class="p">(</span><span class="n">lote</span><span class="o">.</span><span class="n">documentos</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>
+    <span class="n">pérdida</span> <span class="o">=</span> <span class="n">criterio</span><span class="p">(</span><span class="n">predicciones</span><span class="p">,</span> <span class="n">lote</span><span class="o">.</span><span class="n">etiquetas</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>
+    
+    <span class="n">pérdida</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizador</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">pérdida</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+
+<span class="n">entrenador</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">(</span><span class="n">entrenar</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Bucle de evaluación</strong>. Sirve para todo lo que no es entrenamiento, a ser validación e inferencia.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">evaluar</span><span class="p">(</span><span class="n">motor</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+    <span class="n">modelo</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">predicciones</span> <span class="o">=</span> <span class="n">modelo</span><span class="p">(</span><span class="n">lote</span><span class="o">.</span><span class="n">documentos</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>
+    
+    <span class="c1"># validación</span>
+    <span class="k">if</span> <span class="n">lote</span><span class="o">.</span><span class="n">etiquetas</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">predicciones</span><span class="p">,</span> <span class="n">lote</span><span class="o">.</span><span class="n">etiquetas</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    
+    <span class="c1"># inferencia</span>
+    <span class="k">return</span> <span class="n">predicciones</span>
+
+
+<span class="n">evaluador</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">(</span><span class="n">evaluar</span><span class="p">)</span>
+<span class="n">inferidor</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">(</span><span class="n">evaluar</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Adjuntamos algunas métricas al evaluador. Notar que <code>entrenar</code> devuelve el valor de la función de pérdida mientras que <code>evaluar</code> devuelve predicciones.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Accuracy</span><span class="p">()</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">evaluador</span><span class="p">,</span> <span class="s1">'accuracy'</span><span class="p">)</span>
+<span class="n">Loss</span><span class="p">(</span><span class="n">criterio</span><span class="p">)</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">evaluador</span><span class="p">,</span> <span class="s1">'loss'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>
+<strong>Evento</strong>: al completar una época de entrenamiento.</li>
+<li>
+<strong>Acción</strong>: registrar métricas del dataset de <strong>entrenamiento</strong>. Para ello usamos <code>evaluador.run(train_dl)</code>.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@entrenador</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">EPOCH_COMPLETED</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">loguear_resultados_entrenamiento</span><span class="p">(</span><span class="n">entrenador</span><span class="p">):</span>
+    <span class="n">evaluador</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">train_dl</span><span class="p">)</span>
+    
+    <span class="c1"># accedemos a este atributo gracias a haber adjuntado métricas previamente</span>
+    <span class="n">métricas</span> <span class="o">=</span> <span class="n">evaluador</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">metrics</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">entrenador</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">epoch</span><span class="si">:</span><span class="s2">02</span><span class="si">}</span><span class="s2">] TRAIN  Accuracy: </span><span class="si">{</span><span class="n">métricas</span><span class="p">[</span><span class="s1">'accuracy'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">  Loss: </span><span class="si">{</span><span class="n">métricas</span><span class="p">[</span><span class="s1">'loss'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>
+<strong>Evento</strong>: al completar una época de entrenamiento. <em>Acá podría ser al completar X épocas para no validar tan seguido</em>.</li>
+<li>
+<strong>Acción</strong>: registrar métricas del dataset de <strong>validación</strong>. Para ello usamos <code>evaluador.run(valid_dl)</code>.</li>
+</ul>
+<p>Esta función podría hacer sido más parecida a la de arriba pero no lo es porque queremos calcular una métrica que no viene con <em>Ignite</em>. Tenemos dos opciones, definir una métrica adjuntable como <code>ignite.metrics.Accuracy</code> —que no lo hicimos y quizás hubiese sido lo mejor— o poner la lógica en la función, como vemos aquí.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@entrenador</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">EPOCH_COMPLETED</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">loguear_resultados_validación</span><span class="p">(</span><span class="n">entrenador</span><span class="p">):</span>
+    <span class="c1"># esta artimaña tendrá sentido más adelante</span>
+    <span class="n">evaluador</span><span class="o">.</span><span class="n">predicciones</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">evaluador</span><span class="o">.</span><span class="n">etiquetas</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="n">evaluador</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">valid_dl</span><span class="p">)</span>
+    
+    <span class="c1"># de todas las categorías nos quedamos con la más probable para cada muestra</span>
+    <span class="n">predicciones</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">evaluador</span><span class="o">.</span><span class="n">predicciones</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+    <span class="n">etiquetas</span>    <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">evaluador</span><span class="o">.</span><span class="n">etiquetas</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+    
+    <span class="n">score</span> <span class="o">=</span> <span class="n">balanced_accuracy_score</span><span class="p">(</span><span class="n">etiquetas</span><span class="p">,</span> <span class="n">predicciones</span><span class="p">)</span>
+    
+    <span class="n">métricas</span> <span class="o">=</span> <span class="n">evaluador</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">metrics</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">entrenador</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">epoch</span><span class="si">:</span><span class="s2">02</span><span class="si">}</span><span class="s2">] VALID  Accuracy: </span><span class="si">{</span><span class="n">métricas</span><span class="p">[</span><span class="s1">'accuracy'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">  Loss: </span><span class="si">{</span><span class="n">métricas</span><span class="p">[</span><span class="s1">'loss'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">  Balanced accuracy: </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>
+<strong>Evento</strong>: al procesar un lote de validación.</li>
+<li>
+<strong>Acción</strong>: almacenar predicciones y etiquetas.</li>
+</ul>
+<p>Esto le da sentido a la artimaña que mencionamos. La misma sirve para instanciar listas vacías al inicio de la validación, a las que se le agregaran los resultados de cada lote.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@evaluador</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">ITERATION_COMPLETED</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">colectar_validaciones_lote</span><span class="p">(</span><span class="n">evaluador</span><span class="p">):</span>
+    <span class="n">evaluador</span><span class="o">.</span><span class="n">predicciones</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evaluador</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">evaluador</span><span class="o">.</span><span class="n">etiquetas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evaluador</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>
+<strong>Evento</strong>: al completar el entrenamiento (todas las épocas).</li>
+<li>
+<strong>Acción</strong>: realizar inferencias. Para ello usamos <code>inferidor.run(infer_dl)</code>.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@entrenador</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">COMPLETED</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">colectar_inferencias</span><span class="p">(</span><span class="n">entrenador</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Realizando inferencias...'</span><span class="p">)</span>
+    
+    <span class="c1"># mismo truco de antes</span>
+    <span class="n">inferidor</span><span class="o">.</span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="n">inferidor</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">infer_dl</span><span class="p">)</span>
+    
+    <span class="c1"># de todas las categorías nos quedamos con la más probable para cada muestra</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">inferidor</span><span class="o">.</span><span class="n">y_pred</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># quizás sea un buen momento para recuperar las categorías originales</span>
+    <span class="c1">#y_pred = vocabulario_etiquetas.índices_a_tókenes(y_pred)</span>
+    
+    <span class="c1"># ya que estamos, guardamos los resultados en un CSV</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'submit.csv'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>
+<strong>Evento</strong>: al procesar un lote de inferencia.</li>
+<li>
+<strong>Acción</strong>: almacenar predicciones.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@inferidor</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">ITERATION_COMPLETED</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">colectar_inferencias_lote</span><span class="p">(</span><span class="n">inferidor</span><span class="p">):</span>
+    <span class="n">inferidor</span><span class="o">.</span><span class="n">y_pred</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inferidor</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finalmente largamos el entrenamiento con <code>entrenador.run(train_dl)</code>. Este es el engranaje principal del mecanismo, que al completar bucles moverá a los otros engranajes (<code>Engine</code>s, que no son literalmente enganajes pero puede que sea una buena metáfora).</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">entrenador</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">train_dl</span><span class="p">,</span> <span class="n">max_epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[01] VALID  Accuracy: 0.80  Loss: 1.11  Balanced accuracy: 0.75
+[01] TRAIN  Accuracy: 0.98  Loss: 0.02
+[02] VALID  Accuracy: 0.80  Loss: 1.11  Balanced accuracy: 0.75
+[02] TRAIN  Accuracy: 0.98  Loss: 0.02
+[03] VALID  Accuracy: 0.80  Loss: 1.11  Balanced accuracy: 0.75
+[03] TRAIN  Accuracy: 0.98  Loss: 0.02
+[04] VALID  Accuracy: 0.80  Loss: 1.11  Balanced accuracy: 0.75
+[04] TRAIN  Accuracy: 0.98  Loss: 0.02
+[05] VALID  Accuracy: 0.80  Loss: 1.11  Balanced accuracy: 0.75
+[05] TRAIN  Accuracy: 0.98  Loss: 0.02
+Realizando inferencias...
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Recursos">
+<a class="anchor" href="#Recursos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Recursos<a class="anchor-link" href="#Recursos"> </a>
+</h2>
+<ul>
+<li><a href="https://neptune.ai/blog/model-training-libraries-pytorch-ecosystem">8 Creators and Core Contributors Talk About Their Model Training Libraries From PyTorch Ecosystem</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="matiasbattocchia/datitos"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/datitos/PyTorch-Ignite.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/datitos/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/datitos/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/datitos/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Tutoriales de ciencia de datos y emojis de animales</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/matiasbattocchia" title="matiasbattocchia"><svg class="svg-icon grey"><use xlink:href="/datitos/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
