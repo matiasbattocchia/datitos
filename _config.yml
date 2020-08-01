@@ -1,5 +1,5 @@
 title: datitos
-description: Tutoriales de ciencia de datos y emojis de animales
+description: Tutoriales de ciencia de datos
 github_username: matiasbattocchia
 github_repo: datitos
 
@@ -61,7 +61,7 @@ include:
 # This specifies what badges are turned on by default for notebook posts.
 default_badges:
   github: true
-  binder: true
+  binder: false
   colab: true
 
 # Escape HTML in post descriptions
