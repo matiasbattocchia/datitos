@@ -1,13 +1,11 @@
 ---
 layout: page
-title: About Me
+title: Sobre mí
 permalink: /about/
 ---
 
-This is where you put the contents of your *About* page. Like all your pages, it's in [Markdown](https://guides.github.com/features/mastering-markdown/) format.
+El sitio está hecho con [fastpages](https://github.com/fastai/fastpages).
 
-This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
+Los emojis vienen de [aquí](https://cutekaomoji.com).
 
-
-
-[^1]:a blogging platform that natively supports Jupyter notebooks in addition to other formats.
+Logo y favicon vienen de [acá](https://piq.codeus.net/picture/16599/EDITOR:-Nyan-Cat-Icon).
