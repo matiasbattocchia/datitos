@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Introducción a la programación | datitos</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Introducción a la programación" />
+<meta name="author" content="Matías Battocchia" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="/ᐠ ._. ᐟ\ Paralelismos entre recetas de cerveza artesanal y programas" />
+<meta property="og:description" content="/ᐠ ._. ᐟ\ Paralelismos entre recetas de cerveza artesanal y programas" />
+<link rel="canonical" href="https://matiasbattocchia.github.io/datitos/Introducci%C3%B3n-a-la-programaci%C3%B3n.html" />
+<meta property="og:url" content="https://matiasbattocchia.github.io/datitos/Introducci%C3%B3n-a-la-programaci%C3%B3n.html" />
+<meta property="og:site_name" content="datitos" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-03-08T00:00:00-06:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Matías Battocchia"},"description":"/ᐠ ._. ᐟ\\ Paralelismos entre recetas de cerveza artesanal y programas","mainEntityOfPage":{"@type":"WebPage","@id":"https://matiasbattocchia.github.io/datitos/Introducci%C3%B3n-a-la-programaci%C3%B3n.html"},"@type":"BlogPosting","url":"https://matiasbattocchia.github.io/datitos/Introducci%C3%B3n-a-la-programaci%C3%B3n.html","headline":"Introducción a la programación","dateModified":"2018-03-08T00:00:00-06:00","datePublished":"2018-03-08T00:00:00-06:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/datitos/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://matiasbattocchia.github.io/datitos/feed.xml" title="datitos" /><link rel="shortcut icon" type="image/x-icon" href="/datitos/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Introducción a la programación | datitos</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Introducción a la programación" />
+<meta name="author" content="Matías Battocchia" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="/ᐠ ._. ᐟ\ Paralelismos entre recetas de cerveza artesanal y programas" />
+<meta property="og:description" content="/ᐠ ._. ᐟ\ Paralelismos entre recetas de cerveza artesanal y programas" />
+<link rel="canonical" href="https://matiasbattocchia.github.io/datitos/Introducci%C3%B3n-a-la-programaci%C3%B3n.html" />
+<meta property="og:url" content="https://matiasbattocchia.github.io/datitos/Introducci%C3%B3n-a-la-programaci%C3%B3n.html" />
+<meta property="og:site_name" content="datitos" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-03-08T00:00:00-06:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Matías Battocchia"},"description":"/ᐠ ._. ᐟ\\ Paralelismos entre recetas de cerveza artesanal y programas","mainEntityOfPage":{"@type":"WebPage","@id":"https://matiasbattocchia.github.io/datitos/Introducci%C3%B3n-a-la-programaci%C3%B3n.html"},"@type":"BlogPosting","url":"https://matiasbattocchia.github.io/datitos/Introducci%C3%B3n-a-la-programaci%C3%B3n.html","headline":"Introducción a la programación","dateModified":"2018-03-08T00:00:00-06:00","datePublished":"2018-03-08T00:00:00-06:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://matiasbattocchia.github.io/datitos/feed.xml" title="datitos" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/datitos/">datitos</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/datitos/about/">Acerca de</a><a class="page-link" href="/datitos/search/">Búsqueda</a><a class="page-link" href="/datitos/categories/">Contenidos</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Introducción a la programación</h1><p class="page-description">/ᐠ ._. ᐟ\ Paralelismos entre recetas de cerveza artesanal y programas</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2018-03-08T00:00:00-06:00" itemprop="datePublished">
+        Mar 8, 2018
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Matías Battocchia</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      12 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/datitos/categories/#python">python</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/datitos/categories/#wip">wip</a>
+        
+      
+      </p>
+    
+
+    
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Una-receta-para-elaborar-cerveza">Una receta para elaborar cerveza </a></li>
+<li class="toc-entry toc-h2"><a href="#La-receta-vista-como-un-programa">La receta vista como un programa </a></li>
+<li class="toc-entry toc-h2"><a href="#Tipos-de-datos">Tipos de datos </a></li>
+<li class="toc-entry toc-h2"><a href="#Funciones">Funciones </a></li>
+<li class="toc-entry toc-h2"><a href="#Ejercicio-1">Ejercicio 1 </a></li>
+<li class="toc-entry toc-h2"><a href="#Constantes">Constantes </a></li>
+<li class="toc-entry toc-h2"><a href="#Operadores">Operadores </a></li>
+<li class="toc-entry toc-h2"><a href="#Literales">Literales </a></li>
+<li class="toc-entry toc-h2"><a href="#Entidades-primitivas">Entidades primitivas </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Secuencias">Secuencias </a></li>
+<li class="toc-entry toc-h3"><a href="#Mapeos">Mapeos </a></li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2018-03-08-Introducción-a-la-programación.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Es un trabajo en progreso y quién sabe cuándo será el día que lo retome.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Una-receta-para-elaborar-cerveza">
+<a class="anchor" href="#Una-receta-para-elaborar-cerveza" aria-hidden="true"><span class="octicon octicon-link"></span></a>Una receta para elaborar cerveza<a class="anchor-link" href="#Una-receta-para-elaborar-cerveza"> </a>
+</h2>
+<p><strong>Ingredientes</strong></p>
+<ul>
+<li>Agua <em>purificada</em>. Se usan distintos tipos de agua para diferentes tipos de cerveza.</li>
+<li>Cebada <em>malteada, molida</em>. La cebada es un cereal, el cual pasa por un proceso de malteado que extrae su almidón y sus enzimas.</li>
+<li>Lúpulo. Las flores de lúpulo son las encargadas de dar el amargor y el aroma característicos de la cerveza.</li>
+<li>Levadura para cerveza: Son microorganismos encargados de convertir azúcares en alcohol.</li>
+</ul>
+<p><strong>Elaboración</strong></p>
+<ol>
+<li>
+<p>Maceración: Se mezcla el agua con la cebada durante cierto periodo de tiempo a cierta temperatura, las enzimas atacan al almidón convirtiéndolo en azúcares. Se filtra la mezcla. <em>Producto: mosto</em>.</p>
+</li>
+<li>
+<p>Hervido: Se hierve el mosto durante cierto tiempo, esto permite su esterilización. En el hervido también se agrega el lúpulo, además de aportar sabor y aroma, frena los procesos enzimáticos. Se lo deja enfriar. <em>Producto: mosto amargo</em>.</p>
+</li>
+<li>
+<p>Fermentación: Se le agrega la levadura al mosto. Este proceso dura cierta cantidad de días a cierta temperatura. Luego el mosto fermentado es nuevamente filtrado. <em>Producto: cerveza</em>.</p>
+</li>
+</ol>
+<p><em>Fuente</em>: <a href="http://www.blogdecerveza.com/infografia-cerveza-sajonia-brewing">http://www.blogdecerveza.com/infografia-cerveza-sajonia-brewing</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="La-receta-vista-como-un-programa">
+<a class="anchor" href="#La-receta-vista-como-un-programa" aria-hidden="true"><span class="octicon octicon-link"></span></a>La receta vista como un programa<a class="anchor-link" href="#La-receta-vista-como-un-programa"> </a>
+</h2>
+<p>En la receta se hace distinción entre los ingredientes y las instrucciones de elaboracción. En un programa sucede algo similar, es posible distinguir a los <strong>datos</strong> (los ingredientes) del <strong>código</strong> (las instrucciones); el código es aplicado a los datos para transformarlos y así obtener nuevos datos (los productos), sobre los cuales se puede seguir aplicando código hasta obtener un resultado (o producto) final.</p>
+<p><strong>Datos</strong></p>
+
+<pre><code># cantidades para 15 litros de cerveza artesanal
+
+agua     =  30 litros de agua mineral
+malta    = 4,5 kilos  de harina de cebada malteada (malta)
+lúpulo   = 200 gramos de lúpulo
+levadura =  10 gramos de levadura de cerveza</code></pre>
+<p><strong>Código</strong></p>
+
+<pre><code>mosto   = macerar(agua, malta)
+amargo  = hervir(mosto, lúpulo)
+cerveza = fermentar(amargo, levadura)</code></pre>
+<p>Resalta en este programa la estructura renglonada. Cada renglón constituye una <strong>instrucción</strong> que expresa alguna acción a realizar. Vemos que un <strong>programa</strong> está conformado por una secuencia de una o más instrucciones.</p>
+<p>Todo texto precedido por un numeral (<code>#</code>) es un <strong>comentario</strong>. Estos son ignorados por el programa, son útiles para dejar anotaciones que faciliten la lectura del mismo.</p>
+<p>También es notorio el uso del signo igual (<code>=</code>). Su función es asignar el <strong>valor</strong> de la derecha a la <strong>variable</strong> de la izquierda en lo que se conoce como <em>instrucción de asignación</em>. Un valor es un dato, como mencionamos, una entidad capaz de ser manipulada por el código. A su vez, una variable es un nombre simbólico (también conocido como <em>identificador</em>) que está asociado a una entidad.</p>
+<p>La variable es la manera breve de referirse al valor, como el nombre o el DNI de una persona, que sirve para evitar hacer una descripción que la identifique cada vez que la queramos mencionar. A diferencia del nombre o el documento de las personas, que están asociados de por vida a una persona particular, una variable puede cambiar de valor mediante posteriores re-asignaciones.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Tipos-de-datos">
+<a class="anchor" href="#Tipos-de-datos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tipos de datos<a class="anchor-link" href="#Tipos-de-datos"> </a>
+</h2>
+<p>Analizaremos con mayor profundidad la sección ingredientes/datos. Es común que los programas comiencen con algunas deficiones de variables ya que constituyen la materia prima sobre la cual realizar la ejecución del código.</p>
+<p>Queremos experimentar un poco, de la receta respetaremos el proceso de elaboración y variaremos las <em>cantidades</em> y las <em>cualidades</em> de las materias primas para obtener diversas cervezas. Asociaremos cantidades con valores y cualidades con <strong>tipos</strong>. A continuación, una tabla que resume los ingredientes.</p>
+
+<pre><code>     VALOR  |  TIPO
+-----------------------
+ 30 litros  |  agua mineral
+4,5 kilos   |  harina de cebada malteada (malta)
+200 gramos  |  lúpulo
+ 10 gramos  |  levadura de cerveza</code></pre>
+<p>Podríamos usar menos lúpulo para crear una cerveza menos amarga. Quizás queramos usar más malta para una cerveza más alcohólica. Mientras mantengamos los valores dentro de ciertos rangos y proporciones la receta funcionará. Esto es interesante y esencialmente se debe a que los <em>tipos</em> de ingredientes continúan siendo los mismos. Diferente sería el caso de no contar con levadura de cerveza y querer reemplazarla por levadura de pan; sucede que no sirve para hacer cerveza.</p>
+<p>Es así que los datos se diferencian por sus cualidades y que los programas se escriben teniendo en cuenta ciertos tipos de datos y no otros. Algunos lenguajes de programación son escrictos respecto a los tipos —si la receta dice <em>agua mineral</em> entonces sí o sí tiene que ser agua mineral— y otros, como Python, no lo son: mientras los datos se comporten de manera similar <em>a efectos del programa</em> entonces pueden usarse de manera indistinta. Por ejemplo, en vez de <em>agua mineral</em> podríamos utilizar <em>agua filtrada</em> ya que también se puede beber y <em>a efectos de la receta</em> servirá para la obtención de mosto por medio del proceso de maceración.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Funciones">
+<a class="anchor" href="#Funciones" aria-hidden="true"><span class="octicon octicon-link"></span></a>Funciones<a class="anchor-link" href="#Funciones"> </a>
+</h2>
+<p>Ahora profundizaremos sobre la sección elaboración/código. En abstracto se trata de una secuencia de operaciones que resuelve un problema (el de hacer cerveza), lo que se conoce como <strong>algoritmo</strong>. Concretamente, un algoritmo puede ser expresado de diversas maneras, utilizando un lengaje natural como en la receta, un lenguaje formal como en el programa e incluso gráficamente mediante un diagrama.</p>
+<p>Las operaciones toman datos <em>de entrada</em>, internamente realizan tareas, y devuelven un dato <em>de salida</em>. Asociaremos el concepto de operación con el de <strong>función</strong>. A continuación, una tabla que lista las operaciones del proceso de elaboración.</p>
+
+<pre><code>FUNCIÓN    |  ENTRADAS                |  SALIDA
+-----------------------------------------------------
+macerar    |  agua, malta             |  mosto
+hervir     |  mosto, lúpulo           |  mosto amargo
+fermentar  |  mosto amargo, levadura  |  cerveza</code></pre>
+<p>Las funciones son, como los datos, también entidades. Como sucede con los datos, también se las asocia con un nombre o identificador para poder invocarlas cuando sea necesario. En principio las funciones son operaciones <em>en potencia</em>, son entidades que si bien son capaces de realizar tareas, se encuentran en letargo. Para convertirlas <em>en acto</em>, en la realización de las tareas, las funciones deben ser accionadas, lo que se conoce como <em>llamar a la función</em>. Una manera de lograrlo es mediante el <em>operador llamar a función</em> <code>()</code>, que al acompañar a una función, la activa. Dentro de los paréntesis se especifican los valores (datos) de entrada, los llamados <strong>argumentos</strong> de la función. Como resultado la función será <strong>evaluada</strong>—convertida en un valor (dato) de salida.</p>
+
+<pre><code>función(argumentos...)  -&gt;  valor
+macerar(agua, malta)    -&gt;  mosto</code></pre>
+<p>Caracterizan a una función los argumentos que requiere, en número y en tipo. Por ejemplo <code>macerar</code> requiere dos argumentos, el primero del tipo <code>agua</code> y el segundo del tipo <code>malta</code>. Fallar al proporcionar los valores requeridos por alguna función durante la ejecución del código hará que se detenga.</p>
+<p>Dijimos que las funciones internamente realizan tareas. No siempre estas tareas producirán meramente el dato a ser retornado sino que tendrán otros efectos como almacenar datos o imprimirlos en pantalla y a veces importan más estos efectos que el valor de salida.</p>
+<p>En la receta asignamos los valores retornados a variables así luego los podemos referenciar.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Ejercicio-1">
+<a class="anchor" href="#Ejercicio-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ejercicio 1<a class="anchor-link" href="#Ejercicio-1"> </a>
+</h2>
+<p>Elaborar un glosario con las palabras resaltadas en negrita.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Constantes">
+<a class="anchor" href="#Constantes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Constantes<a class="anchor-link" href="#Constantes"> </a>
+</h2>
+<p>Las constantes son como las variables solo que mantienen su valor. Es decir que una vez asignado un valor a un nombre (identificador), a este no se le podrá reasignar otro valor en el transcurso del programa.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Operadores">
+<a class="anchor" href="#Operadores" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operadores<a class="anchor-link" href="#Operadores"> </a>
+</h2>
+<p>Los operadores son como las funciones solo que se escriben diferente para otorgarle al lenguaje naturalidad y expresividad (facilidad para leerlo y escribirlo). Por ejemplo, las operaciones artiméticas nos resultarán más familiares así</p>
+
+<pre><code> 1 + 1  -&gt;  2
+ 8 - 1  -&gt;  7</code></pre>
+<p>que en una forma funcional.</p>
+
+<pre><code>sumar(1, 1)   -&gt;  2
+restar(8, 1)  -&gt;  7</code></pre>
+<p>Si bien el orden de escritura es otro, en ambos casos el tipo de dato de los argumentos/operandos tiene que ser compatible con la operación y la operación retornará un valor.</p>
+
+<pre><code>función(argumento_1, argumento_2)  -&gt;  valor
+operando_1 operador operando_2     -&gt;  valor</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Literales">
+<a class="anchor" href="#Literales" aria-hidden="true"><span class="octicon octicon-link"></span></a>Literales<a class="anchor-link" href="#Literales"> </a>
+</h2>
+<p>Los valores surgen de las operaciones, así como la flor de lúpulo sale de una planta—viendo a la planta como un proceso que engendra flores. Por otro lado las operaciones requieren valores de entrada, así como se necesita una semilla para dar origen a una planta. Estamos ante una situación del tipo <em>el huevo y la gallina</em>, en la que se requieren operaciones para obtener valores y valores para obtener operaciones. Para salir de este enriedo los lenguajes de programación proveen <strong>literales</strong> para algunos tipos de datos, una manera de escribir valores de manera espontánea, sin recurrir a operaciones que les den origen.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Entidades-primitivas">
+<a class="anchor" href="#Entidades-primitivas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Entidades primitivas<a class="anchor-link" href="#Entidades-primitivas"> </a>
+</h2>
+<p>Los lenguajes de programación proveen elementos básicos con los cuales crear programas. Llamamos <strong>primitivas</strong> a las entidades preexistentes en el lenguaje. Las llamamos así para diferenciarlas de las entidades que es posible construir a partir de estas. Por ejemplo, podemos definir nuestras propias funciones, afines al problema a resolver (más adelante veremos cómo). Mientras tanto el lenguaje cuenta con entidades genéricas con las cuales empezar.</p>
+<p>Python no es un lenguaje especialmente pensado para elaborar cerveza. Los ingredientes con los que cuenta son otros, esta es una lista no exhaustiva de tipos de datos primitivos, los más frecuentes. Entre paréntesis se encuentra el nombre que les da Python.</p>
+<ul>
+<li>Nada (<code>NoneType</code>)</li>
+<li>Booleanos (<code>bool</code>)</li>
+<li>Numéricos<ul>
+<li>Enteros (<code>int</code>)</li>
+<li>Flotantes (<code>float</code>)</li>
+</ul>
+</li>
+<li>Secuencias<ul>
+<li>Texto (<code>str</code>)</li>
+<li>Listas (<code>list</code>)</li>
+</ul>
+</li>
+<li>Mapeos<ul>
+<li>Diccionarios (<code>dict</code>)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Nada</strong>. Este tipo tiene un solo valor (hay una única entidad con este valor). Nos podemos refereir a esta entidad usando la constante primitiva <code>None</code>. Se usa en varias situaciones para significar la ausencia de un valor.</p>
+<p><strong>Booleanos</strong>. Este tipo tiene dos valores. Estas entidades representan los valores <em>verdadero</em> y <em>falso</em>. Nos podemos referir a estas entidades mediante las constantes primitivas <code>True</code> y <code>False</code> respectivamente.</p>
+<p><strong>Enteros</strong>. Este tipo tiene infinitos valores, son los números positivos y negativos. Estos valores se pueden referenciar de una manera literal utilizando numerales (0–9). Python interpretará al símbolo <code>2</code> como un entero de valor dos.</p>
+<p><strong>Flotantes</strong>. Son los números reales. Se pueden referenciar literalmente usando numerales y el punto (.) como separador decimal. Python interpretará <code>3.14</code> como un valor del tipo flotante. Son representaciones <em>aproximadas</em> de los números reales, es una consesión de precisión por rango, que permite computar números reales muy pequeños y muy grandes eficientemente.</p>
+<p><em>Nota</em>: Las constantes <code>None</code>, <code>True</code> y <code>False</code> son necesarias ya que no existen en nuestro <em>lenguaje natural occidental</em> símbolos para referirnos a la nada, a lo verdadero y a lo falso de manera literal, en la manera en la que sí existen caracteres numéricos para referirnos a los números.</p>
+<h3 id="Secuencias">
+<a class="anchor" href="#Secuencias" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secuencias<a class="anchor-link" href="#Secuencias"> </a>
+</h3>
+<p>Las secuencias son <em>colecciones ordenadas</em> de datos indexadas por números no negativos. A diferencia de los tipos de datos vistos hasta el momento, el valor de una colección es <em>los datos que contiene</em>. Un cajón de cervezas viene a ser una colección de botellas de cerveza; el cajón es muy útil para manipular todas esas botellas en conjunto. Por ordenado e indexado nos referimos a que cada lugar del cajón está numerado, lo que nos permite colocar o retirar botellas de lugares específicos.</p>
+<p>La función primitiva <code>len</code> devuelve la cantidad de ítems de la secuencia—aplicada a un cajón lleno debería devolver el número 12.</p>
+
+<pre><code>len(secuencia)  -&gt;  tamaño de la secuencia
+len(cajón)  -&gt;  12</code></pre>
+<p>El operador <em>índice</em> <code>[]</code> selecciona una posición en la secuencia y devuelve su contenido; dentro de los corchetes se especifica la posición. En Python, <strong>el índice comienza en cero</strong>.</p>
+
+<pre><code>secuencia[entero]  -&gt;  dato
+cajón[2]  -&gt;  botella de cerveza del lugar número 3</code></pre>
+<p><strong>Texto</strong>. Normalmente reciben el nombre de <em>strings</em> (cuerdas), son colecciones de <strong>caracteres</strong>. Los valores del tipo <em>string</em> se pueden generar de manera literal al escribirlos entre comillas simples (') o dobles ("). Por ejemplo el literal <code>"cerveza"</code> se diferencia del identificador <code>cerveza</code>, el intérprete de Python [revisar: no se ha explicado qué es el intérprete] al leer el literal lo transformará en un dato del tipo texto cuyo valor es cerveza, en cambio cuando si lee el identificador —la palabra sin comillas— que podría tratarse del nombre de una variable o una función, invocará a la entidad asociada.</p>
+<p><strong>Listas</strong>. Son colecciones arbitrarias de datos. Una lista puede contener todo tipo de datos, incluso otras listas. Se pueden crear de manera literal utilizando corchetes ([ ]) como delimitadores y coma (,) para separar los elementos de la lista.</p>
+
+<pre><code>números = [1, 2, 3]
+números[0]  -&gt;  1</code></pre>
+<p><em>Nota</em>: Puede resultar ambigüa la utilización de corchetes, ya que sirven tanto para la creación de listas como para el operador índice. Sin embargo se utilizan de manera diferente, lo que rompe la ambigüedad.</p>
+<h3 id="Mapeos">
+<a class="anchor" href="#Mapeos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mapeos<a class="anchor-link" href="#Mapeos"> </a>
+</h3>
+<p>Los mapeos son colecciones de datos indexadas por valores arbitrarios. Un ejemplo es una agenda de contactos telefónicos; se trata de una colección de números de teléfono, en la que cada número está relacionado —<em>mapeado</em>— a un nombre de contacto. Relaciona <em>claves</em> (nombres de contacto) con <em>valores</em> (números de teléfono). Las secuencias y los mapeos son parecidos, ambos son colecciones, se diferencian en la forma de indexar los datos, es decir, en la forma de recuperarlos: mediante la <strong>posición</strong> en el caso de las secuencias, por medio de una <strong>clave</strong> en el de los mapeos. En la agenda, para encontrar un número de teléfono (el valor), lo buscamos por el nombre del contacto (la clave).</p>
+<p>Como sucede con las secuencias,  la función <code>len</code> devuelve la cantidad de elementos del mapeo y el operador <em>índice</em> <code>[]</code> selecciona un elemento del mapeo y devuelve su valor; dentro de los corchetes se especifica la clave.</p>
+<p><strong>Diccionarios</strong>. Es el mapeo paradigmático. Se pueden crear de manera literal utilizando llaves ({ }) como delimitadores, coma (,) para separar los elementos del diccionario, lo que nos recuerda un poco a las listas, solo que los elementos del diccionario son pares clave-valor, utilizándose dos puntos (:) para separar la clave del valor.</p>
+
+<pre><code>proveedores = {'a':1, 'b':2, 'c':3}
+proveedores['b']  -&gt;  2</code></pre>
+<p>En este ejemplo se usaron <em>strings</em> para las claves y enteros para los valores. Los tipos de datos que pueden cumplir estas funciones no están limitados a estos, los valores pueden ser de cualquier tipo, incluyendo listas y otros diccionarios; las claves están más acotadas, normalmente son <em>strings</em>, podrían ser de otros pero no listas ni diccionarios.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="matiasbattocchia/datitos"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/datitos/Introducci%C3%B3n-a-la-programaci%C3%B3n.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/datitos/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/datitos/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/datitos/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Tutoriales de ciencia de datos | CC BY-SA 4.0</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/matiasbattocchia" title="matiasbattocchia"><svg class="svg-icon grey"><use xlink:href="/datitos/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
