@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Un recorrido por scikit-learn | datitos</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Un recorrido por scikit-learn" />
+<meta name="author" content="Matías Battocchia" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="៱˳_˳៱∫ Una visita guiada por la guía de usuarie de la librería" />
+<meta property="og:description" content="៱˳_˳៱∫ Una visita guiada por la guía de usuarie de la librería" />
+<link rel="canonical" href="https://matiasbattocchia.github.io/datitos/Recorrido-por-scikit-learn.html" />
+<meta property="og:url" content="https://matiasbattocchia.github.io/datitos/Recorrido-por-scikit-learn.html" />
+<meta property="og:site_name" content="datitos" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-08-04T00:00:00-05:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Matías Battocchia"},"description":"៱˳_˳៱∫ Una visita guiada por la guía de usuarie de la librería","mainEntityOfPage":{"@type":"WebPage","@id":"https://matiasbattocchia.github.io/datitos/Recorrido-por-scikit-learn.html"},"@type":"BlogPosting","url":"https://matiasbattocchia.github.io/datitos/Recorrido-por-scikit-learn.html","headline":"Un recorrido por scikit-learn","dateModified":"2017-08-04T00:00:00-05:00","datePublished":"2017-08-04T00:00:00-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/datitos/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://matiasbattocchia.github.io/datitos/feed.xml" title="datitos" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-174296382-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/datitos/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Un recorrido por scikit-learn | datitos</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Un recorrido por scikit-learn" />
+<meta name="author" content="Matías Battocchia" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="៱˳_˳៱∫ Una visita guiada por la guía de usuarie de la librería" />
+<meta property="og:description" content="៱˳_˳៱∫ Una visita guiada por la guía de usuarie de la librería" />
+<link rel="canonical" href="https://matiasbattocchia.github.io/datitos/Recorrido-por-scikit-learn.html" />
+<meta property="og:url" content="https://matiasbattocchia.github.io/datitos/Recorrido-por-scikit-learn.html" />
+<meta property="og:site_name" content="datitos" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-08-04T00:00:00-05:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Matías Battocchia"},"description":"៱˳_˳៱∫ Una visita guiada por la guía de usuarie de la librería","mainEntityOfPage":{"@type":"WebPage","@id":"https://matiasbattocchia.github.io/datitos/Recorrido-por-scikit-learn.html"},"@type":"BlogPosting","url":"https://matiasbattocchia.github.io/datitos/Recorrido-por-scikit-learn.html","headline":"Un recorrido por scikit-learn","dateModified":"2017-08-04T00:00:00-05:00","datePublished":"2017-08-04T00:00:00-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://matiasbattocchia.github.io/datitos/feed.xml" title="datitos" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-174296382-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/datitos/">datitos</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/datitos/about/">Acerca de</a><a class="page-link" href="/datitos/search/">Búsqueda</a><a class="page-link" href="/datitos/categories/">Contenidos</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Un recorrido por scikit-learn</h1><p class="page-description">៱˳_˳៱∫ Una visita guiada por la guía de usuarie de la librería</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2017-08-04T00:00:00-05:00" itemprop="datePublished">
+        Aug 4, 2017
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Matías Battocchia</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      10 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/datitos/categories/#scikit-learn">scikit-learn</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/matiasbattocchia/datitos/tree/master/_notebooks/2017-08-04-Recorrido-por-scikit-learn.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/datitos/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/matiasbattocchia/datitos/blob/master/_notebooks/2017-08-04-Recorrido-por-scikit-learn.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/datitos/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h4"><a href="#Requisitos">Requisitos </a></li>
+<li class="toc-entry toc-h4"><a href="#Utilidad">Utilidad </a></li>
+<li class="toc-entry toc-h4"><a href="#Datos">Datos </a></li>
+<li class="toc-entry toc-h4"><a href="#Objetos">Objetos </a></li>
+<li class="toc-entry toc-h2"><a href="#Flujo-de-trabajo">Flujo de trabajo </a></li>
+<li class="toc-entry toc-h2"><a href="#Datos">Datos </a></li>
+<li class="toc-entry toc-h2"><a href="#Limpieza-de-datos">Limpieza de datos </a></li>
+<li class="toc-entry toc-h2"><a href="#Partición-del-conjunto-de-datos">Partición del conjunto de datos </a></li>
+<li class="toc-entry toc-h2"><a href="#Transformadores:-preprocesamiento-de-atributos">Transformadores: preprocesamiento de atributos </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Extracción">Extracción </a></li>
+<li class="toc-entry toc-h3"><a href="#Transformación">Transformación </a></li>
+<li class="toc-entry toc-h3"><a href="#Imputación-de-valores-ausentes">Imputación de valores ausentes </a></li>
+<li class="toc-entry toc-h3"><a href="#Creación">Creación </a></li>
+<li class="toc-entry toc-h3"><a href="#Reducción-de-dimensionalidad">Reducción de dimensionalidad </a></li>
+<li class="toc-entry toc-h3"><a href="#Selección-—-solo-aprendizaje-supervisado">Selección — solo aprendizaje supervisado </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Estimadores:-selección-de-modelos">Estimadores: selección de modelos </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#predict_proba(X)">predict_proba(X) </a></li>
+<li class="toc-entry toc-h3"><a href="#Cantidad-de-objetivos-—-solo-aprendizaje-supervisado">Cantidad de objetivos — solo aprendizaje supervisado </a></li>
+<li class="toc-entry toc-h3"><a href="#Ensambles-—-solo-aprendizaje-supervisado">Ensambles — solo aprendizaje supervisado </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Evaluación-del-modelo">Evaluación del modelo </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Efectividad">Efectividad </a></li>
+<li class="toc-entry toc-h3"><a href="#Matriz-de-confusión">Matriz de confusión </a></li>
+<li class="toc-entry toc-h3"><a href="#Reporte">Reporte </a></li>
+<li class="toc-entry toc-h3"><a href="#F1">F1 </a></li>
+<li class="toc-entry toc-h3"><a href="#Kappa-de-Cohen">Kappa de Cohen </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Flujo-de-datos">Flujo de datos </a></li>
+<li class="toc-entry toc-h2"><a href="#Pipeline">Pipeline </a></li>
+<li class="toc-entry toc-h2"><a href="#Optimización:-validación-cruzada">Optimización: validación cruzada </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Estrategias">Estrategias </a></li>
+<li class="toc-entry toc-h3"><a href="#Métricas">Métricas </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Optimización:-búsqueda">Optimización: búsqueda </a></li>
+<li class="toc-entry toc-h2"><a href="#Evaluación-final">Evaluación final </a></li>
+<li class="toc-entry toc-h2"><a href="#Persistencia-del-modelo">Persistencia del modelo </a></li>
+<li class="toc-entry toc-h2"><a href="#Extra:-Muestreo-—-conjunto-desbalanceado">Extra: Muestreo — conjunto desbalanceado </a></li>
+<li class="toc-entry toc-h2"><a href="#Ejercicio:-Boston-price-data-set">Ejercicio: Boston price data set </a></li>
+<li class="toc-entry toc-h2"><a href="#Automatización">Automatización </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2017-08-04-Recorrido-por-scikit-learn.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Preparé unas clases introductorias a la librería de aprendizaje automático <code>scikit-learn</code>. Las notas de las clases, que aquí comparto, si bien no llegan a conformar un tutorial, perfilan como una guía para recorrer la documentación de la librería en gran parte de su extensión.</p>
+<p>En esencia reorganicé las guías de usuario de la librería en torno al flujo de trabajo del desarrollo de modelos. Adicionalmente, como en la vida real los datos de los que uno suele disponer están lejos de ser perfectos, añadí algunas técnicas para trabajar con conjuntos de datos desbalanceados.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Recorrido por las posibilidades de la librería (<a href="http://scikit-learn.org/stable/user_guide.html">guías de usuario</a>)</li>
+<li>Familizarización con la documentación (<a href="http://scikit-learn.org/stable/modules/classes.html">API</a>)</li>
+<li>
+<strong>Tarea</strong>: implementación de un flujo de trabajo sencillo para regresión (parecido al <a href="http://scikit-learn.org/stable/tutorial/basic/tutorial.html">tutorial básico</a>)</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sn</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Requisitos">
+<a class="anchor" href="#Requisitos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requisitos<a class="anchor-link" href="#Requisitos"> </a>
+</h4>
+<p>Algo de familiaridad con NumPy. Ver este <a href="http://cs231n.github.io/python-numpy-tutorial">tutorial</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Utilidad">
+<a class="anchor" href="#Utilidad" aria-hidden="true"><span class="octicon octicon-link"></span></a>Utilidad<a class="anchor-link" href="#Utilidad"> </a>
+</h4>
+<ul>
+<li>Aprendizaje supervisado<ul>
+<li>Clasificación</li>
+<li>Regresión</li>
+</ul>
+</li>
+<li>Aprendizaje no supervisado</li>
+<li><del>Aprendizaje por refuerzos</del></li>
+</ul>
+<p>Redes neuronales: solo perceptrón multicapa y <em>restricted Boltzmann machine</em>.</p>
+<h4 id="Datos">
+<a class="anchor" href="#Datos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Datos<a class="anchor-link" href="#Datos"> </a>
+</h4>
+<p><code>scikit-learn</code> consume <strong>datos</strong> con forma de matriz o arreglo bidimensional, de dimensión <code>(n_muestras, n_atributos)</code> — es como imaginamos normalmente a los datos, dispuestos en una tabla donde las <strong>columnas</strong> son los atributos y hay tantas muestras como <strong>filas</strong>.</p>
+<p>Convencionalmente en la documentación la varible <em><code>X</code></em> se utiliza para los <strong>atributos</strong> propiamente dichos, y la variable <em><code>y</code></em> para los <strong>objetivos</strong>. Cuando el objetivo es uno solo, <em><code>y</code></em> suele tomar la forma de arreglo unidimensional de dimensión <code>(n_muestras,)</code>.</p>
+<h4 id="Objetos">
+<a class="anchor" href="#Objetos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Objetos<a class="anchor-link" href="#Objetos"> </a>
+</h4>
+<p>En <code>scikit-learn</code> hay dos tipos fundamentales de objetos:</p>
+<ul>
+<li>
+<p>Los <strong>transformadores</strong>, que implementan los métodos</p>
+<ul>
+<li>
+<code>fit(X, y)</code> y</li>
+<li>
+<code>transform(X)</code>,</li>
+</ul>
+</li>
+<li>
+<p>y los <strong>estimadores</strong>, que implementan</p>
+<ul>
+<li>
+<code>fit(X, y)</code>,</li>
+<li>
+<code>predict(X)</code>.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Flujo-de-trabajo">
+<a class="anchor" href="#Flujo-de-trabajo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Flujo de trabajo<a class="anchor-link" href="#Flujo-de-trabajo"> </a>
+</h2>
+<p><img src="https://docs.google.com/drawings/d/1HJH4Al7gkcIKOr21w-ciZwAFZad6CsU_YKdeAiHHolA/pub?w=960&amp;h=720" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Datos">
+<a class="anchor" href="#Datos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Datos<a class="anchor-link" href="#Datos"> </a>
+</h2>
+<p>Vamos a usar el conjunto de datos de plantas de iris para los ejemplos. Este dataset es una especie de hola mundo del aprendizaje de máquinas.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Iris_versicolor_3.jpg" alt=""></p>
+<p><strong>Cantidad de instancias</strong>: 150</p>
+<p><strong>Atributos</strong> (4)</p>
+
+<pre><code>1. Largo del sépalo [cm]
+2. Ancho del sépalo [cm]
+3. Largo del pétalo [cm]
+4. Ancho del pétalo [cm]
+
+</code></pre>
+<p><strong>Objetivos</strong> (1)</p>
+
+<pre><code>5. Clase
+    - Setosa
+    - Versicolour
+    - Virginica
+
+</code></pre>
+<p><strong>Valores ausentes</strong>: No</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">'X: datos   '</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'y: objetivo'</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>X: datos    (150, 4)
+y: objetivo (150,)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Limpieza-de-datos">
+<a class="anchor" href="#Limpieza-de-datos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Limpieza de datos<a class="anchor-link" href="#Limpieza-de-datos"> </a>
+</h2>
+<p><a href="https://en.wikipedia.org/wiki/Data_cleansing">https://en.wikipedia.org/wiki/Data_cleansing</a></p>
+<ul>
+<li>Cardinalidad</li>
+<li>Rango</li>
+<li>Desviación</li>
+<li>Tipo<ul>
+<li>Booleano</li>
+<li>Numéro (separadores)</li>
+<li>Texto<ul>
+<li>espacios (<em>trimming</em>)</li>
+<li>tildes</li>
+<li>casos (mayúsculas, minúsculas)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Codificación</strong> (UTF-8, etcétera)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Partición-del-conjunto-de-datos">
+<a class="anchor" href="#Partici%C3%B3n-del-conjunto-de-datos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Partición del conjunto de datos<a class="anchor-link" href="#Partici%C3%B3n-del-conjunto-de-datos"> </a>
+</h2>
+<ul>
+<li>Entrenamiento (50%)</li>
+<li>Validación (25%) — salvo cross-validation o ausencia de hiperparámetros.</li>
+<li>Prueba (25%)</li>
+</ul>
+<p><strong>Ejemplo</strong>: <code>train_test_split</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Transformadores:-preprocesamiento-de-atributos">
+<a class="anchor" href="#Transformadores:-preprocesamiento-de-atributos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Transformadores: preprocesamiento de atributos<a class="anchor-link" href="#Transformadores:-preprocesamiento-de-atributos"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Extracción">
+<a class="anchor" href="#Extracci%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extracción<a class="anchor-link" href="#Extracci%C3%B3n"> </a>
+</h3>
+<p><a href="http://scikit-learn.org/stable/modules/feature_extraction.html">http://scikit-learn.org/stable/modules/feature_extraction.html</a></p>
+<ul>
+<li>Imágenes</li>
+<li>Texto</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Transformación">
+<a class="anchor" href="#Transformaci%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Transformación<a class="anchor-link" href="#Transformaci%C3%B3n"> </a>
+</h3>
+<p><a href="http://scikit-learn.org/stable/modules/preprocessing.html#standardization-or-mean-removal-and-variance-scaling">http://scikit-learn.org/stable/modules/preprocessing.html#standardization-or-mean-removal-and-variance-scaling</a></p>
+<ul>
+<li>Estandarización (<code>StandardScaler</code>) — A cada atributo le remueve su valor medio y lo escala dividiéndolo por su desviación estándar.<ul>
+<li>Centrar los datos es prácticamente obligatorio (hay excepciones).</li>
+<li>Normalizar los datos solo si los atributos difieren en unidades y/u órdenes de magnitud.</li>
+</ul>
+</li>
+<li>Reajuste<ul>
+<li>Rango (<code>MinMaxScaler</code>)</li>
+<li>Valor absoluto (<code>MaxAbsScaler</code>)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Ejemplo</strong>: <code>StandardScaler</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="n">std</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">(</span><span class="n">with_mean</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">with_std</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">std</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_train_std</span> <span class="o">=</span> <span class="n">std</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>     
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="http://cs231n.github.io/assets/nn2/prepro1.jpeg" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="http://scikit-learn.org/stable/modules/preprocessing.html#normalization">http://scikit-learn.org/stable/modules/preprocessing.html#normalization</a></p>
+<ul>
+<li>Normalización (Normalizer) — Divide vectores por su norma (afecta filas en vez de columnas).</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Imputación-de-valores-ausentes">
+<a class="anchor" href="#Imputaci%C3%B3n-de-valores-ausentes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Imputación de valores ausentes<a class="anchor-link" href="#Imputaci%C3%B3n-de-valores-ausentes"> </a>
+</h3>
+<p><a href="http://scikit-learn.org/stable/modules/preprocessing.html#imputation-of-missing-values">http://scikit-learn.org/stable/modules/preprocessing.html#imputation-of-missing-values</a></p>
+<ul>
+<li>Descarte (tirar la muestra)</li>
+<li><strong>Valor más común</strong></li>
+<li><strong>Valor medio</strong></li>
+<li><strong>Valor mediano</strong></li>
+<li>Estimación (clasificación/regresión)</li>
+<li>
+<em>Hot-deck</em> (el valor de la muestra más parecida)</li>
+<li>Valor ausente (<em>NA</em>) como otro valor</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Creación">
+<a class="anchor" href="#Creaci%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creación<a class="anchor-link" href="#Creaci%C3%B3n"> </a>
+</h3>
+<p><a href="http://scikit-learn.org/stable/modules/preprocessing.html#generating-polynomial-features">http://scikit-learn.org/stable/modules/preprocessing.html#generating-polynomial-features</a></p>
+<p>De $(X_1, X_2)$ a $(1, X_1, X_2, X_1^2, X_1X_2, X_2^2)$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Reducción-de-dimensionalidad">
+<a class="anchor" href="#Reducci%C3%B3n-de-dimensionalidad" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reducción de dimensionalidad<a class="anchor-link" href="#Reducci%C3%B3n-de-dimensionalidad"> </a>
+</h3>
+<p><a href="http://scikit-learn.org/stable/modules/unsupervised_reduction.html">http://scikit-learn.org/stable/modules/unsupervised_reduction.html</a></p>
+<ul>
+<li>PCA — análisis de componentes principales. Estandarizar los datos antes de usar PCA.</li>
+<li>Casi todos los estimadores <strong>no supervisados</strong> implementan el método <code>transform(X)</code>.</li>
+<li>
+<a href="http://scikit-learn.org/stable/modules/lda_qda.html">Algunos</a> estimadores <strong>supervisados</strong> también.</li>
+</ul>
+<p><strong>Ejemplo</strong>: <code>PCA</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">whiten</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_std</span><span class="p">)</span>
+<span class="n">X_train_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train_std</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="http://cs231n.github.io/assets/nn2/prepro2.jpeg" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Selección-—-solo-aprendizaje-supervisado">
+<a class="anchor" href="#Selecci%C3%B3n-%E2%80%94-solo-aprendizaje-supervisado" aria-hidden="true"><span class="octicon octicon-link"></span></a>Selección — solo aprendizaje supervisado<a class="anchor-link" href="#Selecci%C3%B3n-%E2%80%94-solo-aprendizaje-supervisado"> </a>
+</h3>
+<p><a href="http://scikit-learn.org/stable/modules/feature_selection.html">http://scikit-learn.org/stable/modules/feature_selection.html</a></p>
+<ul>
+<li>Umbral de varianza</li>
+<li>Análisis univariado</li>
+<li>Usando un estimador</li>
+<li>Eliminación recursiva (también existe la agregación recursiva)</li>
+</ul>
+<p><strong>Ejemplo</strong>: <code>SelectKBest</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">SelectKBest</span>
+
+<span class="n">kbest</span> <span class="o">=</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">kbest</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_std</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">X_train_kbest</span> <span class="o">=</span> <span class="n">kbest</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train_std</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Estimadores:-selección-de-modelos">
+<a class="anchor" href="#Estimadores:-selecci%C3%B3n-de-modelos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Estimadores: selección de modelos<a class="anchor-link" href="#Estimadores:-selecci%C3%B3n-de-modelos"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="http://scikit-learn.org/stable/_static/ml_map.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>¿Qué estimador usar para el conjunto de datos de <strong>plantas de iris</strong>?</p>
+<ol>
+<li>¿Más de 50 muestras? Sí, el conjunto de datos tiene 150 (en realidad un poco menos porque hemos separado un conjunto de prueba).</li>
+<li>¿Hay que predecir una categoría? Sí, queremos predecir a qué especie pertenece cada planta.</li>
+<li>¿Los datos estás anotados? Sí, están anotados en tres categorías.</li>
+<li>¿Más de 100,000 muestras? No...</li>
+</ol>
+<p>Nos recomiendan usar una máquina de vectores de soporte (<a href="https://en.wikipedia.org/wiki/Support_vector_machine"><em>support vector machine</em></a>) con un <em>kernel</em> lineal.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Ejemplo</strong>: <code>SVC</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+
+<span class="n">estimador</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">'linear'</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">probability</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">estimador</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_std</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">X_test_std</span> <span class="o">=</span> <span class="n">std</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">estimador</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_std</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="predict_proba(X)">
+<a class="anchor" href="#predict_proba(X)" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>predict_proba(X)</code><a class="anchor-link" href="#predict_proba(X)"> </a>
+</h3>
+<p><a href="http://scikit-learn.org/stable/modules/calibration.html">http://scikit-learn.org/stable/modules/calibration.html</a></p>
+<p>Al realizar la clasificación, a menudo se desea no solo predecir la etiqueta de la clase, sino también obtener una probabilidad de la etiqueta. Esta probabilidad da algún tipo de confianza en la predicción. Algunos modelos pueden darle estimaciones pobres de las probabilidades de la clase y algunos incluso no admiten la predicción de probabilidad. El módulo de calibración le permite calibrar mejor las probabilidades de un modelo determinado o agregar soporte para la predicción de probabilidad.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">estimador</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[ 0.,  0.,  1.],
+       [ 0.,  0.,  1.],
+       [ 0.,  1.,  0.]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Cantidad-de-objetivos-—-solo-aprendizaje-supervisado">
+<a class="anchor" href="#Cantidad-de-objetivos-%E2%80%94-solo-aprendizaje-supervisado" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cantidad de objetivos — solo aprendizaje supervisado<a class="anchor-link" href="#Cantidad-de-objetivos-%E2%80%94-solo-aprendizaje-supervisado"> </a>
+</h3>
+<p><a href="http://scikit-learn.org/stable/modules/multiclass.html">http://scikit-learn.org/stable/modules/multiclass.html</a></p>
+<ul>
+<li>Clasificador<ul>
+<li>Binario</li>
+<li>Multi<ul>
+<li>Clase</li>
+<li>Etiqueta</li>
+<li>Clase-etiqueta</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Regresor<ul>
+<li>Univariado</li>
+<li>Multivariado</li>
+</ul>
+</li>
+</ul>
+<p><strong>En <code>scikit-learn</code> todos los clasificadores aceptan varias clases</strong>. Algunos estimadores trabajan inherentemente con múltiples objetivos y le sacan provecho a la correlación entre los mismos. Cuando no es el caso del estimador, existen diferentes estrategias para que admita múltiples objetivos:</p>
+<ul>
+<li>
+<em>OVO</em> (uno-contra-uno),</li>
+<li>
+<em>OVA</em> (uno-contra-todos).</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Ensambles-—-solo-aprendizaje-supervisado">
+<a class="anchor" href="#Ensambles-%E2%80%94-solo-aprendizaje-supervisado" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ensambles — solo aprendizaje supervisado<a class="anchor-link" href="#Ensambles-%E2%80%94-solo-aprendizaje-supervisado"> </a>
+</h3>
+<p><a href="http://scikit-learn.org/stable/modules/ensemble.html">http://scikit-learn.org/stable/modules/ensemble.html</a></p>
+<p>Diferentes tipos de ensambles:</p>
+<ul>
+<li>Promediadores: estimadores en paralelo, reducen la <strong>varianza</strong>.</li>
+<li>Propulsores (<em>boosting</em>): estimadores en serie, reducen el <strong>sesgo</strong>.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Evaluación-del-modelo">
+<a class="anchor" href="#Evaluaci%C3%B3n-del-modelo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Evaluación del modelo<a class="anchor-link" href="#Evaluaci%C3%B3n-del-modelo"> </a>
+</h2>
+<p><a href="http://scikit-learn.org/stable/modules/model_evaluation.html">http://scikit-learn.org/stable/modules/model_evaluation.html</a></p>
+<p>Cada estimador implementa un método llamado <code>score(X, y)</code> que devuelve un puntaje del desempeño del estimador. El puntaje es calculado usando una métrica acorde a la naturaleza del estimador, por ejemplo los regresores suelen reportar <strong>R²</strong> mientas que los clasificadores, <strong>efectividad</strong>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">estimador</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test_std</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.97368421052631582</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Efectividad">
+<a class="anchor" href="#Efectividad" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html">Efectividad</a><a class="anchor-link" href="#Efectividad"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.97368421052631582</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Matriz-de-confusión">
+<a class="anchor" href="#Matriz-de-confusi%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html">Matriz de confusión</a><a class="anchor-link" href="#Matriz-de-confusi%C3%B3n"> </a>
+</h3>
+<p><a href="https://en.wikipedia.org/wiki/Confusion_matrix">https://en.wikipedia.org/wiki/Confusion_matrix</a></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+
+<span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[13,  0,  0],
+       [ 0, 15,  1],
+       [ 0,  0,  9]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Reporte">
+<a class="anchor" href="#Reporte" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html">Reporte</a><a class="anchor-link" href="#Reporte"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
+
+<span class="n">clases</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Setosa'</span><span class="p">,</span> <span class="s1">'Versicolour'</span><span class="p">,</span> <span class="s1">'Virginica'</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">clases</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>             precision    recall  f1-score   support
+
+     Setosa       1.00      1.00      1.00        13
+Versicolour       1.00      0.94      0.97        16
+  Virginica       0.90      1.00      0.95         9
+
+avg / total       0.98      0.97      0.97        38
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="F1">
+<a class="anchor" href="#F1" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html">F1</a><a class="anchor-link" href="#F1"> </a>
+</h3>
+<p><em>Útil para conjuntos de datos desbalanceados</em>.</p>
+<p>$F_1 = 2 \cdot \frac{\mathrm{precision} \cdot \mathrm{recall}}{\mathrm{precision} + \mathrm{recall}}$</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">f1_score</span>
+
+<span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">'weighted'</span><span class="p">)</span>  
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.97395228308462156</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Kappa-de-Cohen">
+<a class="anchor" href="#Kappa-de-Cohen" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://scikit-learn.org/stable/modules/generated/sklearn.metrics.cohen_kappa_score.html">Kappa de Cohen</a><a class="anchor-link" href="#Kappa-de-Cohen"> </a>
+</h3>
+<p><a href="https://en.wikipedia.org/wiki/Cohen's_kappa">https://en.wikipedia.org/wiki/Cohen's_kappa</a></p>
+<p><em>Útil para conjuntos de datos desbalanceados</em>.</p>
+<p>$\kappa = \frac{p_o - p_e}{1 - p_e}$</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">cohen_kappa_score</span>
+
+<span class="n">cohen_kappa_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.95978835978835975</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Flujo-de-datos">
+<a class="anchor" href="#Flujo-de-datos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Flujo de datos<a class="anchor-link" href="#Flujo-de-datos"> </a>
+</h2>
+<p><img src="https://docs.google.com/drawings/d/1aabA_HusMS9sjpVGhFxgYtsKyTypsLz9qd5BqqwAL-U/pub?w=1922&amp;h=663" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Pipeline">
+<a class="anchor" href="#Pipeline" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pipeline<a class="anchor-link" href="#Pipeline"> </a>
+</h2>
+<p><a href="http://scikit-learn.org/stable/modules/pipeline.html">http://scikit-learn.org/stable/modules/pipeline.html</a></p>
+<p>Todos los objetos del flujo, excepto el último, deben ser muestreadores/<strong>transformadores</strong> (deben implementar el método <code>sample</code>/<code>transform</code>). El último objeto puede ser de cualquier tipo, suele ser un estimador.</p>
+<p>Prestar atención a <a href="https://scikit-learn.org/stable/modules/compose.html#column-transformer">ColumnTransformer</a> que permite aplicar transformadores a DataFrames de Pandas.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+
+<span class="n">flujo</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">SVC</span><span class="p">())</span>
+<span class="n">flujo</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">flujo</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.97368421052631582</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Optimización:-validación-cruzada">
+<a class="anchor" href="#Optimizaci%C3%B3n:-validaci%C3%B3n-cruzada" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optimización: validación cruzada<a class="anchor-link" href="#Optimizaci%C3%B3n:-validaci%C3%B3n-cruzada"> </a>
+</h2>
+<p><a href="http://scikit-learn.org/stable/modules/cross_validation.html">http://scikit-learn.org/stable/modules/cross_validation.html</a></p>
+<p>El conjunto de datos de validación sirve para ajustar a los <strong>hiperparámetros</strong> de los objetos que componen el flujo de trabajo, tanto como para la composición del flujo en sí mismo. La <strong>validación cruzada</strong> es útil cuando el conjunto de validación es necesario y las muestras son escasas.</p>
+<p>Se necesitan dos cosas:</p>
+<ol>
+<li>Una estrategia de particionamiento de los datos.</li>
+<li>Una métrica de evaluación.</li>
+</ol>
+<h3 id="Estrategias">
+<a class="anchor" href="#Estrategias" aria-hidden="true"><span class="octicon octicon-link"></span></a>Estrategias<a class="anchor-link" href="#Estrategias"> </a>
+</h3>
+<ul>
+<li>K-fold, stratified k-fold — estrategias por defecto para regresores y clasificadores respectivamente.</li>
+<li>Leave one out (LOO)</li>
+<li>Leave P out (LPO)</li>
+<li>Shuffle &amp; split, stratified shuffle &amp; split</li>
+</ul>
+<p><img src="https://docs.google.com/drawings/d/1EoJOIjEnVkVGYDyknO7ecsk7zUucGRMrHp8yJgpaYuQ/pub?w=826&amp;h=405" alt=""></p>
+<h3 id="Métricas">
+<a class="anchor" href="#M%C3%A9tricas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Métricas<a class="anchor-link" href="#M%C3%A9tricas"> </a>
+</h3>
+<ul>
+<li>De no especificarse ninguna, se usa el método <code>score(X, y)</code> del estimador.</li>
+<li>Las métricas más comunes se pueden pasar como argumento (<em>string</em>), ver <a href="http://scikit-learn.org/stable/modules/model_evaluation.html#common-cases-predefined-values">tabla</a>.</li>
+<li>Se pueden armar <a href="http://scikit-learn.org/stable/modules/generated/sklearn.metrics.make_scorer.html"><strong>puntuadores</strong></a> a partir de cualquier métrica, tanto de la API como definidas por el usuario, y pasar como argumento (<em>función</em>).</li>
+</ul>
+<p><a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_score.html">http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_score.html</a></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+
+<span class="n">resultados</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">flujo</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">'f1_weighted'</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">'F1 promedio: </span><span class="si">%0.2f</span><span class="s1"> (+/- </span><span class="si">%0.2f</span><span class="s1">)'</span> <span class="o">%</span> <span class="p">(</span><span class="n">resultados</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">resultados</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>F1 promedio: 0.96 (+/- 0.08)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Optimización:-búsqueda">
+<a class="anchor" href="#Optimizaci%C3%B3n:-b%C3%BAsqueda" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optimización: búsqueda<a class="anchor-link" href="#Optimizaci%C3%B3n:-b%C3%BAsqueda"> </a>
+</h2>
+<p><a href="http://scikit-learn.org/stable/modules/grid_search.html">http://scikit-learn.org/stable/modules/grid_search.html</a></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+
+<span class="n">hiperparámetros</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'svc__kernel'</span><span class="p">:(</span><span class="s1">'linear'</span><span class="p">,</span> <span class="s1">'rbf'</span><span class="p">),</span>
+         <span class="s1">'svc__C'</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">grilla</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">flujo</span><span class="p">,</span> <span class="n">hiperparámetros</span><span class="p">)</span>
+<span class="n">grilla</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    
+<span class="n">estimador</span> <span class="o">=</span> <span class="n">grilla</span><span class="o">.</span><span class="n">best_estimator_</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Evaluación-final">
+<a class="anchor" href="#Evaluaci%C3%B3n-final" aria-hidden="true"><span class="octicon octicon-link"></span></a>Evaluación final<a class="anchor-link" href="#Evaluaci%C3%B3n-final"> </a>
+</h2>
+<p>Una vez elegido el modelo y ajustados sus hiperparámetros, si se desea los conjuntos de datos de entrenamiento y de validación pueden fusionarse en un nuevo conjunto de entrenamiento para reentrenar el modelo final usando más datos — de hecho es lo que hace <code>GridSearchCV</code> para el mejor estimador.</p>
+<p>En cambio por más seguridad que se tenga del desempeño del modelo, no es recomendable usar los datos del conjunto de prueba, es mejor usarlos para medir su desempeño y asegurarnos de que esté libre de errores.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">estimador</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">'weighted'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Persistencia-del-modelo">
+<a class="anchor" href="#Persistencia-del-modelo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Persistencia del modelo<a class="anchor-link" href="#Persistencia-del-modelo"> </a>
+</h2>
+<p><a href="http://scikit-learn.org/stable/modules/model_persistence.html">http://scikit-learn.org/stable/modules/model_persistence.html</a></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
+
+<span class="c1"># persistencia</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'modelo.pickle'</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">archivo</span><span class="p">:</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">estimador</span><span class="p">,</span> <span class="n">archivo</span><span class="p">)</span>
+
+<span class="c1"># carga</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'modelo.pickle'</span><span class="p">,</span> <span class="s1">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">archivo</span><span class="p">:</span>
+    <span class="n">estimador</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">archivo</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Extra:-Muestreo-—-conjunto-desbalanceado">
+<a class="anchor" href="#Extra:-Muestreo-%E2%80%94-conjunto-desbalanceado" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra: Muestreo — conjunto desbalanceado<a class="anchor-link" href="#Extra:-Muestreo-%E2%80%94-conjunto-desbalanceado"> </a>
+</h2>
+<p>El <em>entrenamiento</em> y la <em>validación</em> de estimadores suele requerir conjuntos de datos <strong>balanceados</strong>; no así la <em>prueba</em> de los mismos ya que deben enfrentar datos reales del problema (<strong>desbalanceados</strong>).</p>
+<p><code>scikit-learn</code> apenas provee algoritmos de muestro, podemos usar la extensión <code>imbalanced-learn</code> que implementa varios.</p>
+<div class="highlight"><pre><span></span>pip install imbalanced-learn
+</pre></div>
+<p><code>imbalanced-learn</code> aporta objetos del tipo <strong>muestreador</strong> (<em>sampler</em>) que implementan los métodos</p>
+<ul>
+<li>
+<code>fit(X, y)</code> y</li>
+<li>
+<code>sample(X, y)</code>.</li>
+</ul>
+<p>Algunos algoritmos:</p>
+<ul>
+<li>Under-sampling<ul>
+<li>ClusterCentroids</li>
+<li>RandomUnderSampler</li>
+</ul>
+</li>
+<li>Over-sampling<ul>
+<li>SMOTE</li>
+<li>RandomOverSampler</li>
+</ul>
+</li>
+</ul>
+<p><strong>Nota</strong>: <code>imbalanced-learn</code> re-implementa la clase <code>Pipeline</code> para que admita muestreadores.</p>
+<p><strong>Ejemplo</strong>: <code>RandomUnderSampler</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span> <span class="nn">imblearn.under_sampling</span> <span class="kn">import</span> <span class="n">RandomUnderSampler</span>
+
+<span class="c1"># generación de un conjunto de datos</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">class_sep</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>
+                           <span class="n">n_informative</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">flip_y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                           <span class="n">n_features</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                           <span class="n">n_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># aplicación de random under-sampling</span>
+<span class="n">rus</span> <span class="o">=</span> <span class="n">RandomUnderSampler</span><span class="p">()</span>
+<span class="n">X_resampled</span><span class="p">,</span> <span class="n">y_resampled</span> <span class="o">=</span> <span class="n">rus</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Ejercicio:-Boston-price-data-set">
+<a class="anchor" href="#Ejercicio:-Boston-price-data-set" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ejercicio: Boston price data set<a class="anchor-link" href="#Ejercicio:-Boston-price-data-set"> </a>
+</h2>
+<p><strong>Cantidad de instancias</strong>: 506</p>
+<p><strong>Atributos</strong> (13)</p>
+
+<pre><code>1.  CRIM per capita crime rate by town
+2.  ZN proportion of residential land zoned for lots over 25,000 sq.ft.
+3.  INDUS proportion of non-retail business acres per town
+4.  CHAS Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)
+5.  NOX nitric oxides concentration (parts per 10 million)
+6.  RM average number of rooms per dwelling
+7.  AGE proportion of owner-occupied units built prior to 1940
+8.  DIS weighted distances to five Boston employment centres
+9.  RAD index of accessibility to radial highways
+10. TAX full-value property-tax rate per 10,000 USD
+11. PTRATIO pupil-teacher ratio by town
+12. B 1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town
+13. LSTAT % lower status of the population
+
+</code></pre>
+<p><strong>Objetivos</strong> (1)</p>
+
+<pre><code>14. MEDV Median value of owner-occupied homes in 1000’s USD
+
+</code></pre>
+<p><strong>Valores ausentes</strong>: No</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_boston</span>
+
+<span class="n">boston</span> <span class="o">=</span> <span class="n">load_boston</span><span class="p">()</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span>   <span class="o">=</span> <span class="n">boston</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">boston</span><span class="o">.</span><span class="n">target</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">'X: datos   '</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'y: objetivo'</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>X: datos    (506, 13)
+y: objetivo (506,)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Sugerencias</strong>:</p>
+<ul>
+<li>1.1 <a href="http://scikit-learn.org/stable/modules/linear_model.html">Modelo lineal</a><ul>
+<li>1.1.1. Ordinary least squares</li>
+<li>1.1.2. Ridge regression</li>
+<li>1.1.3. Lasso</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># implementar estimador</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">r2_score</span>
+
+<span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span> <span class="c1"># mientras más cerca de 1.0, mejor</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.89914051165600339</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Automatización">
+<a class="anchor" href="#Automatizaci%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Automatización<a class="anchor-link" href="#Automatizaci%C3%B3n"> </a>
+</h2>
+<p><a href="https://github.com/rhiever/tpot">TPOT</a> es una herramienta de aprendizaje automático automatizado que optimiza el flujo de trabajo.</p>
+<div class="highlight"><pre><span></span>pip install tpot
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">tpot</span> <span class="kn">import</span> <span class="n">TPOTRegressor</span>
+
+<span class="n">tpot</span> <span class="o">=</span> <span class="n">TPOTRegressor</span><span class="p">(</span><span class="n">generations</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">population_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">tpot</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">tpot</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Warning: xgboost.XGBRegressor is not available and will not be used by TPOT.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Optimization Progress:  50%|█████     | 40/80 [00:11&lt;00:09,  4.27pipeline/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Generation 1 - Current best internal CV score: 14.469198135864161
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Optimization Progress:  75%|███████▌  | 60/80 [00:28&lt;00:10,  1.84pipeline/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Generation 2 - Current best internal CV score: 14.43020757845812
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>                                                                            </pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Generation 3 - Current best internal CV score: 14.358659442160791
+
+Best pipeline: RandomForestRegressor(input_matrix, RandomForestRegressor__bootstrap=True, RandomForestRegressor__max_features=DEFAULT, RandomForestRegressor__min_samples_leaf=DEFAULT, RandomForestRegressor__min_samples_split=8, RandomForestRegressor__n_estimators=DEFAULT)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">r2_score</span>
+
+<span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span> <span class="c1"># mientras más cerca de 1.0, mejor</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.87143869370430582</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tpot</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s1">'tpot_boston_pipeline.py'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="matiasbattocchia/datitos"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/datitos/Recorrido-por-scikit-learn.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/datitos/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/datitos/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/datitos/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Tutoriales de ciencia de datos | CC BY-SA 4.0</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
