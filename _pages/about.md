@@ -6,7 +6,11 @@ permalink: /about/
 
 Mi nombre es Matías Battocchia. Estudié en [Exactas (UBA)](https://exactas.uba.ar). Trabajo en [Mutt Data](https://muttdata.ai). Vivo en Mendoza, Argentina.
 
-Organizador de [encuentros](https://www.meetup.com/ciencia-de-datos-en-mendoza) de ciencia de datos.
+Los temas que más sigo son procesamiento del lenguaje natural (NLP) y redes neuronales de grafos (GNN).
+
+También soy organizador de [encuentros](https://www.meetup.com/ciencia-de-datos-en-mendoza) de ciencia de datos.
+
+Contactame por [Telegram](https://t.me/matias_battocchia).
 
 ## Créditos
 

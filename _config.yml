@@ -29,11 +29,6 @@ baseurl: '/datitos' # the subpath of your site, e.g. "/blog".
 
 permalink: /:title:output_ext
 
-# Github and twitter are optional:
-minima:
-  social_links:
-    github: matiasbattocchia
-
 # Set this to true to get LaTeX math equation support
 use_math: true
 
