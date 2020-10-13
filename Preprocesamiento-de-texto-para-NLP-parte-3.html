@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Preprocesamiento de texto para NLP (parte 3) | datitos</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Preprocesamiento de texto para NLP (parte 3)" />
+<meta name="author" content="Matías Battocchia" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="o(^・x・^)o Embeddings pre-entrenados" />
+<meta property="og:description" content="o(^・x・^)o Embeddings pre-entrenados" />
+<link rel="canonical" href="https://matiasbattocchia.github.io/datitos/Preprocesamiento-de-texto-para-NLP-parte-3.html" />
+<meta property="og:url" content="https://matiasbattocchia.github.io/datitos/Preprocesamiento-de-texto-para-NLP-parte-3.html" />
+<meta property="og:site_name" content="datitos" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-13T00:00:00-05:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Matías Battocchia"},"description":"o(^・x・^)o Embeddings pre-entrenados","mainEntityOfPage":{"@type":"WebPage","@id":"https://matiasbattocchia.github.io/datitos/Preprocesamiento-de-texto-para-NLP-parte-3.html"},"@type":"BlogPosting","url":"https://matiasbattocchia.github.io/datitos/Preprocesamiento-de-texto-para-NLP-parte-3.html","headline":"Preprocesamiento de texto para NLP (parte 3)","dateModified":"2020-10-13T00:00:00-05:00","datePublished":"2020-10-13T00:00:00-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/datitos/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://matiasbattocchia.github.io/datitos/feed.xml" title="datitos" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-174296382-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/datitos/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Preprocesamiento de texto para NLP (parte 3) | datitos</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Preprocesamiento de texto para NLP (parte 3)" />
+<meta name="author" content="Matías Battocchia" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="o(^・x・^)o Embeddings pre-entrenados" />
+<meta property="og:description" content="o(^・x・^)o Embeddings pre-entrenados" />
+<link rel="canonical" href="https://matiasbattocchia.github.io/datitos/Preprocesamiento-de-texto-para-NLP-parte-3.html" />
+<meta property="og:url" content="https://matiasbattocchia.github.io/datitos/Preprocesamiento-de-texto-para-NLP-parte-3.html" />
+<meta property="og:site_name" content="datitos" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-13T00:00:00-05:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Matías Battocchia"},"description":"o(^・x・^)o Embeddings pre-entrenados","mainEntityOfPage":{"@type":"WebPage","@id":"https://matiasbattocchia.github.io/datitos/Preprocesamiento-de-texto-para-NLP-parte-3.html"},"@type":"BlogPosting","url":"https://matiasbattocchia.github.io/datitos/Preprocesamiento-de-texto-para-NLP-parte-3.html","headline":"Preprocesamiento de texto para NLP (parte 3)","dateModified":"2020-10-13T00:00:00-05:00","datePublished":"2020-10-13T00:00:00-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://matiasbattocchia.github.io/datitos/feed.xml" title="datitos" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-174296382-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/datitos/">datitos</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/datitos/about/">Acerca de</a><a class="page-link" href="/datitos/search/">Búsqueda</a><a class="page-link" href="/datitos/categories/">Contenidos</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Preprocesamiento de texto para NLP (parte 3)</h1><p class="page-description">o(^・x・^)o Embeddings pre-entrenados</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-10-13T00:00:00-05:00" itemprop="datePublished">
+        Oct 13, 2020
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Matías Battocchia</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      19 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/datitos/categories/#nlp">nlp</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/datitos/categories/#pytorch">pytorch</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/matiasbattocchia/datitos/tree/master/_notebooks/2020-10-13-Preprocesamiento-de-texto-para-NLP-parte-3.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/datitos/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/matiasbattocchia/datitos/blob/master/_notebooks/2020-10-13-Preprocesamiento-de-texto-para-NLP-parte-3.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/datitos/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Descargar-los-vectores-pre-entrenados">Descargar los vectores pre-entrenados </a></li>
+<li class="toc-entry toc-h2"><a href="#Obtener-los-vectores-del-vocabulario">Obtener los vectores del vocabulario </a></li>
+<li class="toc-entry toc-h2"><a href="#Extra:-bolsa-de-palabras">Extra: bolsa de palabras </a></li>
+<li class="toc-entry toc-h2"><a href="#Inicializar-los-pesos-de-la-capa-de-embeddings">Inicializar los pesos de la capa de embeddings </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Creando-un-vector-desconocido">Creando un vector desconocido </a></li>
+<li class="toc-entry toc-h3"><a href="#Creando-un-vector-de-relleno">Creando un vector de relleno </a></li>
+<li class="toc-entry toc-h3"><a href="#Incluyendo-los-nuevos-cambios">Incluyendo los nuevos cambios </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Inicializar-los-pesos-en-un-modelo">Inicializar los pesos en un modelo </a></li>
+<li class="toc-entry toc-h2"><a href="#nn.Embedding">nn.Embedding </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-10-13-Preprocesamiento-de-texto-para-NLP-parte-3.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Este es el artículo final de la serie preprocesamiento de texto para NLP. Los artículos anteriores son <a href="Preprocesamiento-de-texto-para-NLP-parte-1.html">parte 1</a> y <a href="Preprocesamiento-de-texto-para-NLP-parte-2.html">parte 2</a>.</p>
+<p>En este nos vamos a focalizar en <em>embeddings</em> pre-entrenados. Los <em>embeddings</em> son un tema central en procesamiento del lenguaje y mucho se ha escrito al respecto. Acá hay algunos enlaces para introducrise en el tema</p>
+<ul>
+<li><a href="http://jalammar.github.io/illustrated-word2vec">The illustrated Word2Vec</a></li>
+<li><a href="http://web.stanford.edu/class/cs224n/slides/cs224n-2020-lecture01-wordvecs1.pdf">CS224n presentación <em>word vectors</em></a></li>
+<li><a href="http://web.stanford.edu/class/cs224n/assignments/a1_preview/exploring_word_vectors.html">CS224n trabajo práctico <em>word vectors</em></a></li>
+</ul>
+<p>y acá dejamos algunos enlaces sobre cómo algunos <em>frameworks</em> abarcan el tema de este mismo artículo</p>
+<ul>
+<li><a href="https://keras.io/examples/nlp/pretrained_word_embeddings">Keras</a></li>
+<li><a href="https://gluon-nlp.mxnet.io/examples/word_embedding/word_embedding.html">Gluon</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Los embeddings son la primera capa en las redes neuronales que procesan texto. Mapean índices (a cada tóken le corresponde un índice, los índices corren de cero hasta <code>len(tókenes)</code>). Estamos mapeando enteros a vectores, a cada índice le corresponde un vector de palabra que codifica a la palabra. El mapeo se realiza por medio de una matriz que tiene tantas filas como índices y tantas columnas como la dimensión de los vectores. Esta dimensión es un hiperparámetro del modelo y básicamente significa la cantidad de atributos con la que representaremos a las palabras. Elegir una fila de la matriz, y a cada índice/tóken le corresponde una fila) estamos rebanando la matriz de modo de quedarnos con un vector.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Como el resto de las capas de una red neuronal que no ha sido entrenada los pesos de la capa de <em>embeddings</em> se inicializan al azar. O sea que al seleccionar un vector de palabra obtenemos un vector con componentes aleatorios. La idea central de los <em>embeddings</em> es que las palabras adquieren significado a partir de las palabras que la rodean. Una vez que la red neural ha sido entrenada y que los componentes de los vectores de palabras no son azarosos sino que han capturado en mayor o menor medida el significado de las palabras, la distancia entre los vectores (<a href="https://es.wikipedia.org/wiki/Similitud_coseno">similitud del coseno</a> es una forma de calcular la distancia entre vectores) de palabras similares es más corta, es decir los <em>embeddings</em> están más cerca, que si cuando se consideran palabras con significados disímiles.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Una de las primeras técnicas de transfencia de aprendizaje (<em>transfer learning</em>) fue utilizar <em>embeddings</em> pre-entrenados. La red neuronal con la que son entrenados y la que los utiliza con otros fines pueden tener arquitecturas bien distintas, comparten solamente los vectores de palabras, es decir la primera capa. Vimos que el armado del vocabulario es un asunto central y sería extraño que adoptemos el mismo vocabulario que la red que se utilizó para entrenar los <em>embeddings</em>; no es esto un problema mientras haya una intersección substancial entre el vocabulario que queremos utilizar y el que se utilizó para los <em>embeddings</em>, ya que nos estamos limitando a este último, posiblemente entrenado con un corpus general (Wikipedia) mientras que el vocabulario que necesitamos posiblemente pertenezca a un corpus particular. Todos los tókenes que no están en el vocabulario se denominan <strong>fuera del vocabulario</strong> (<em>out-of-vocabulary</em> u OOV) y requieren un tratamiento especial como ser ignorados/eliminados o mapeados a un tóken especial que codifique tókenes desconocidos.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Los índices del vocabulario que crearemos tampoco será el mismo que los que se usaron para los vectores pre-entrenados. Por lo tanto la estrategia para obtener los pesos de la capa de vectores de palabra es la siguiente.</p>
+<ol>
+<li>Descargar los vectores pre-entrenados</li>
+<li>Obtener los vectores del vocabulario propio</li>
+<li>Ordenar los vectores según los índices propios</li>
+<li>Crear un tensor</li>
+<li>Inicializar los pesos de la capa de <em>embeddings</em>
+</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Descargar-los-vectores-pre-entrenados">
+<a class="anchor" href="#Descargar-los-vectores-pre-entrenados" aria-hidden="true"><span class="octicon octicon-link"></span></a>Descargar los vectores pre-entrenados<a class="anchor-link" href="#Descargar-los-vectores-pre-entrenados"> </a>
+</h2>
+<p>Los proyectos más conocidos son</p>
+<ul>
+<li>Word2Vec</li>
+<li><a href="https://nlp.stanford.edu/projects/glove/">GloVe</a></li>
+<li><a href="https://fasttext.cc/docs/en/support.html">fastText</a></li>
+</ul>
+<p>Vamos a usar fastText por tener vectores para idioma español y soporte para OOV. Primero instalamos el paquete de Python</p>
+<div class="highlight"><pre><span></span>pip install fasttext
+</pre></div>
+<p>y luego descargamos e inicializamos el modelo. Pesa unos 3,5 GB  así que la descarga puede demorar. La dimensión de los vectores de este modelo es 300.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">fasttext</span>
+<span class="kn">import</span> <span class="nn">fasttext.util</span>
+
+<span class="n">fasttext</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">download_model</span><span class="p">(</span><span class="s1">'es'</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">'ignore'</span><span class="p">)</span>
+
+<span class="n">ft</span> <span class="o">=</span> <span class="n">fasttext</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s1">'cc.es.300.bin'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>IMPORTANTE</strong>. Particularmente la carga de este modelo necesita de unos 12 GB de memoria RAM/swap, lo que me llevó a cerrar aplicaciones para liberar memoria. Para evitar pasar siempre por este paso, una vez que obtuve el tensor con los pesos necesarios lo salvé en un archivo; levantar este archivo es mucho más liviano.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Obtener-los-vectores-del-vocabulario">
+<a class="anchor" href="#Obtener-los-vectores-del-vocabulario" aria-hidden="true"><span class="octicon octicon-link"></span></a>Obtener los vectores del vocabulario<a class="anchor-link" href="#Obtener-los-vectores-del-vocabulario"> </a>
+</h2>
+<p>Redefinimos ligeramente la clase <code>Vocab</code> que fuimos escribiendo en las partes anteriores. Lo nuevo es la propiedad <code>vocabulario</code>, que devuelve la lista de tókenes del vocabulario.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># versión 5</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="k">class</span> <span class="nc">Vocab</span><span class="p">():</span>
+    <span class="c1"># ningún cambio aquí</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">índice_relleno</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tóken_relleno</span><span class="p">)</span>
+    
+    <span class="c1"># ningún cambio aquí</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tóken_desconocido</span><span class="o">=</span><span class="s1">'&lt;unk&gt;'</span><span class="p">,</span> <span class="n">tóken_relleno</span><span class="o">=</span><span class="s1">'&lt;pad&gt;'</span><span class="p">,</span> <span class="n">frecuencia_mínima</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">frecuencia_máxima</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                 <span class="n">longitud_mínima</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">longitud_máxima</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">stop_words</span><span class="o">=</span><span class="p">[],</span> <span class="n">límite_vocabulario</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span> <span class="o">=</span> <span class="n">tóken_desconocido</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tóken_relleno</span> <span class="o">=</span> <span class="n">tóken_relleno</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_mínima</span> <span class="o">=</span> <span class="n">frecuencia_mínima</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_máxima</span> <span class="o">=</span> <span class="n">frecuencia_máxima</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">longitud_mínima</span> <span class="o">=</span> <span class="n">longitud_mínima</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">longitud_máxima</span> <span class="o">=</span> <span class="n">longitud_máxima</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_words</span> <span class="o">=</span> <span class="n">stop_words</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">límite_vocabulario</span> <span class="o">=</span> <span class="n">límite_vocabulario</span>
+    
+    <span class="c1"># ningún cambio aquí</span>
+    <span class="k">def</span> <span class="nf">reducir_vocabulario</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="n">contador_absoluto</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">lote</span><span class="p">))</span>
+        
+        <span class="n">contador_documentos</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+        
+        <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">:</span>
+            <span class="n">contador_documentos</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">doc</span><span class="p">))</span>
+        
+        <span class="c1"># frecuencia mínima</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_mínima</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span> <span class="c1"># frecuencia de tóken</span>
+            <span class="n">vocabulario_mín</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span><span class="p">,</span> <span class="n">frecuencia</span> <span class="ow">in</span> <span class="n">contador_absoluto</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span> <span class="k">if</span> <span class="n">frecuencia</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_mínima</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># frecuencia de documento</span>
+            <span class="n">vocabulario_mín</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span><span class="p">,</span> <span class="n">frecuencia</span> <span class="ow">in</span> <span class="n">contador_documentos</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span> <span class="k">if</span> <span class="n">frecuencia</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">lote</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_mínima</span><span class="p">]</span>
+        
+        <span class="c1"># frecuencia máxima</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_máxima</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span> <span class="c1"># frecuencia de tóken</span>
+            <span class="n">vocabulario_máx</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span><span class="p">,</span> <span class="n">frecuencia</span> <span class="ow">in</span> <span class="n">contador_absoluto</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_máxima</span> <span class="o">&gt;=</span> <span class="n">frecuencia</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># frecuencia de documento</span>
+            <span class="n">vocabulario_máx</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span><span class="p">,</span> <span class="n">frecuencia</span> <span class="ow">in</span> <span class="n">contador_documentos</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">frecuencia_máxima</span> <span class="o">&gt;=</span> <span class="n">frecuencia</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">lote</span><span class="p">)]</span>
+
+        <span class="c1"># intersección de vocabulario_mín y vocabulario_máx preservando el órden</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">vocabulario_mín</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">vocabulario_máx</span><span class="p">]</span>
+
+        <span class="c1"># longitud</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">vocabulario</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">longitud_máxima</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tóken</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">longitud_mínima</span><span class="p">]</span>
+        
+        <span class="c1"># stop words</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">vocabulario</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_words</span><span class="p">]</span>
+        
+        <span class="c1"># límite</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="n">vocabulario</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">límite_vocabulario</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">vocabulario</span>
+        
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="n">vocabulario</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_relleno</span><span class="p">:</span>
+            <span class="n">vocabulario</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tóken_relleno</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">:</span>
+            <span class="n">vocabulario</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">)</span>
+        
+        <span class="n">vocabulario</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reducir_vocabulario</span><span class="p">(</span><span class="n">lote</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span> <span class="o">=</span> <span class="p">{</span><span class="n">tóken</span><span class="p">:</span> <span class="n">índice</span> <span class="k">for</span> <span class="n">índice</span><span class="p">,</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vocabulario</span><span class="p">)}</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+    
+    <span class="c1"># ningún cambio aquí</span>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span><span class="p">:</span> <span class="c1"># reemplazar</span>
+            <span class="k">return</span> <span class="p">[[</span><span class="n">tóken</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">tóken_desconocido</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># ignorar</span>
+            <span class="k">return</span> <span class="p">[[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+    
+    <span class="c1"># ningún cambio aquí</span>
+    <span class="k">def</span> <span class="nf">tókenes_a_índices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="n">lote</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">lote</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="p">[</span><span class="n">tóken</span><span class="p">]</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+    
+    <span class="c1"># ningún cambio aquí</span>
+    <span class="k">def</span> <span class="nf">índices_a_tókenes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lote</span><span class="p">):</span>
+        <span class="n">mapeo_inverso</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        
+        <span class="k">return</span> <span class="p">[[</span><span class="n">mapeo_inverso</span><span class="p">[</span><span class="n">índice</span><span class="p">]</span> <span class="k">for</span> <span class="n">índice</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
+    
+    <span class="c1"># ningún cambio aquí</span>
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapeo</span><span class="p">)</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">vocabulario</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">mapeo</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Creamos el vocabulario como lo hicimos anteriormente (parte 1).</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'train.csv'</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">'|'</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">tokenizar</span><span class="p">(</span><span class="n">texto</span><span class="p">):</span>
+    <span class="c1"># IMPORTANTE: podría devolver una lista vacía</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">texto</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+
+<span class="n">train_docs</span> <span class="o">=</span> <span class="p">[</span><span class="n">tokenizar</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Pregunta'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+
+<span class="n">v</span> <span class="o">=</span> <span class="n">Vocab</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_docs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Desde Python 3.7 está garantizado que el orden del diccionario es el orden de inserción. Por lo tanto el órden de la lista <code>v.vocabulario</code> coincide con el del diccionario <code>v.mapeo</code> (ver implementación de <code>Vocab</code>). Tener claro el órden / los índices de los tókenes es importante porque crearemos un tensor de <em>embeddings</em> al cuál accederemos mediante índices.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v</span><span class="o">.</span><span class="n">vocabulario</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>['&lt;pad&gt;', '&lt;unk&gt;', 'de', 'el', 'la', 'tarjeta', 'que', 'para', 'un', 'me']</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Por ejemplo, el <em>embedding</em> del tóken <code>tarjeta</code> será <code>embeddings[5]</code> ya que el tóken está en el quinto lugar del vocabulario (recordar que empezamos a contar por cero).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>La interfaz de fastText para obtener un vector a partir de un tóken es como la de un diccionario. Así luce un <em>embedding</em> de dimensión 300.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ft</span><span class="p">[</span><span class="s1">'tarjeta'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([ 0.06298134, -0.03280621,  0.03053921, -0.14426479, -0.04330583,
+        0.02782611,  0.04671088,  0.01322352, -0.00091936, -0.02005653,
+       -0.08679762, -0.00335382, -0.04299804,  0.03553167, -0.07989401,
+        0.00514562,  0.06741733, -0.01824431, -0.0627635 , -0.03652998,
+       -0.02327815, -0.06624147,  0.00762858,  0.04288524, -0.02111394,
+       -0.02724549,  0.01001478, -0.0437385 , -0.07554701,  0.00330107,
+       -0.00436452, -0.03166814, -0.02237143, -0.00398921, -0.00873911,
+        0.01801448,  0.06549975,  0.02997639,  0.04104616,  0.08769971,
+       -0.06594162, -0.01973427,  0.03386661, -0.05415446, -0.0547767 ,
+       -0.00098864, -0.00864553,  0.05127762,  0.02343957, -0.00937056,
+       -0.03792336,  0.06513872,  0.03453366,  0.00376538,  0.00911847,
+        0.03639029, -0.04959448, -0.10815199,  0.0189229 , -0.00545404,
+       -0.0441896 ,  0.05246361, -0.08793913,  0.01742068,  0.07848521,
+        0.00829239,  0.00512537, -0.00187416,  0.06793492, -0.0205775 ,
+        0.09385861,  0.06492148,  0.08256735, -0.01685029,  0.04042866,
+       -0.03420147, -0.01297663, -0.03008673,  0.06171214, -0.0073834 ,
+       -0.00952853, -0.07957197,  0.05753422, -0.00230803,  0.01646664,
+        0.00405738,  0.01874345, -0.01656639,  0.03835326,  0.00671893,
+        0.03538686, -0.05837374,  0.00655341, -0.06613984, -0.00893264,
+        0.01970789, -0.02059824, -0.01957787,  0.04642227, -0.03362621,
+       -0.03894996, -0.03437151, -0.0639662 , -0.00890221, -0.02950617,
+        0.030174  ,  0.00092385,  0.08426531, -0.00274815,  0.00948968,
+        0.04102866,  0.01430673,  0.01487885,  0.0998308 , -0.0284079 ,
+       -0.00470919,  0.03808989,  0.08536439,  0.03592137,  0.07948075,
+        0.0172466 , -0.07252405, -0.0107453 ,  0.0275656 ,  0.02603439,
+        0.01865727, -0.10967878,  0.04329263, -0.03052348,  0.01704779,
+       -0.05844689,  0.06367239,  0.00445418,  0.1319068 ,  0.02953896,
+        0.02432506,  0.04764185,  0.04224063, -0.05673009, -0.00072847,
+       -0.01646314,  0.0195642 ,  0.02678232, -0.02039818,  0.01072512,
+        0.03165798,  0.02296546,  0.03048908,  0.00605224,  0.03494508,
+       -0.03987421,  0.10772546,  0.05239586, -0.05665122, -0.04541425,
+       -0.03411638,  0.00866744, -0.10566777, -0.06131719, -0.0434983 ,
+        0.07758161, -0.05220485,  0.03249336, -0.12057097,  0.05518946,
+       -0.00267152, -0.0791545 ,  0.00928127, -0.03528287, -0.07231892,
+       -0.00943873,  0.02749985, -0.02224496,  0.001105  , -0.04838763,
+        0.02414943,  0.00739839,  0.03333126,  0.0515946 , -0.0163026 ,
+        0.06550607, -0.01794759,  0.07309239,  0.01166206, -0.01817643,
+        0.00392749,  0.00703375,  0.03426434,  0.02729288, -0.00475265,
+        0.01720353,  0.04551698, -0.02496281, -0.06664832, -0.02822311,
+        0.03184071, -0.02069683, -0.03815257,  0.02659006,  0.18702458,
+       -0.0493904 ,  0.02795539, -0.06647408,  0.02131662,  0.01693988,
+        0.04659843, -0.04887157, -0.09692122, -0.07950865,  0.06913692,
+       -0.0173317 ,  0.00877939, -0.06175148,  0.05520935,  0.04833567,
+        0.00859433,  0.0169889 , -0.02598299,  0.0434835 , -0.03762854,
+       -0.02821014, -0.00132759, -0.06334166,  0.00318673,  0.01190044,
+       -0.02857058, -0.01841859, -0.00682279,  0.00447517, -0.01528993,
+       -0.07283813,  0.00650864,  0.01897584, -0.00431945, -0.02006911,
+        0.07013839, -0.02700875,  0.04124613, -0.01243533, -0.04903939,
+       -0.01877775,  0.0053995 , -0.00930875, -0.03993747,  0.01549599,
+       -0.01568508, -0.05651587,  0.06928204,  0.01355214, -0.0159476 ,
+        0.04126405,  0.04020314,  0.10078269,  0.02648922,  0.06171743,
+       -0.01357437,  0.0018341 , -0.00616703,  0.04361626,  0.00650506,
+        0.05089275, -0.00275116,  0.02991083, -0.11814439, -0.01024311,
+        0.07333191, -0.02508869,  0.01686102,  0.01045217, -0.07310145,
+       -0.01285514,  0.09339073, -0.06714858, -0.09901267,  0.0068216 ,
+        0.03572355, -0.03935919,  0.03302537,  0.02549176,  0.0144202 ,
+       -0.02991694, -0.01354563, -0.00787938,  0.03613688,  0.05657197,
+       -0.00474709, -0.02503674, -0.0273344 ,  0.05442371, -0.01384753,
+        0.00932324, -0.04490621, -0.03971119,  0.02634538, -0.02593908,
+        0.04915658,  0.04001555, -0.1161194 , -0.08524479, -0.04748566],
+      dtype=float32)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Veamos la distancia entre <em>embeddings</em> de tókenes similares, por ejemplo debido a un error ortográfico, y la de tókenes disímiles, de diferente significado.</p>
+<p>Para ello utilizaré la similitud del coseno, una fórmula trigonométrica que en la definición de <code>scipy</code> es igual a cero si ambos vectores apuntan a un mismo lugar; cualquier ángulo existente entre los vectores, arrojaría un valor mayor a cero.</p>
+<p>Los índices son cateorías que nada dicen de la relación entre las palabras pero los vectores sí.</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Cosine_similarity">https://en.wikipedia.org/wiki/Cosine_similarity</a></li>
+<li><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cosine.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cosine.html</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">distance</span>
+
+<span class="n">distance</span><span class="o">.</span><span class="n">cosine</span><span class="p">(</span><span class="n">ft</span><span class="p">[</span><span class="s1">'tarjeta'</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">'tarjeta'</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Error ortográfico:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">distance</span><span class="o">.</span><span class="n">cosine</span><span class="p">(</span><span class="n">ft</span><span class="p">[</span><span class="s1">'tarjeta'</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">'targeta'</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.18840116262435913</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Otra palabra:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">distance</span><span class="o">.</span><span class="n">cosine</span><span class="p">(</span><span class="n">ft</span><span class="p">[</span><span class="s1">'tarjeta'</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">'saldo'</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.6775485575199127</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>La siguente función servirá para</p>
+<ol>
+<li>obtener los vectores de cada uno de los tókenes del vocabulario,</li>
+<li>en el orden de los índices del vocabulario (es importante mantener este orden),</li>
+<li>convertirlos en tensores de PyTorch (<code>map</code> aplica la función <code>torch.tensor</code> a cada uno de los vectores),</li>
+<li>
+<code>list</code> convierte el mapeo es una lista, ya que <code>map</code> es <em>lazy</em>, no acciona hasta que se lo piden y convertirlo en lista es una manera de pedirlo,</li>
+<li>
+<code>torch.stack</code> apila los tensores de la lista (cada uno tiene dimensión 300 y la lista tiene largo $N$, el tamaño del vocabulario) en un tensor bidimensional de $N \times 300$.</li>
+</ol>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="c1"># versión 1</span>
+<span class="k">def</span> <span class="nf">obtener_embeddings</span><span class="p">(</span><span class="n">tókenes</span><span class="p">,</span> <span class="n">fastText</span><span class="p">):</span>
+    
+    <span class="n">embeddings</span> <span class="o">=</span> <span class="p">[</span><span class="n">fastText</span><span class="p">[</span><span class="n">tóken</span><span class="p">]</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">tókenes</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span> <span class="nb">list</span><span class="p">(</span> <span class="nb">map</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">obtener_embeddings</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">vocabulario</span><span class="p">,</span> <span class="n">ft</span> <span class="p">)</span>
+
+<span class="n">embeddings</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([[-0.0503, -0.0404,  0.0759,  ...,  0.0252, -0.0356, -0.0142],
+        [ 0.0093,  0.0350,  0.0453,  ..., -0.0111, -0.0165, -0.0326],
+        [ 0.0547,  0.0112,  0.1910,  ...,  0.0066, -0.0021, -0.0230],
+        ...,
+        [-0.0278, -0.0258,  0.0990,  ...,  0.0018, -0.0074, -0.0465],
+        [ 0.0149, -0.0274,  0.0268,  ...,  0.0571,  0.0106, -0.0065],
+        [-0.0097,  0.0221, -0.0038,  ..., -0.0042,  0.0152,  0.0462]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Entonces ahora podemos salvarlos para no tener que volver a generarlos, obviando así cargar el modelo de fastText.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">embeddings</span><span class="p">,</span> <span class="s1">'vectores.pkl'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Si queremos cargarlos más adelante:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">'vectores.pkl'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Extra:-bolsa-de-palabras">
+<a class="anchor" href="#Extra:-bolsa-de-palabras" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra: bolsa de palabras<a class="anchor-link" href="#Extra:-bolsa-de-palabras"> </a>
+</h2>
+<p>Hay una forma simple y efectiva de obtener la representación de un documento, si bien existen otras que son mejores. Los vectores son representaciones de tókenes, los documentos son conjuntos de tókenes, calcular la suma, el promedio o el máximo de los vectores del conjunto nos da un vector que es la representación del documento. Como esta agregación no tiene en cuenta el orden de los tókenes en el documento se llama <strong>bolsa de palabras</strong>, o en inglés <em>bag of words</em>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cambio_cien</span> <span class="o">=</span> <span class="n">obtener_embeddings</span><span class="p">([</span><span class="s1">'señor'</span><span class="p">,</span> <span class="s1">'tiene'</span><span class="p">,</span> <span class="s1">'cambio'</span><span class="p">,</span> <span class="s1">'de'</span><span class="p">,</span> <span class="s1">'cien'</span><span class="p">],</span> <span class="n">ft</span><span class="p">)</span>
+
+<span class="n">cambio_cien</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([5, 300])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Hacemos la agregación es en sentido de las columnas, cada columna o dimensión del <em>embedding</em> es un atributo o <em>feature</em> del tóken, queremos obtener los atributos para el documento.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cambio_cien</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cambio_cien</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">cambio_cien</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([300])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Representación de una variante del documento:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cambio_mil</span> <span class="o">=</span> <span class="n">obtener_embeddings</span><span class="p">([</span><span class="s1">'señor'</span><span class="p">,</span> <span class="s1">'tiene'</span><span class="p">,</span> <span class="s1">'cambio'</span><span class="p">,</span> <span class="s1">'de'</span><span class="p">,</span> <span class="s1">'mil'</span><span class="p">],</span> <span class="n">ft</span><span class="p">)</span>
+<span class="n">cambio_mil</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cambio_mil</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Representación de un documento bien diferente:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">extravío</span> <span class="o">=</span> <span class="n">obtener_embeddings</span><span class="p">([</span><span class="s1">'extravié'</span><span class="p">,</span> <span class="s1">'mi'</span><span class="p">,</span> <span class="s1">'tarjeta'</span><span class="p">,</span> <span class="s1">'de'</span><span class="p">,</span> <span class="s1">'débito'</span><span class="p">,</span> <span class="s1">'anoche'</span><span class="p">],</span> <span class="n">ft</span><span class="p">)</span>
+<span class="n">extravío</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">extravío</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ahora veamos las distancias entre los documentos.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">distance</span><span class="o">.</span><span class="n">cosine</span><span class="p">(</span><span class="n">cambio_cien</span><span class="p">,</span> <span class="n">cambio_mil</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.08124548196792603</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">distance</span><span class="o">.</span><span class="n">cosine</span><span class="p">(</span><span class="n">cambio_cien</span><span class="p">,</span> <span class="n">extravío</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.39364296197891235</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Vemos que <code>señor tiene cambio de cien</code> está más cerca de <code>señor tiene cambio de mil</code> que de <code>extravié mi tarjeta de débito anoche</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En la parte 2 hube mencionado a <code>nn.EmbeddingBag</code> sin contar su finalidad; es un módulo de PyTorch que hace exactamento esto: recibe un tensor con índices de tókenes de documentos, reemplaza a los índices por vectores y los agrega en un vector por documento, usando una función que puede ser <code>mean</code>, <code>max</code>, <code>sum</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Inicializar-los-pesos-de-la-capa-de-embeddings">
+<a class="anchor" href="#Inicializar-los-pesos-de-la-capa-de-embeddings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inicializar los pesos de la capa de <em>embeddings</em><a class="anchor-link" href="#Inicializar-los-pesos-de-la-capa-de-embeddings"> </a>
+</h2>
+<p>El método <code>copy_</code> carga el tensor de los pesos en el módulo de <em>embeddings</em>. Para que la carga funcione las dimensiones del tensor de pesos debe ser exactamente igual a las de la capa. Inicializamosla con cantidad de filas igual al largo del vocabulario y cantidad de columnas igual al tamaño de los vectores.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">capa</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">EmbeddingBag</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">ft</span><span class="o">.</span><span class="n">get_dimension</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'mean'</span><span class="p">)</span>
+<span class="n">capa</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>EmbeddingBag(8116, 300, mode=mean)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Chequeamos las dimensiones del tensor de pesos.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">embeddings</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([8116, 300])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Al inicializar la capa, sus pesos se inicializan con valores al azar. Es con el entrenamiento que adquieren valores significativos para red neuronal. Los <em>embeddings</em> pre-entrenados sirven justamente para comenzar con valores con sentido, lo que acorta los tiempos de aprendizaje de la red en general.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">capa</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">embeddings</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([[-0.0503, -0.0404,  0.0759,  ...,  0.0252, -0.0356, -0.0142],
+        [ 0.0093,  0.0350,  0.0453,  ..., -0.0111, -0.0165, -0.0326],
+        [ 0.0547,  0.0112,  0.1910,  ...,  0.0066, -0.0021, -0.0230],
+        ...,
+        [-0.0278, -0.0258,  0.0990,  ...,  0.0018, -0.0074, -0.0465],
+        [ 0.0149, -0.0274,  0.0268,  ...,  0.0571,  0.0106, -0.0065],
+        [-0.0097,  0.0221, -0.0038,  ..., -0.0042,  0.0152,  0.0462]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">índices</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">tókenes_a_índices</span><span class="p">([</span>
+    <span class="p">[</span><span class="s1">'señor'</span><span class="p">,</span> <span class="s1">'tiene'</span><span class="p">,</span> <span class="s1">'cambio'</span><span class="p">,</span> <span class="s1">'de'</span><span class="p">,</span> <span class="s1">'cien'</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">'señor'</span><span class="p">,</span> <span class="s1">'tiene'</span><span class="p">,</span> <span class="s1">'cambio'</span><span class="p">,</span> <span class="s1">'de'</span><span class="p">,</span> <span class="s1">'mil'</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">'extravié'</span><span class="p">,</span> <span class="s1">'mi'</span><span class="p">,</span> <span class="s1">'tarjeta'</span><span class="p">,</span> <span class="s1">'de'</span><span class="p">,</span> <span class="s1">'débito'</span><span class="p">,</span> <span class="s1">'anoche'</span><span class="p">],</span>
+<span class="p">])</span>
+
+<span class="n">índices</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[1, 119, 142, 2, 1], [1, 119, 142, 2, 1311], [2268, 11, 5, 2, 149, 1443]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Por cómo creamos el vocabulario y por cómo está definida la clase <code>Vocab</code>, el tóken <code>&lt;unk&gt;</code> de tóken desconocido o fuera del vocabulario tiene asignado el índice <code>1</code>; esto será relevante más adelante.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Recordemos que a este módulo le gusta que los documentos sean contiguos (un único documento) y que por otro lado le informemos en qué posiciones de ese documento contiguo comienza cada uno de los documentos.</p>
+<p>Veamos el largo de cada uno de los documentos.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="n">índices</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[5, 5, 6]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>El primer documento siempre comienza en la posición <code>0</code>, el segundo lo hace <code>5</code> tókenes/índices después, y el tercero en 5 luego del segundo, o sea en la posición <code>10</code>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">posiciones</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ahora convertimos a los documentos en un documento único y además en un tensor.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">índices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span>
+    <span class="mi">1</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">142</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">142</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1311</span><span class="p">,</span> <span class="mi">2268</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">1443</span>
+<span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Luego de estos procesamientos la capa ejecuta las mismas operaciones que realizamos manualmente.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vectores</span> <span class="o">=</span> <span class="n">capa</span><span class="p">(</span><span class="n">índices</span><span class="p">,</span> <span class="n">posiciones</span><span class="p">)</span>
+
+<span class="n">vectores</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([3, 300])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Lo que podemos verificar calculando la distancia entre <code>señor tiene cambio de cien</code> está más cerca de <code>señor tiene cambio de mil</code>, que manualmente dio $0.081$.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">distance</span><span class="o">.</span><span class="n">cosine</span><span class="p">(</span><span class="n">vectores</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">vectores</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.1781657338142395</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Y no se cumplió</strong>. 😵</p>
+<p>La explicación está en las palabras fuera del vocabulario. Los <em>embeddings</em> pre-entrenados no suelen venir con pesos para tókenes especiales como <code>&lt;unk&gt;</code> y al hacer <code>ft['&lt;unk&gt;']</code>, fastText que está preparado para generar vectores para tókenes con los cuales no fue entrenado, devuelve un vector con pesos sin sentido. Es decir, fastText es muy útil para obtener vectores aproximados cuando le preguntamos por un tóken que no conoce pero que es parecido a otros que sí, sin embargo <code>&lt;unk&gt;</code> no se a parece a ningún otro. Nota: Word2Vec y GloVe no tienen soporte para tókenes fuera del vocabulario (OOV), en el caso de <code>&lt;unk&gt;</code> no hubieran devuelto ningún valor.</p>
+<p>¿Qué podríamos haber hecho?</p>
+<ul>
+<li>Si contamos con soporte para OOV (fastText), no usar el tóken <code>&lt;unk&gt;</code> ya que no es necesario. Para ello deberíamos haber creado el vocabulario inicilizando la clase <code>Vocab</code> con el argumento <code>tóken_desconocido=None</code>.</li>
+<li>Si no hay soporte para OOV, salvo que el modelo especifique que cuenta con un vector para el tóken especial <em>desconocido</em> (y que no necesariamente se simbolizará con <code>&lt;unk&gt;</code>), no usar el tóken <code>&lt;unk&gt;</code> ya que no es posible.</li>
+<li>Entrenar vectores desde cero. Al existir <code>&lt;unk&gt;</code>, este adquire pesos con el sentido propuesto. No era la idea.</li>
+<li>Crear un vector a partir de los existentes, según está expresado en esta <a href="https://stackoverflow.com/questions/49239941/what-is-unk-in-the-pretrained-glove-vector-files-e-g-glove-6b-50d-txt">respuesta de StackOverflow</a>.</li>
+</ul>
+<h3 id="Creando-un-vector-desconocido">
+<a class="anchor" href="#Creando-un-vector-desconocido" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creando un vector desconocido<a class="anchor-link" href="#Creando-un-vector-desconocido"> </a>
+</h3>
+<p>La respuesta de StackOverflow del último punto sugiere que el <strong>vector promedio de todos los vectores</strong> o, de al menos los que se van a usar, conforman un buen vector desconocido.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">unk</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">unk</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([300])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Creando-un-vector-de-relleno">
+<a class="anchor" href="#Creando-un-vector-de-relleno" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creando un vector de relleno<a class="anchor-link" href="#Creando-un-vector-de-relleno"> </a>
+</h3>
+<p>Otro tóken especial que consideramos es el relleno, <code>&lt;pad&gt;</code>, que sirve para completar los espacios en documentos de distinto largo cuando los queremos agrupar en un tensor. Normalmente los pesos para este vector son todos ceros.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pad</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ft</span><span class="o">.</span><span class="n">get_dimension</span><span class="p">())</span>
+
+<span class="n">pad</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([300])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pad</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([300])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Incluyendo-los-nuevos-cambios">
+<a class="anchor" href="#Incluyendo-los-nuevos-cambios" aria-hidden="true"><span class="octicon octicon-link"></span></a>Incluyendo los nuevos cambios<a class="anchor-link" href="#Incluyendo-los-nuevos-cambios"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># versión 2</span>
+<span class="k">def</span> <span class="nf">obtener_embeddings</span><span class="p">(</span><span class="n">tókenes</span><span class="p">,</span> <span class="n">fastText</span><span class="p">,</span> <span class="n">tóken_desconocido</span><span class="o">=</span><span class="s1">'&lt;unk&gt;'</span><span class="p">,</span> <span class="n">tóken_relleno</span><span class="o">=</span><span class="s1">'&lt;pad&gt;'</span><span class="p">):</span>
+    
+    <span class="n">embeddings</span> <span class="o">=</span> <span class="p">[</span><span class="n">fastText</span><span class="p">[</span><span class="n">tóken</span><span class="p">]</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">tókenes</span> <span class="k">if</span> <span class="n">tóken</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">tóken_desconocido</span><span class="p">,</span> <span class="n">tóken_relleno</span><span class="p">)]</span>
+    <span class="n">embeddings</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span> <span class="nb">list</span><span class="p">(</span> <span class="nb">map</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">tóken_desconocido</span><span class="p">:</span>
+        <span class="n">unk</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">unk</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">])</span>
+    
+    <span class="k">if</span> <span class="n">tóken_relleno</span><span class="p">:</span>
+        <span class="n">pad</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">fastText</span><span class="o">.</span><span class="n">get_dimension</span><span class="p">())</span>
+        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">pad</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">])</span>
+    
+    <span class="k">return</span> <span class="n">embeddings</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">obtener_embeddings</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">vocabulario</span><span class="p">,</span> <span class="n">ft</span><span class="p">)</span>
+
+<span class="n">embeddings</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([[ 0.0000,  0.0000,  0.0000,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0008, -0.0102,  0.0071,  ..., -0.0066,  0.0097, -0.0056],
+        [ 0.0547,  0.0112,  0.1910,  ...,  0.0066, -0.0021, -0.0230],
+        ...,
+        [-0.0278, -0.0258,  0.0990,  ...,  0.0018, -0.0074, -0.0465],
+        [ 0.0149, -0.0274,  0.0268,  ...,  0.0571,  0.0106, -0.0065],
+        [-0.0097,  0.0221, -0.0038,  ..., -0.0042,  0.0152,  0.0462]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Inicializar-los-pesos-en-un-modelo">
+<a class="anchor" href="#Inicializar-los-pesos-en-un-modelo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inicializar los pesos en un modelo<a class="anchor-link" href="#Inicializar-los-pesos-en-un-modelo"> </a>
+</h2>
+<p>Respecto del modelo de la parte 2, la diferencia está en el método <code>init_weights</code> que carga el tensor de los pesos en la capa de <em>embeddings</em> y que es llamado durante la inicialización del modelo. Recordemos: para que la carga funcione (<code>copy_</code>) las dimensiones del tensor de pesos debe ser exactamente igual a las de la capa de <em>embedding</em>.</p>
+<p>Además <strong>congelamos los pesos</strong> (<code>requires_grad = False</code>) para que no cambien durante el entrenamiento. Lo que se aconseja es entrenar el resto de las capas hasta que la función de pérdida se estabilice; dejar libres a los pesos de la capa de <em>embeddings</em> cuando el resto de la red tiene pesos con valores aleatorios hará que los <em>embeddings</em> varíen significativamente durante el aprendizaje y pierdan sentido. Suele ser útil descongelar los pesos una vez que el modelo ha alcanzado cierto nivel de aprendizaje para efectuar un aprendizaje fino, en el que los <em>embeddings</em> se adaptarán al problema en cuestión.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+
+<span class="n">DIM_EMBEDDINGS</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="k">class</span> <span class="nc">ClasificadorBolsa</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">,</span> <span class="n">num_class</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">EmbeddingBag</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'max'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">num_class</span><span class="p">)</span>
+
+        <span class="c1"># inicializamos los pesos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_weights</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">embeddings</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">offsets</span><span class="p">):</span>
+        <span class="n">embedded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">offsets</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">embedded</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="nn.Embedding">
+<a class="anchor" href="#nn.Embedding" aria-hidden="true"><span class="octicon octicon-link"></span></a>nn.Embedding<a class="anchor-link" href="#nn.Embedding"> </a>
+</h2>
+<p>Hemos visto con algo de detalle el módulo de PyTorch <code>nn.EmbeddingBag</code>, una capa de doble acción: convierte índices en vectores y calcula un vector agregado, una forma simple de obtener una representación de un documento, aunque no la más efectiva de todas. Para lograr mejores representaciones encontramos en uso modelos más complejos. La primera capa de modelos que usan capas LSTM o Transformer es una <code>nn.Embedding</code>, que a diferencia de la mencionada anteriormente es de simple acción: convierte índices en vectores y ya.</p>
+<p>Quiero ilustrar brevemente cómo son la entrada y la salida de esta capa, ya que son bien diferentes a las de <code>nn.EmbeddingBag</code>. La inicialización sin embargo, es similar. El tensor de los pesos tendrá las dimensiones de tamaño del vocabulario por la dimensión (valga la redundancia) de los <em>embeddings</em>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">capa</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">ft</span><span class="o">.</span><span class="n">get_dimension</span><span class="p">(),</span> <span class="n">padding_idx</span><span class="o">=</span><span class="n">v</span><span class="o">.</span><span class="n">índice_relleno</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Diferentemente, como esta capa requiere el uso del tóken de relleno, podemos especificar el índice del tóken para que la capa inicialice sus pesos al azar excepto los de este vector, que será inicializado en cero. Si lo deseamos, podemos utilizar vectores pre-entrenados.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">capa</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">embeddings</span><span class="p">)</span>
+<span class="n">capa</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ahora armaremos un lote de documentos y lo convertiremos en un tensor. Para poder hacer esto último es fundamental que los documentos tengan el mismo largo (que será igual al del documento más largo), así que nos valdremos del tóken de relleno para lograrlo.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">índices</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">tókenes_a_índices</span><span class="p">([</span>
+    <span class="p">[</span><span class="s1">'señor'</span><span class="p">,</span> <span class="s1">'tiene'</span><span class="p">,</span> <span class="s1">'cambio'</span><span class="p">,</span> <span class="s1">'de'</span><span class="p">,</span> <span class="s1">'cien'</span><span class="p">,</span> <span class="s1">'&lt;pad&gt;'</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">'señor'</span><span class="p">,</span> <span class="s1">'tiene'</span><span class="p">,</span> <span class="s1">'cambio'</span><span class="p">,</span> <span class="s1">'de'</span><span class="p">,</span> <span class="s1">'mil'</span><span class="p">,</span> <span class="s1">'&lt;pad&gt;'</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">'extravié'</span><span class="p">,</span> <span class="s1">'mi'</span><span class="p">,</span> <span class="s1">'tarjeta'</span><span class="p">,</span> <span class="s1">'de'</span><span class="p">,</span> <span class="s1">'débito'</span><span class="p">,</span> <span class="s1">'anoche'</span><span class="p">],</span>
+<span class="p">])</span>
+
+<span class="n">índices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">índices</span><span class="p">)</span>
+
+<span class="n">índices</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([3, 6])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Tenemos un tensor bidimensional, la dimensión 0 (filas) es la cantidad de documentos del lote, la dimensión 1 (columnas) es el tamaño de los documentos.</p>
+<p>Vamos a dejar anotado el tamaño original de cada uno de los documentos del lote ya que los vamos a necesitar más adelante.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">largos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Así luce el tensor de índices.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">índices</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([[   1,  119,  142,    2,    1,    0],
+        [   1,  119,  142,    2, 1311,    0],
+        [2268,   11,    5,    2,  149, 1443]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ahora lo hacemos pasar por la capa de <em>embeddings</em>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vectores</span> <span class="o">=</span> <span class="n">capa</span><span class="p">(</span><span class="n">índices</span><span class="p">)</span>
+
+<span class="n">vectores</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([3, 6, 300])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Observamos que la capa anadió una nueva dimensión, ahora tenemos un tensor tridimensional. Reemplazó cada índice (un escalar) por su vector correspondiente de largo 300. La dimensión 2 (profundidad) siempre corresponderá al tamaño del <em>embedding</em>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Aquí termina la serie de artículos de pre-procesamiento de texto. Gracias por haber llegado hasta el fin.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="matiasbattocchia/datitos"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/datitos/Preprocesamiento-de-texto-para-NLP-parte-3.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/datitos/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/datitos/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/datitos/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Tutoriales de ciencia de datos | CC BY-SA 4.0</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

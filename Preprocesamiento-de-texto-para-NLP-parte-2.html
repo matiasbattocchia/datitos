@@ -1356,17 +1356,13 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">torch.nn.utils.rnn</span> <span class="kn">import</span> <span class="n">pack_padded_sequence</span>
-
-<span class="k">def</span> <span class="nf">rellenar_lote</span><span class="p">(</span><span class="n">lote</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">rellenar_lote</span><span class="p">(</span><span class="n">lote</span><span class="p">):</span>
     <span class="sd">"""Prepara lotes para ingresar a nn.Embedding"""</span>
     <span class="n">documentos</span> <span class="o">=</span> <span class="p">[</span><span class="n">elemento</span><span class="o">.</span><span class="n">documento</span> <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
     <span class="n">largos</span>     <span class="o">=</span> <span class="p">[</span><span class="n">elemento</span><span class="o">.</span><span class="n">largo</span>     <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
     <span class="n">etiquetas</span>  <span class="o">=</span> <span class="p">[</span><span class="n">elemento</span><span class="o">.</span><span class="n">etiqueta</span>  <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="n">lote</span><span class="p">]</span>
 
-    <span class="n">rellenos</span> <span class="o">=</span> <span class="n">rellenar_documentos</span><span class="p">(</span><span class="n">documentos</span><span class="p">,</span> <span class="n">largos</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">índice_relleno</span><span class="p">)</span>  
-    <span class="c1"># para RNNs descomentar esta línea</span>
-    <span class="c1">#rellenos = pack_padded_sequence(rellenos, largos, batch_first=True, enforce_sorted=False)</span>
+    <span class="n">rellenos</span> <span class="o">=</span> <span class="n">rellenar_documentos</span><span class="p">(</span><span class="n">documentos</span><span class="p">,</span> <span class="n">largos</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">índice_relleno</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">AtriDicc</span><span class="p">(</span>
         <span class="n">documentos</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">rellenos</span><span class="p">),</span>
@@ -1874,7 +1870,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Con esto concluye la segunda parte. Quedaron los <em>embeddings</em> para la tercera. Ahora deberíamos tener más control sobre la carga de datos en PyTorch. Muchos ejemplos de uso y tutoriales dan por sentada esta parte al utilizar datasets de ejemplos, que ya vienen pre-procesados y/o que la carga por defecto de PyTorch maneja sin inconvenientes.</p>
+<p>Con esto concluye la segunda parte. Quedaron los <em>embeddings</em> para la <a href="Preprocesamiento-de-texto-para-NLP-parte-3.html">tercera</a>. Ahora deberíamos tener más control sobre la carga de datos en PyTorch. Muchos ejemplos de uso y tutoriales dan por sentada esta parte al utilizar datasets de ejemplos, que ya vienen pre-procesados y/o que la carga por defecto de PyTorch maneja sin inconvenientes.</p>
 
 </div>
 </div>
