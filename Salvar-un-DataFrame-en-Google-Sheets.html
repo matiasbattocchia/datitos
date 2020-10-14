@@ -176,7 +176,7 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Este es uno de los mejores trucos que aprendí trabajando en <a href="https://muttdata.ai">Mutt Data</a>. Del lado del desarrollo, en el día a día, trabajar con Pandas es de lo más común, tanto para análisis exploratorio de datos como manipulación de datos en general. Cuando existen otras partes interesadas en un proyecto, sobre todo personas de negocio, la comunicación es de lo más importante y en Mutt nos iba bastante bien sacando a la luz <code>DataFrame</code>s por medio de Google Sheets — ambos están hechos para trabajar con datos tabulares y lo bueno de los documentos de Google es que son fáciles de compartir y que las personas de negocio están acostumbradas a interactuar con hojas de cálculo.</p>
+<p>Este es uno de los mejores trucos que aprendí trabajando en <a href="https://muttdata.ai">Mutt Data</a>. Del lado del desarrollo, en el día a día, trabajar con Pandas es de lo más común, tanto para análisis exploratorio de datos como manipulación de datos en general. Cuando existen otras partes interesadas en un proyecto, sobre todo personas de negocio, la comunicación es esencial y en Mutt nos iba bastante bien sacando a la luz <code>DataFrame</code>s por medio de Google Sheets — ambos están hechos para trabajar con datos tabulares y lo bueno de los documentos de Google es que son fáciles de compartir y que las personas de negocio están acostumbradas a interactuar con hojas de cálculo.</p>
 
 </div>
 </div>
@@ -192,7 +192,7 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Autenticaci&#243;n">Autenticaci&#243;n<a class="anchor-link" href="#Autenticaci&#243;n"> </a></h2><p>Vamos a necesitar una cuenta de servicio —que es un archivo con credenciales— para habilatar a nuestro programa a escribir en Google Sheets. Estas son las instrucciones.</p>
+<h2 id="Autenticaci&#243;n">Autenticaci&#243;n<a class="anchor-link" href="#Autenticaci&#243;n"> </a></h2><p>Vamos a necesitar una cuenta de servicio —que es un archivo con credenciales— para habilitar a nuestro programa a escribir en Google Sheets. Estas son las instrucciones.</p>
 <ol>
 <li>Ir a la <a href="https://console.cloud.google.com">consola</a> de Google Cloud Platform (GCP) y crear un proyecto nuevo o seleccionar uno existente (yo creé <code>mi-proyecto</code>). Si nunca usaste GCP, vas a tener algunos pasos adicionales.</li>
 <li>En la barra de <em>Buscar productos y recursos</em> buscar <strong>Google Drive API</strong> y habilitarla.</li>
@@ -200,7 +200,7 @@ window.onload = wrap_img;
 <li>En la barra de <em>Buscar productos y recursos</em> buscar <strong>cuentas de servicio</strong>, en esa página:<ol>
 <li><strong>+ Crear cuenta de servicio</strong>, completar el formulario; con el nombre de la cuenta de servicio es suficiente (yo elegí <code>google-sheets</code>).</li>
 <li>Una vez creada, seleccionarla para entrar en los detalles de la cuenta.</li>
-<li><code>Claves &gt; Agregar clave &gt; Crear clave nueva &gt; JSON &gt; Crear</code>. Aceptar la descarga de la cuenta de servicio.</li>
+<li><code>Claves &gt; Agregar clave &gt; Crear clave nueva &gt; JSON &gt; Crear</code>. Aceptar la descarga de la cuenta de servicio. En mi caso, de <code>mi-proyecto-80a030363d28.json</code>.</li>
 <li>Mover el archivo a la carpeta de trabajo. Debe estar en lugar seguro.</li>
 </ol>
 </li>
@@ -221,7 +221,7 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Pandas">Pandas<a class="anchor-link" href="#Pandas"> </a></h2><p>Este es la función que utilizo para escribir un <code>DataFrame</code> en Google Sheets. Hay algunas conversiones de tipos de datos, ya que Pandas y Google Sheets no manejan los mismos tipos.</p>
+<h2 id="Pandas">Pandas<a class="anchor-link" href="#Pandas"> </a></h2><p>Esta es la función que utilizo para escribir un <code>DataFrame</code> en Google Sheets. Hay algunas conversiones de tipos de datos, ya que Pandas y Google Sheets no manejan los mismos tipos.</p>
 
 </div>
 </div>
