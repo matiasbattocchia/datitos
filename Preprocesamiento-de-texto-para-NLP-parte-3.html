@@ -414,9 +414,9 @@ window.onload = wrap_img;
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'train.csv'</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">'|'</span><span class="p">)</span>
 
+<span class="c1"># hacemos una tokenización muy simple</span>
 <span class="k">def</span> <span class="nf">tokenizar</span><span class="p">(</span><span class="n">texto</span><span class="p">):</span>
-    <span class="c1"># IMPORTANTE: podría devolver una lista vacía</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">tóken</span> <span class="k">for</span> <span class="n">tóken</span> <span class="ow">in</span> <span class="n">texto</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+    <span class="k">return</span> <span class="n">texto</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
 
 <span class="n">train_docs</span> <span class="o">=</span> <span class="p">[</span><span class="n">tokenizar</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Pregunta'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
 
@@ -759,7 +759,7 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">obtener_embeddings</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">vocabulario</span><span class="p">,</span> <span class="n">ft</span> <span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">obtener_embeddings</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">vocabulario</span><span class="p">,</span> <span class="n">ft</span><span class="p">)</span>
 
 <span class="n">embeddings</span>
 </pre></div>
