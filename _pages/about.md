@@ -4,7 +4,7 @@ title: Acerca de
 permalink: /about/
 ---
 
-Mi nombre es Matías Battocchia. Estudié en [Exactas (UBA)](https://exactas.uba.ar). Trabajo en [Mutt Data](https://muttdata.ai). Vivo en Mendoza, Argentina.
+Mi nombre es Matías Battocchia. Estudié en [Exactas (UBA)](https://exactas.uba.ar). Trabajo en [Vindow.com](https://vindow.com). Vivo en Mendoza, Argentina.
 
 Los temas que más sigo son procesamiento del lenguaje natural (NLP) y redes neuronales de grafos (GNN).
 
