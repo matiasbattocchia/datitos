@@ -102,7 +102,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      10 min read
+      11 min read
     
 </span></p>
 
@@ -400,7 +400,8 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Parte-2:-C&#243;digo">Parte 2: C&#243;digo<a class="anchor-link" href="#Parte-2:-C&#243;digo"> </a></h2><p><a href="https://github.com/dair-ai/emotion_dataset">https://github.com/dair-ai/emotion_dataset</a></p>
+<h2 id="Parte-2:-C&#243;digo-(BOREP)">Parte 2: C&#243;digo (BOREP)<a class="anchor-link" href="#Parte-2:-C&#243;digo-(BOREP)"> </a></h2><p>Vamos a intentar la estrategia de <em>bag of random embeddings projection</em>.</p>
+<p><a href="https://github.com/dair-ai/emotion_dataset">https://github.com/dair-ai/emotion_dataset</a></p>
 
 <pre><code>sadness 😢
 joy 😃
@@ -1041,20 +1042,6 @@ SURPRISE
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>100%|██████████| 416809/416809 [01:59&lt;00:00, 3493.89it/s]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -1164,37 +1151,6 @@ SURPRISE
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>
-  0%|          | 0/6 [00:00&lt;?, ?it/s]
- 17%|█▋        | 1/6 [01:00&lt;04:58, 59.71s/it]
- 33%|███▎      | 2/6 [01:03&lt;02:51, 42.80s/it]
- 50%|█████     | 3/6 [01:06&lt;01:32, 30.87s/it]
- 67%|██████▋   | 4/6 [01:09&lt;00:45, 22.77s/it]
- 83%|████████▎ | 5/6 [01:12&lt;00:16, 16.75s/it]
-100%|██████████| 6/6 [01:14&lt;00:00, 12.48s/it]
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>torch.Size([416809, 6])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -1299,6 +1255,278 @@ weighted avg       0.35      0.08      0.05    416809
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="BOE">BOE<a class="anchor-link" href="#BOE"> </a></h2><p>Dado que la estrategia anterior no funcionó, veamos qué sucede con la clásica <em>bag of embeddings</em>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Representaciones-de-oraciones">Representaciones de oraciones<a class="anchor-link" href="#Representaciones-de-oraciones"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([300])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span> <span class="p">[</span> <span class="n">e</span><span class="p">[</span><span class="n">doc</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">idxs</span><span class="p">)</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Representaciones-de-emociones">Representaciones de emociones<a class="anchor-link" href="#Representaciones-de-emociones"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">emo_sents</span> <span class="o">=</span> <span class="p">[</span> <span class="n">e</span><span class="p">[</span><span class="n">doc</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">emo_idxs</span> <span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Distancia-entre-oraciones">Distancia entre oraciones<a class="anchor-link" href="#Distancia-entre-oraciones"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span> <span class="p">[</span><span class="n">d</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sent</span><span class="p">)</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">emo_sents</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span> <span class="p">)</span>
+
+<span class="n">dist</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="M&#233;tricas">M&#233;tricas<a class="anchor-link" href="#M&#233;tricas"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">labels</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>              precision    recall  f1-score   support
+
+     sadness       0.31      0.22      0.25    121187
+         joy       0.52      0.00      0.01    141067
+        love       0.17      0.02      0.04     34554
+       anger       0.14      0.72      0.24     57317
+        fear       0.32      0.01      0.02     47712
+    surprise       0.04      0.09      0.06     14972
+
+    accuracy                           0.17    416809
+   macro avg       0.25      0.18      0.10    416809
+weighted avg       0.34      0.17      0.12    416809
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Embedding-a-embbeding">Embedding a embbeding<a class="anchor-link" href="#Embedding-a-embbeding"> </a></h2><p>Dado que la estrategia anterior no funcionó, veamos qué sucede con la más clásica todavía comparación palabra a palabra usando embeddings de palabras sin proyección. Vamos a comparar cada palabra del documento con la palabra de emoción y nos quedaremos con la distancia más corta para determinar la distancia del documento a la emoción.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">emo_sents</span><span class="p">:</span>
+    <span class="c1"># distancia de cada embedding (tóken) del documento a la emoción</span>
+    <span class="n">distancias_docs</span> <span class="o">=</span> <span class="p">[</span> <span class="n">d</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="n">doc</span><span class="p">],</span> <span class="n">sent</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">idxs</span><span class="p">]</span>
+        
+    <span class="n">dist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span> <span class="n">distancias_docs</span> <span class="p">)</span> <span class="p">)</span>
+
+<span class="n">dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">dist</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([416809, 6])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">labels</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>              precision    recall  f1-score   support
+
+     sadness       0.52      0.02      0.04    121187
+         joy       0.53      0.00      0.01    141067
+        love       0.19      0.06      0.10     34554
+       anger       0.34      0.01      0.01     57317
+        fear       0.33      0.01      0.02     47712
+    surprise       0.04      0.96      0.07     14972
+
+    accuracy                           0.05    416809
+   macro avg       0.33      0.18      0.04    416809
+weighted avg       0.43      0.05      0.03    416809
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
 </div>
 
 
